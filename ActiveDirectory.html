@@ -23,7 +23,7 @@
 
     <!-- Header -->
     <header id="header">
-      <a href="https://yrtree.me/@Miguel%20Nogueira" class="logo">CyberSecurity</a>
+      <a class="logo">CyberSecurity</a>
     </header>
 
     <!-- Nav -->
@@ -47,27 +47,48 @@
           <span class="date">May, 2023</span>
           <h1>Active<br />
             Directory</h1>
-          <p>Aenean ornare velit lacus varius enim ullamcorper proin aliquam<br />
-            facilisis ante sed etiam magna interdum congue. Lorem ipsum dolor<br />
-            amet nullam sed etiam veroeros.</p>
+          <p>
+            In this project, I learned how to setup a Server2019 with Active Directory, automated user
+            management using PowerShell scripting, configured RAS/NAT for private network connectivity, and enabled
+            secure internet access for clients.</p>
         </header>
         <div class="image main"><img src="images/Active directory.jpg.png" alt="" /></div>
-        <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis
-          dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet.
-          Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada
-          et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Nunc lorem mauris, fringilla in
-          aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-          turpis egestas. Curabitur sapien risus, commodo eget turpis at, elementum convallis enim turpis, lorem ipsum
-          dolor sit amet nullam.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti
-          sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh
-          porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum.
-          Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in
-          aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-          turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus. Donec eget ex
-          magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet
-          dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris,
-          consectetur id ipsum.</p>
+        <h2>Introduction</h2>
+        <p>The Automated Server Configuration for Private Network Connectivity project aims to streamline the process of
+          setting up a Server2019 with a private NAT network and enabling secure internet access for multiple clients.
+          By leveraging Active Directory, RAS/NAT configuration, and DHCP, the project automates the server setup and
+          user management, making it efficient and user-friendly.
+        <p>
+        <h3>Active Directory Structure</h3>
+        The project begins by deploying a Server2019 and establishing an Active Directory infrastructure. With Active
+        Directory in place, an Organizational Unit (OU) is created to organize and manage the users and clients that
+        will connect to the server.
+        <p>
+
+
+        <div class="image main"><img src="images/ActiveDirectorySturucture.jpg" alt="" /></div>
+
+        Once the Active Directory is set up, the project enables private network connectivity by configuring a private
+        NAT network between the server and the clients. This allows clients to access the internet securely through the
+        server. Additionally, Remote Access Service (RAS) is set up to facilitate client connections to the server.</p>
+        <h3>PowerShell Script for User Management</h3>
+        To simplify user management, a PowerShell script is developed to automate the addition, removal, and maintenance
+        of users in bulk. DHCP (Dynamic Host Configuration Protocol) is utilized to assign unique private IP addresses
+        to
+        each client dynamically.</p>
+
+        <div class="image main"><img src="images/Powershell.jpg" alt="" /></div>
+
+        With the automated configuration and user management in place, the server can now efficiently address multiple
+        users/clients, providing them with a private internet connection. The entire process, for user
+        management, is seamlessly automated, reducing manual effort and ensuring consistent and reliable connectivity
+        for the clients.</p>
+        <h2>Conclusion</h2>
+        The Active Directory project simplifies the setup and management
+        of a private network infrastructure, allowing organizations to efficiently address multiple users/clients while
+        ensuring secure internet access. By leveraging Active Directory, RAS/NAT configuration, DHCP, and automation
+        through PowerShell scripting, this project enables a streamlined and scalable approach to private network
+        connectivity in a user-friendly manner.</p>
       </section>
 
     </div>

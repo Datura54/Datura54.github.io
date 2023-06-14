@@ -23,7 +23,7 @@
 
     <!-- Header -->
     <header id="header">
-      <a href="https://yrtree.me/@Miguel%20Nogueira" class="logo">CyberSecurity</a>
+      <a class="logo">CyberSecurity</a>
     </header>
 
     <!-- Nav -->
@@ -44,30 +44,62 @@
       <!-- Post -->
       <section class="post">
         <header class="major">
-          <span class="date">May, 2023</span>
+          <span class="date">June, 2023</span>
           <h1>Azure Sentinel Map<br />
             With Live Cyber Attacks</a></h2>
-            <p>Aenean ornare velit lacus varius enim ullamcorper proin aliquam<br />
-              facilisis ante sed etiam magna interdum congue. Lorem ipsum dolor<br />
-              amet nullam sed etiam veroeros.</p>
+            <p>In this project, I learned how to use Azure, created a PowerShell Script, Developed a KQL Query and made
+              fun of hackers displayed on my Map</p>
         </header>
+        <div class="image main"><img src="images/PLAN.jpg" alt="" /></div>
+        <h2>Introduction</h2>
+        <p>The Honeypot Cybersecurity Visualization project is an innovative approach to understanding and visualizing
+          cyber threats by leveraging the power of Azure cloud services. This project aims to create a virtual machine
+          honeypot in Azure, which will be exposed to the internet, intentionally making it an attractive target for
+          hackers. By monitoring and analyzing their activities, the project seeks to gain insights into cyber threats
+          and their geographical origins.
+        <p>
+
+        <h3>Honeypot Diagram</h3>
+
+        The project begins by setting up a virtual machine in Azure and configuring it as a honeypot. All ports of the
+        virtual machine are opened to the internet, allowing hackers to easily find and attempt to compromise the
+        machine. The firewall is deliberately disabled to ensure that hackers are not blocked by it, thus maximizing
+        their attempts.</p>
+        <div class="image main"><img src="images/honeyPotDiagram.jpg" alt="" /></div>
+
+        <h3>IP Geolocation</h3>
+
+        When a hacker attempts to gain unauthorized access to the honeypot through a failed RDP connection, an error
+        is logged in the Event Viewer of the virtual machine. This action triggers an automated PowerShell script,
+        which extracts the IP address of the attacker from the Event Viewer logs. To determine the real geolocation of
+        the attacker, a third-party API is utilized. The IP address is sent to the API, which returns the latitude,
+        longitude, country, and state information of the attacker.</p>
+
+        <div class="image main"><img src="images/ipGeolocation.jpg" alt="" /></div>
+        <h3>KQL-Azure Query</h3>
+
+        The gathered geolocation data, including latitude, longitude, country, and state, is then saved to a file for
+        further processing. Returning to Azure, a Query based on KQL (Azure Query Language) is created to process the
+        information in the file. This query filters and organizes the data, extracting only the necessary details for
+        visualization.</p>
+
+        <div class="image main"><img src="images/KQLjpg.jpg" alt="" /></div>
+        <h3>World Map</h3>
+
+        Once the query is executed, the project generates a world map that visually represents the geographical
+        locations of hackers attempting to brute force the honeypot. Each hacker's location is pinpointed on the map
+        using their latitude and longitude coordinates, and additional information such as country/state is displayed.
+        This interactive map provides a global view of cyber threats, enabling better understanding and analysis of
+        the geographic distribution of attacks.</p>
+
         <div class="image main"><img src="images/rdp.jpg" alt="" /></div>
-        <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis
-          dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet.
-          Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada
-          et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Nunc lorem mauris, fringilla in
-          aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-          turpis egestas. Curabitur sapien risus, commodo eget turpis at, elementum convallis enim turpis, lorem ipsum
-          dolor sit amet nullam.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti
-          sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh
-          porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum.
-          Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in
-          aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-          turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus. Donec eget ex
-          magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet
-          dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris,
-          consectetur id ipsum.</p>
+        <h2>Conclusion</h2>
+
+        The Honeypot Cybersecurity Visualization project offers a unique perspective on cyber threats by combining
+        Azure cloud services, honeypot techniques, event logging, third-party APIs, and data visualization. It not
+        only enhances our understanding of cyber threats but also provides a valuable resource for cybersecurity
+        professionals, researchers, and enthusiasts to gain insights into the evolving landscape of cybersecurity
+        threats worldwide.</p>
       </section>
 
     </div>
