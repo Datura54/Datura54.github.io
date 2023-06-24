@@ -23,112 +23,80 @@
 
     <!-- Post -->
     <section class="post">
-      <div class="image main"><img src="images/ZAP/zapattack.jpg" alt="" /></div>
+      <div class="image main"><img src="images/SOCCoreSkills.jpg" alt="" /></div>
 
       <header class="major">
-        <h2>ZAP Attack</h2>
+        <h2>SOC Core Skills</h2>
       </header>
 
       <h2>Introduction</h2>
-      <p>From December 14 - 17, 2020, John Strand from Black Hills Information Security taught a 16-hour course spanning
-        4 days called "SOC Core Skills". The class is based on foundational skills that John thinks all security
-        analysts should have, and in fact, are skills that he expects out of analysts that work for him at BHIS.
+      <p>From June 12 - 15, 2023, John Strand from Black Hills Information Security taught a 16-hour course called "SOC
+        Core Skills". The class is based on foundational SOC skills that John thinks all security
+        analysts should have, and are skills that he expects out of analysts that work for him.</p>
+
+      SOC Core Skills covered the following security topics:</p>
+      <ol>
+        <li><b>Core networking skills</a></b></li>
+        <li><b> Live Windows Forensics</a></b></li>
+        <li><b>Attack and Defense</a></b></li>
+        <li><b>Live Linux Forensics</a></b></li>
+        <li><b>Memory Forensics</a></b></li>
+        <li><b>Active Directory Analysis</a></b></li>
+        <li><b>Network Threat Hunting</a></b></li>
+        <li><b>Basics of Vulnerability Management</a></b></li>
+        <li><b>The Incident Response Process</a></b></li>
+      </ol>
+
+      This course is the 1st installment of a trifecta of introductory security courses created by John Strand. The
+      first one is "SOC Core Skills". The second and third installments are respectivelly called "Getting Started in
+      Security with BHIS and MITRE ATT&CK" and "Active Defense & Cyber Deception".</p>
 
 
-        If you've come across this post and you haven't attended a BHIS online course yet, you can read about that
-        experience HERE with some nuggets of useful information that may help you should you decide to attend one in the
-        future. Even though this post is about a different course, all the same ideas still apply.
+      As an aspiring Security Analyst, I ate up every piece of this class. Some of it was overlap with the Intro to
+      Security course, but that is to be expected since a SOC Analyst is considered an entry-level role. If I was
+      currently working as a SOC Analyst, I feel like I would be able to put many of the lessons taught in this course
+      to good use in the real-world, and many people who took the course and are in that position said likewise.</p>
 
 
-        SOC Core Skills covered the following security topics:
-
-        Core networking skills
-
-        Live Windows Forensics
-
-        Live Linux Forensics
-
-        Memory Forensics
-
-        Active Directory Analysis
-
-        Network Threat Hunting
-
-        Basics of Vulnerability Management
-
-        The Incident Response Process
-
-        What's great about John's "Pay What You Want" courses (other than paying what you want for a $495 course) is the
-        fact that all the topics had an associated practical lab to go along with it. In fact, we completed a total of
-        10 labs as part of this course. As I have done with my previous posts, I will post the links to my write-ups for
-        each of the labs at the end of this post.
+      I had some hands-on time with DeepBlueCLI, Windows Event Viewer, WireShark, ZAP, DVWA, TCPDump, Volatility, and
+      a lot of Linux and Windows CLI. Other tools like RITA and Nessus had reports we were able to analyze, but no
+      actual hands-on practical. I've mentioned this before, but my favorite part about these labs is how John ties
+      each one back to being a defensive minded blue teamer. We were able to see what attacks like a password spray
+      and a reverse shell would look like and fairly simple things we can do in our environment to remediate those
+      exploits. And the lessons could apply to anyone in any environment because the labs were predominately based on
+      open-source tools if not available outright from the Microsoft Suite.</p>
 
 
-
-        SOC Core Skills with John Strand
-
-        This course is the 2nd installment of what will soon be a trifecta of introductory security courses created by
-        John Strand. The first one is "Getting Started in Security with BHIS & MITRE ATT&CK". John also has a third
-        installment called "Active Defense and Cyber Deception". The class is currently open for registration now and is
-        scheduled for March of 2021. You can get a taste of what it will be like from his previous work on the same
-        subject.
+      John revamped the Virtual Machine he creates for his courses. He even came up with a super cool way to update
+      his lab procedures and index on the fly via a GitHub script. This VM is now a part of my own home lab
+      environment, and it allows me to practice what I learned at any time. The single best part about this VM is the
+      fact that I can perform red and blue tactics on the SAME VM which is critical to those who don't have the time,
+      funds, or knowledge to build out a traditional home lab infrastructure.</p>
 
 
-        As an aspiring Security Analyst, I ate up every piece of this class. Some of it was overlap with the Intro to
-        Security course, but that is to be expected since a SOC Analyst is considered an entry-level role. If I was
-        currently working as a SOC Analyst, I feel like I would be able to put many of the lessons taught in this course
-        to good use in the real-world, and many people who took the course and are in that position said likewise.
+      My biggest takeaway from this course was actually a broad statement made by John where he said it is better to
+      learn something not good then not learn something good. This really helped me put things to perspective and take
+      action to learn simply everything that i come across. </p>
 
 
-        I had some hands-on time with DeepBlueCLI, Windows Event Viewer, WireShark, ZAP, DVWA, TCPDump, Volatility, and
-        a lot of Linux and Windows CLI. Other tools like RITA and Nessus had reports we were able to analyze, but no
-        actual hands-on practical. I've mentioned this before, but my favorite part about these labs is how John ties
-        each one back to being a defensive minded blue teamer. We were able to see what attacks like a password spray
-        and a reverse shell would look like and fairly simple things we can do in our environment to remediate those
-        exploits. And the lessons could apply to anyone in any environment because the labs were predominately based on
-        open-source tools if not available outright from the Microsoft Suite.
+      The funniest moment of the course was the argument of text editors! John summed it up as such:</p>
+
+      People who use vi are ninjas (they're stealthy and only carry what they need).</br>
+
+      People who use emacs are pirates (they have tools for everything to be prepared for anything).</br>
+
+      People who use nano just woke up and hit their head getting out of bed ('nuff said).</br></p>
+
+      After the class, I went through all the labs again. Since I'm not currently a cybersecurity professional, it is
+      up to me to practice and become as proficient as I can. Performing the labs over again and creating write-ups
+      for each one helps me retain knowledge. It also gives me a resource to look back to if I come across something
+      similar in the future and need to refresh my memory. Some of the projects that are in my portfolio are directly
+      from this course.
+      </p>
 
 
-
-        Screenshot of ADHD Virtual Machine Lab Menu
-
-        John revamped the Virtual Machine he creates for his courses. He even came up with a super cool way to update
-        his lab procedures and index on the fly via a GitHub script. This VM is now a part of my own home lab
-        environment, and it allows me to practice what I learned at any time. The single best part about this VM is the
-        fact that I can perform red and blue tactics on the SAME VM which is critical to those who don't have the time,
-        funds, or knowledge to build out a traditional home lab infrastructure.
-
-
-        My biggest takeaway from this course was actually a broad statement made by John where he said it is better to
-        illustrate an Incident Response event as Legos rather than a Flowchart because the idea of Legos is more
-        flexible with the type of possible scenarios that are likely to happen whereas a Flowchart model doesn't give
-        any flexibility or leeway on what needs to be done if the event doesn't follow the rigid structure of a
-        flowchart. In this way, it provides a quicker and more deliberate response by defenders.
-
-
-        The funniest moment of the course was the argument of text editors! John summed it up as such:
-
-        People who use vi are ninjas (they're stealthy and only carry what they need).
-
-        People who use emacs are pirates (they have tools for everything to be prepared for anything).
-
-        People who use nano just woke up and hit their head getting out of bed ('nuff said).
-
-        After the class, I went through all the labs again. Since I'm not currently a cybersecurity professional, it is
-        up to me to practice and become as proficient as I can. Performing the labs over again and creating write-ups
-        for each one helps me retain knowledge. It also gives me a resource to look back to if I come across something
-        similar in the future and need to refresh my memory. Feel free to click on the link below to view my write-ups.
-
-
-        I want to end this post by giving a huge shout out and thanks to John Strand, the Interlude Intruders (aka
-        Cracker Chat), and everyone at BHIS for hosting another fantastic event. Until the next one. . .</p>
-
-      <h2>Conclusion</h2>
-      The Active Directory project simplifies the setup and management
-      of a private network infrastructure, allowing organizations to efficiently address multiple users/clients while
-      ensuring secure internet access. By leveraging Active Directory, RAS/NAT configuration, DHCP, and automation
-      through PowerShell scripting, this project enables a streamlined and scalable approach to private network
-      connectivity in a user-friendly manner.</p>
+      I want to end this post by giving a huge thanks to John Strand, and everyone at BHIS for hosting another fantastic
+      event.</p>
     </section>
 
     <!-- Copyright -->
