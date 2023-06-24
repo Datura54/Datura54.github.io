@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Generic Page - Massively by HTML5 UP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+</head>
+
+<body class="is-preload">
+
+  <!-- Main -->
+  <div id="main">
+
+    <!-- Post -->
+    <section class="post">
+      <header class="major">
+        <h2>Domain Log review with DeepBlue</h2>
+      </header>
+      <h2>Introduction</h2>
+      <p>In this project, the focus is on investigating logs related to a domain password spray attack using the
+        DeepBlueCLI tool. The steps involved are as follows:
+
+      <p>Extract the event logs, extract the event logs from the "EntLogs" directory using 7-Zip and save them in the
+        "C:\tools\DeepBlueCLI-master" directory. </p>
+      <div class="image main"><img src="images/DomainLogAD/1.jpg" alt="" /></div>
+
+      Use DeepBlueCLI: Open a Terminal as an Administrator and navigate to the "C:\tools\DeepBlueCLI-master" directory.
+      Execute the DeepBlueCLI script to analyze the Windows event logs.
+      <div class="image main"><img src="images/DomainLogAD/2.jpg" alt="" /></div>
+
+      Analyze the DC2 Password spray file: Run the DeepBlueCLI script with the command:<p> .\DeepBlue.ps1
+        .\EntLogs\DC2-secLogs-3-26-DomainPasswordSpray.evtx</p>Respond with "R" when prompted to start the script.
+      DeepBlueCLI will analyze the log file and generate alerts.
+      <div class="image main"><img src="images/DomainLogAD/3.jpg" alt="" /></div>
+
+      Investigate the event logs: Open Windows Event Viewer and navigate to the <p>"C:\tools\DeepBlueCLI-master\EntLogs"
+        directory.</p> Open the "DC2-secLogs-3-26-DomainPasswordSpray.evtx" file in Event Viewer.
+      <div class="image main"><img src="images/DomainLogAD/4.jpg" alt="" /></div>
+
+      Sort and analyze the logs: Sort the logs by Event ID in Event Viewer. Look for Event ID 4776, which represents the
+      Credential Validation Event log.
+      <div class="image main"><img src="images/DomainLogAD/5.jpg" alt="" /></div>
+
+      Examine the logon attempts: Select individual logs with Event ID 4776 and observe the "Logon Account Name" in the
+      General tab. Note the high number of login attempts from a single system.
+      <div class="image main"><img src="images/DomainLogAD/6.jpg" alt="" /></div>
+
+      Note audit failures: Pay attention to Audit Failures mentioned at the bottom of the General tab. These indicate
+      that the workstation "WINLABV2WKSRL-9" attempted to authenticate with numerous Logon Accounts within a short
+      period.
+      <div class="image main"><img src="images/DomainLogAD/7.jpg" alt="" /></div>
+
+      <h2>Conclusion</h2>
+      By following these steps, you can effectively analyze the event logs using DeepBlueCLI and identify suspicious
+      logon patterns indicative of a domain password spray attack. The investigation involves examining Event ID 4776
+      logs and noting the workstation involved in the attack.</p>
+
+    </section>
+
+
+    <!-- Copyright -->
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6>&copy;<a href="https://yrtree.me/@Miguel%20Nogueira">Miguel Nogueira</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery.scrollex.min.js"></script>
+  <script src="assets/js/jquery.scrolly.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

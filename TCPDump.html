@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Generic Page - Massively by HTML5 UP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+</head>
+
+<body class="is-preload">
+
+
+  <!-- Main -->
+  <div id="main">
+
+    <!-- Post -->
+    <section class="post">
+
+      <header class="major">
+        <h2>TCPDump</h2>
+      </header>
+
+      <h2>Introduction</h2>
+      <p>
+        TCPDump is a powerful command-line packet analyzer that allows SOC (Security Operations Center) and security
+        analysts to capture and analyze network traffic. In this lab, we will explore some TCPDump filters that every
+        analyst should know. By understanding these filters, analysts can effectively monitor and investigate network
+        traffic for security purposes.</p>
+
+      <p>The "host" filter allows analysts to focus on the traffic associated with a specific host. By specifying the
+        IP address of interest, TCPDump displays the relevant packets, including their timestamps, protocols,
+        source/destination IP addresses, control bit flags, sequence numbers, and data size. This filter is useful for
+        isolating traffic related to a particular host and investigating any suspicious activities originating from or
+        directed towards it.
+      <p>
+        `tcpdump -n -r magnitude_1hr.pcap host 192.168.99.52`</p>
+
+      For this command we are telling tcpdump to not resolve hostnames (-n) and we are telling it to read in the
+      data from a file (-r).</p>
+      <div class="image main"><img src="images/TCPDump/1.jpg" alt="" /></div>
+
+      <p>What is this exactly showing us? Well, it is showing each packet's timestamp, it's protocol, it's source IP
+        address/port direction and destination IP address/port, it's control bit flags, sequence numbers and data
+        size. But we can get the filter to be a bit more granular. In fact, you can create filters for literally every
+        part
+        of a packet!</p>
+
+      <p>Adding the "port" filter narrows down the analysis to packets transmitted through a specific port number. This
+        filter helps analysts identify traffic targeting or originating from a particular service or application. For
+        example, filtering for port 80 would show HTTP-related traffic, allowing analysts to monitor web-related
+        activities and detect potential web-based attacks.</p>
+
+      <p>Let's add port number:
+
+        `tcpdump -n -r magnitude_1hr.pcap host 192.168.99.52 and port 80`</p>
+      <div class="image main"><img src="images/TCPDump/2.jpg" alt="" /></div>
+
+      <p>In the screenshot above you can see we now have all the packets that are either sent or received by port 80 on
+        192.168.99.52.</p>
+
+      <p> While getting the overall metadata from the packets is nice, we can get the full ASCII decode of the packet
+        and the payload of the packet. By including the "-A" flag, analysts can obtain the full ASCII decode and
+        payload data of captured packets. This level of visibility enables analysts to inspect the actual content of
+        network traffic, including HTTP requests and responses. This information is crucial for identifying
+        potentially malicious commands or data within the payload, such as PowerShell scripts or encoded data.</p>
+      $`tcpdump -n -r magnitude_1hr.pcap host 192.168.99.52 and port 80 -A`
+
+      <div class="image main"><img src="images/TCPDump/3.jpg" alt="" /></div>
+
+      <p>As you can see above, we now can see the actual http GET requests and the responses.</p>
+
+      Lets dig into the packet with the timestamp of 08:14:32.638976
+
+      <div class="image main"><img src="images/TCPDump/4.jpg" alt="" /></div>
+
+
+      Ouch, it looks like PowerShell!!! A favorite of attackers and pentesters alike. Further, it looks like there
+      is Base64 data.
+
+      <div class="image main"><img src="images/TCPDump/5.jpg" alt="" /></div>
+
+
+      <p>Still not enough? We can also see the raw Hex, if that is your sort of thing, with the -X flag. The "-X" flag
+        provides analysts with the raw hexadecimal representation of packets. This view is useful for in-depth
+        analysis, especially when examining lower-level protocol details or performing manual packet decoding. Viewing
+        packets in raw hex format can reveal subtle anomalies or abnormalities that may be missed in other
+        representations.</p>
+
+      $`tcpdump -n -r magnitude_1hr.pcap host 192.168.99.52 and port 80 -AX`
+      <div class="image main"><img src="images/TCPDump/6.jpg" alt="" /></div>
+
+
+      <p> We can also specify specific protocols of interest. TCPDump allows analysts to focus on specific protocols of
+        interest. For example, using the "ip6" filter captures only IPv6 traffic. This capability is valuable when
+        investigating protocol-specific vulnerabilities or monitoring traffic for a particular protocol that may be
+        targeted by attackers.</p>
+      `tcpdump -n -r magnitude_1hr.pcap ip6`
+
+      <div class="image main"><img src="images/TCPDump/7.jpg" alt="" /></div>
+
+      <p>This is showing all the ipv6 traffic.</p>
+
+      <p> We can also specify network ranges. This is very useful when you are seeing traffic either to or from a range
+        of IP addresses. For example, this can help us answer questions like "are there any other systems talking to
+        this IP address range?"</p>
+
+      <p>Think of an attacker using multiple systems on a network range to disperse their C2 traffic. Analyzing traffic
+        within specific network ranges can help identify potential communication patterns between systems. By
+        specifying a network range using the "net" filter, analysts can determine if there are any other systems
+        communicating with a particular IP address range. This information is crucial in detecting command-and-control
+        (C2) traffic or identifying potential compromised systems within a network.</p>
+
+      $`tcpdump -n -r magnitude_1hr.pcap net 192.168.99.0/24`
+      <div class="image main"><img src="images/TCPDump/8.jpg" alt="" /></div>
+
+      <h2>Conclusion</h2>
+      <p>By mastering TCPDump filters, SOC and security analysts can become more proficient in identifying suspicious
+        network behaviors, performing incident response, and protecting their organization's assets from potential
+        security breaches.
+      </p>
+    </section>
+
+    <!-- Copyright -->
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6>&copy;<a href="https://yrtree.me/@Miguel%20Nogueira">Miguel Nogueira</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery.scrollex.min.js"></script>
+  <script src="assets/js/jquery.scrolly.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

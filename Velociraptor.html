@@ -1,0 +1,187 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Generic Page - Massively by HTML5 UP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+</head>
+
+<body class="is-preload">
+
+  <!-- Main -->
+  <div id="main">
+
+    <!-- Post -->
+    <section class="post">
+      <header class="major">
+        <h2>Velociraptor</h2>
+      </header>
+
+      <h2>Introduction</h2>
+      This project provides instructions for setting up Velociraptor, an open-source digital forensics and incident
+      response tool, and exploring its features. Velociraptor allows you to investigate security incidents, analyze
+      suspicious behavior, and perform targeted searches on endpoints.
+
+      <p>Let’s get started:
+
+        velociraptor-v0.5.5-1-windows-amd64.exe config generate -i</p>
+
+      In this instance just make everything default and do not use Google DNS Server
+      <div class="image main"><img src="images/Velociraptor/ServerDeploy.jpg" alt="" /></div>
+
+      <p>Now, let’s add a GUI user:
+
+        velociraptor-v0.5.5-1-windows-amd64.exe --config server.config.yaml user add root --role administrator</p>
+
+      When it asks for the password, please choose a password you will remember.
+
+      When finished, it should look similar to this:
+      <div class="image main"><img src="images/Velociraptor/EndServerSeploy.jpg" alt="" /></div>
+      <p>Now, lets run the msi to load the proper files to the proper directories:
+
+        velociraptor-v0.5.5-1-windows-amd64.msi</p>
+
+      <p>And start the server: velociraptor-v0.5.5-1-windows-amd64.exe --config server.config.yaml frontend -v</p>
+
+      There will be some red. Don’t panic.
+      <div class="image main"><img src="images/Velociraptor/Red Errors.jpg" alt="" /></div>
+
+      <p>Next, let’s surf to the GUI and see if it worked!</p>
+
+      https://127.0.0.1:8889</p>
+
+      When you load the page, there will be an SSL error about the self-signed cert. That is fine.</p> Select Advanced
+      then proceed to 127.0.0.1
+      When it asks for the Username and Password, please enter root and the password you chose earlier.
+
+      Please select Inspect the server's state.
+      <div class="image main"><img src="images/Velociraptor/VelociraptorMain.jpg" alt="" /></div>
+
+      Good enough</p>
+
+      Next, we need to start the client. Lucky for us, it is the same executable.
+
+      We will need to open another Windows Command Prompt.
+
+      Then Navigate to the IntroLabs directory:
+
+      cd \IntroLabs</p>
+
+      Next, we will need to start the client. To do this will need to run the MSI first:
+
+      velociraptor-v0.5.5-1-windows-amd64.msi</p>
+
+      When you get the pop up, select Run. This will install the proper libraries and files.
+
+      Next, we will start the client.
+
+      velociraptor-v0.5.5-1-windows-amd64.exe --config client.config.yaml client -v</p>
+      Now, let’s go back to the GUI and select the Home button.
+
+      You should see one connected client.
+      <div class="image main"><img src="images/Velociraptor/ClientConnect.jpg" alt="" /></div>
+      Now let’s look at what we can do with this.
+
+      First things first, this is not necessarily a detection platform. It is designed to allow you to dig when you
+      get an alert on malware signatures or from suspicious traffic.
+
+      So please, keep in mind, it is not a replacement for AV!
+
+      So that said, let’s look around.</p>
+
+      First, let’s "Show All" Clients.
+      If you select that client, you can get additional information about that system.
+      <div class="image main"><img src="images/Velociraptor/ClientInfo.jpg" alt="" /></div>
+
+      Now, select Shell.
+
+
+      This allows us to run commands on the target system. Think of the commands that we ran from the Windows CLI,
+      we can run those here too.
+
+      Please select the PowerShell box and select Cmd.
+      Now, enter netstat -naob in the Cmd box and select Launch.
+      <div class="image main"><img src="images/Velociraptor/netstat.jpg" alt="" /></div>
+
+
+      This will not display the results right away. To see the results, select the Eye icon with your netstat
+      command below:
+
+      Now, let’s do a Hunt. Please select the Hunt icon.
+      To start a Hunt, please select the + icon.
+
+      Please name your Hunt, then select "Select Artifacts" on the bottom.
+
+      We are going to keep this simple for this lab. Please select Generic.System.Pstree.
+      Then, Review on the bottom.
+      <div class="image main"><img src="images/Velociraptor/ReviewRequest.jpg" alt="" /></div>
+
+
+
+      We now have an overview of what is going to be run on all systems... Which is only one.
+
+      Now select Launch.
+
+      Once you select Launch, it will start the Hunt and load it in the que.
+      <div class="image main"><img src="images/Velociraptor/RunHunt.jpg" alt="" /></div>
+
+      Please select our Hunt. Now, we can run it. Please press the Play button above.
+      When you get the pop-up, select Run it!</p>
+
+      This will take a few moments.
+
+      When done, you will see Total scheduled is 1 and Finished Clients is 1.
+
+      You can also download the results.
+
+      Please select Download Results.
+      Then, CSV Only.
+      This will create a zip with the output.
+
+      Please download that by clicking on the zip file.
+      <div class="image main"><img src="images/Velociraptor/Download.jpg" alt="" /></div>
+      Go ahead and open the zip file.
+      <div class="image main"><img src="images/Velociraptor/File.jpg" alt="" /></div>
+
+      <h2>Conclusion</h2>
+      In conclusion, this guide provides a user-friendly walkthrough for setting up and exploring Velociraptor, an
+      open-source digital forensics and incident response tool. With step-by-step instructions, users can easily
+      install, configure, and access Velociraptor's GUI, empowering them to conduct investigations, analyze behavior,
+      and enhance incident response capabilities. Velociraptor is a valuable asset in the field of cybersecurity,
+      offering powerful features for efficient and effective forensic analysis.
+    </section>
+
+    <!-- Copyright -->
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6>&copy;<a href="https://yrtree.me/@Miguel%20Nogueira">Miguel Nogueira</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery.scrollex.min.js"></script>
+  <script src="assets/js/jquery.scrolly.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
