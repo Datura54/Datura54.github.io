@@ -1,0 +1,529 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Generic Page - Massively by HTML5 UP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+</head>
+
+<body class="is-preload">
+
+  <!-- Main -->
+  <div id="main">
+
+    <!-- Post -->
+    <section class="post">
+
+
+      <header class="major">
+        <h2>SMTP and Email Analysis</h2>
+      </header>
+
+      <h2>Objective</h2>
+      <p> </p>
+      <p> • See SMTP mail relay in action on your virtual machine</p>
+      <p> </p>
+      <p> • Follow a normal email through two MTA servers</p>
+      <p> </p>
+      <p> • Manually send a spoofed message via telnet and see how it appears in a mail client</p>
+      <p> </p>
+      <p> • Examine known malicious email and identify spoofing and threats within the message content</p>
+      <p> </p>
+      <p> Lab Setup</p>
+      <p> </p>
+      <p> docker-compose up -d </p>
+      <p> </p>
+      <p> This command will start two mail servers, one is an instance of Postfix, a very common production MTA. The
+        second server is software called mailhog, which is meant for email testing and comes with its own webmail
+        interface that we can use to read the mail we send. For the purposes of this lab, imagine the postfix mail
+        server
+        is the outgoing mail server for a legitimate company - &quot;ABC Company&quot;. The mailhog server will act as
+        the
+        receiving mail server for our own organization.</p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/19-1.png"><img src="images/11-1.png"
+            alt="images/11-1.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> Lab Steps</p>
+      <p>
+      <h5>1. Send email using Thunderbird</h5>
+      </p>
+      <p> </p>
+      <p> In this first step, we will send an email &quot;the normal way&quot; using an email client in the virtual
+        machine. This email will be relayed through the postfix MTA of ABC company and sent to the receiving
+        organization
+        running MailHog.</p>
+      <p> </p>
+      <p> Start up Thunderbird email client </p>
+      <p> </p>
+      <p> This instance of Thunderbird has been pre-configured to send email through ABC Company&#39;s postfix server as
+        &quot;Sam A.&quot; from ABC company. Let&#39;s send an email as Sam. Click the &quot;Write&quot; button in
+        Thunderbird to start crafting a new email.</p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/19-2.png"><img src="images/11-2.png"
+            alt="images/11-2.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> Fill in student@sec450.com as the &quot;To:&quot; address, and add a quick subject of &quot;Hello&quot; and
+        some
+        email text.</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/19-3.png"><img src="images/11-3.png"
+            alt="images/11-3.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> Once finished, hit the Send button.</p>
+      <p> </p>
+      <p> Let&#39;s see how the headers look and how the details of the mail client&#39;s interaction with the postfix
+        server of ABC Company show up in the email source.</p>
+      <p> </p>
+      <p> Open up the MailHog webmail interface where we can read the email we just sent as the receiving organization.
+        In
+        my case we will go to <a href="http://localhost:8025/">http://localhost:8025</a> </p>
+      <p> </p>
+      <p> There it is! Click on it to open it up.</p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/19-4.png"><img src="images/11-4.png"
+            alt="images/11-4.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> Here we can see the details of the mail sent. Click on the show headers button so see the details.</p>
+      <p>
+      <p> <span class="image fit"><img src="images/11-5.png" alt="" /></span>
+      </p>
+      <p> </p>
+      <p> There&#39;s a lot of interesting data in the header that can help us understand how an email is constructed.
+        First things first, let&#39;s look at the path the email took.</p>
+      <p> </p>
+      <p>
+      <p> <span class="image fit"><img src="images/11-6.png" alt="" /></span>
+      </p>
+      <p> </p>
+      <p> Highlighted in the screenshot, #1 is the first step the email took from the Thunderbird client to ABC
+        Company&#39;s postfix server. Note that the actual IP address the email was received from (172.22.0.1) was
+        recorded in headers, as well as what the mail client identified itself as (127.0.0.1), you can also see the mail
+        server&#39;s hostname (smtp.abc-company.com) and software (Postfix). The line also include a unique ID for the
+        email transaction, as well as a timestamp.</p>
+      <p> </p>
+      <p> In #2 in the screenshot, there is the second step the email took from the sending organizations MTA to the
+        receiving MailHog MTA. Many of the same details are present in this header, but it is formatted a little bit
+        differently. Each email server writes received lines in his own way, and this email is a good example of that.
+      </p>
+      <p> </p>
+      <p> Looking at the rest of the detail in the header gives us a lot of other information we can use to track how
+        the
+        email was sent. The User-Agent header is present, which can tell us that the sender (can be faked) used
+        Thunderbird to send the mail. There are other bits of metadata as well like the Return-Path, MIME types, and
+        encoding that is used. Where does all of this information come from?</p>
+      <p> </p>
+      <p> If we want to deeply understand where email headers come from, inspecting the PCAP of this email being sent
+        can
+        give us that information. The following screenshot was made by sending the same email and capturing it in
+        Wireshark as it went from Thunderbird to Postfix.</p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/19-7.png"><img src="images/11-7.png"
+            alt="images/11-7.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> In this picture we can see the actual transaction that Thunderbird made with the mail server (Thunderbird is
+        in
+        red, Postfix responses are in blue), starting with identifying itself as 127.0.0.1 in the beginning with the
+        &quot;EHLO&quot; command, and ending with the &quot;QUIT&quot; command at the end. One of the items to notice is
+        that the To and From address is entered twice, this shows (highlighted with arrows). When spammers want to send
+        email and change how it appears, this is the point at which they can enter two different values, DMARC is the
+        standard that looks for these two items to be aligned. If we want to try this, it&#39;s possible to use telnet
+        to
+        manually craft a message, typing out every field yourself.</p>
+      <p> </p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/19-8.png"><img src="images/11-8.png"
+            alt="images/11-8.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> How will this email look in MailHog? Here&#39;s what happens:</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/19-9.png"><img src="images/11-9.png"
+            alt="images/11-9.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> And what about the details of the email? Looking at the headers, this is where we can see that something is
+        wrong. The email claims to be from tesla.com, but the headers all seem to point to it coming from
+        abc-company.com&#39;s infrastructure, the return path also goes back to the email used in the envelope headers
+        as
+        well. This is one way you can potentially identify attempts to confused spam recipients.</p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/19-10.png"><img src="images/11-10.png"
+            alt="images/11-10.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> This is how spammers can easily relabel their emails, taking advantage of how the receiving email client
+        renders
+        the two different To: fields.</p>
+      <p> </p>
+      <p> This is not just a side-effect of using MailHog, if you download the email from MailHog and open it in
+        Thunderbird, the same thing is displayed - no mention of the true sender, sam@abc-company.com, is here at all
+        unless you view the source.</p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/19-11.png"><img src="images/11-11.png"
+            alt="images/11-11.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> Let&#39;s dig deeper into the transaction and headers of the original email. If we do a side-by-side
+        comparison
+        of the PCAP and the actual received email, we can see where many of the other fields are sourced. In the
+        following
+        picture, items from the emails &quot;envelope&quot; are pointed out in green, while items from the data section
+        are pointed out in red.</p>
+      <p> </p>
+      <p>
+      <p> <span class="image fit"><img src="images/11-12.png" alt="" /></span>
+      </p>
+      <p> </p>
+      <p> While the MAIL FROM: and RCPT TO: command values make an appearance in the headers in the Return-Path field
+        and
+        in the Received trace header respectively. As we saw with the Elon Musk email example, it is the To: and From:
+        lines in the DATA section of the email that are used by the mail client to display to the recipient.</p>
+      <p> </p>
+      <p> Looking through the rest of the transaction from Thunderbird, it turns out many of the fields in the email
+        envelope and data section are sourced directly from the information the sending email client (Thunderbird)
+        enters
+        as it talks to the Postfix server. It is hard to set all of this straight when looking at email samples, but
+        when
+        done this way, the relationship becomes much more clear.</p>
+      <p> </p>
+      <p> Now that we&#39;ve seen how these transactions work when done in the &quot;normal&quot; way let&#39;s send a
+        completely spoofed email on our own using telnet!</p>
+      <p>
+      <h5>2. Spoof an email from the command line</h5>
+
+      </p>
+      <p></p>
+      <p> </p>
+      <p> While most email sent legitimately will be sourced from another organizations email server, spammers can talk
+        directly to your inbound mail server as well. Though attackers could spam you using &quot;legitimate&quot; yet
+        hacked email accounts, talking directly to your servers allows them to send spam email without involving a
+        stolen
+        account. It also unbounds them from the safeguards that would otherwise put up a roadblock to sending spoofed
+        messages through a real outbound mail server.</p>
+      <p> </p>
+      <p> In this step we&#39;ll send a fake email by directly communicating with the inbound MailHog server in the way
+        that an attacker trying to spoof email to our organization might attempt.</p>
+      <p> </p>
+      <p> Use the following commands to connect to the local email server and send an email from the command line</p>
+      <p> </p>
+      <p> telnet localhost 25</p>
+      <p> </p>
+      <p> Once this command connects you should receive the response below indicating you&#39;re talking to the MailHog
+        server:</p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/19-13.png"><img src="images/11-13.png"
+            alt="images/11-13.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> Type the following into the terminal one line at a time, pressing Enter after each line.</p>
+      <p> </p>
+      <p> EHLO microsoft.com</p>
+      <p> MAIL FROM:&lt;bill.gates@microsoft.com&gt;</p>
+      <p> RCPT TO:&lt;student@sec450.localhost&gt;</p>
+      <p> DATA</p>
+      <p> </p>
+      <p> These lines must then be entered, but this time you can copy them all to the clipboard and paste them all at
+        once (do not miss the blank lines and the &quot;.&quot; at the end):</p>
+      <p> </p>
+      <p> To: student@sec450.com</p>
+      <p> From: Bill Gates &lt;bill.gates@microsoft.com&gt;</p>
+      <p> Subject: Hello</p>
+      <p> </p>
+      <p> Good afternoon, this is a message from Bill himself!</p>
+      <p> </p>
+      <p> .</p>
+      <p> </p>
+      <p> After the &quot;.&quot; on the last line, which is crucial to not miss because it is how you tell the server
+        you&#39;ve done entering the message, hit Enter. You should see 250 Ok: queued as ... returned from the server.
+        Finally, type the following to disconnect from the server:</p>
+      <p> </p>
+      <p> QUIT</p>
+      <p> </p>
+      <p> As you type, the server should be responding with messages like the ones highlighted in the photo below. If
+        you
+        accidentally make a typo, you can try the single erroneous command again, or type &quot;QUIT&quot; to exit and
+        retry the whole transaction.</p>
+      <p> </p>
+      <p> The entire interaction should have looked like the picture below.</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/19-14.png"><img src="images/11-14.png"
+            alt="images/11-14.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> Once you&#39;ve typed &quot;QUIT&quot; and disconnected, go back to MailHog inbox and press the refresh
+        button,
+        you should now see your spoofed email!</p>
+      <p> </p>
+      <p>
+      <p> <span class="image fit"><img src="images/11-15.png" alt="" /></span>
+      </p>
+      <p> Click on the email and once inside, click the &quot;Show headers button again&quot;. Look what we have now!
+      </p>
+      <p> </p>
+      <p>
+      <p> <span class="image fit"><img src="images/11-16.png" alt="" /></span>
+      </p>
+      <p> </p>
+      <p> It&#39;s this easy! We have just manually sent a spoofed email from the command line! As we saw in the
+        previous
+        step, when sending an email in the normal way using a mail client, the mail client itself is just taking the
+        information you&#39;ve entered into the program and performing this transaction for you. Although it may seem
+        otherwise, email is actually very basic!</p>
+      <p> </p>
+      <p> Out of curiosity, this is what the pcap looks like in Wireshark</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/19-17.png"><img src="images/11-17.png"
+            alt="images/11-17.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> </p>
+      <p> This simple demonstration highlights that email verification is purely the job of your email server, because
+        you
+        can&#39;t trust anything upstream to handle that for you. In this case, MailHog is not doing any verification to
+        ensure that the email actually came from Microsoft&#39;s servers. It doesn&#39;t do SPF checks, DKIM, or DMARC,
+        just dutifully passes email on without questioning it. Your infrastructure will do this too if you don&#39;t
+        take
+        any measures to stop it! This means without SPF, DKIM, or any other checks, attackers from outside the network
+        could do exactly what we did here and spoof email to your employees, even pretending to come from your own
+        domain!
+        You&#39;ve now seen how easy it is!</p>
+      <p>
+      <h5>3. Analyze headers from a real spam email</h5>
+
+      </p>
+      <p></p>
+      <p> </p>
+      <p> Now it&#39;s time to look at the real thing. Let&#39;s pretend a user has forwarded you an email as a reported
+        phishing attempt. An .eml file is simply the plain text version of an email, headers, content, and all, and can
+        be
+        opened with any text editor or rendered in Thunderbird.</p>
+      <p> </p>
+      <p> For this email we will attempt to determine the answers to a few questions:</p>
+      <p> </p>
+      <p> • What was the intent of the email?</p>
+      <p> </p>
+      <p> • Where did the email originate - a hacked account, an account made for spamming, or was it spoofed?</p>
+      <p> </p>
+      <p> • What is the apparent IP address of the sender and what was the last known verifiable IP of where the email
+        came from before it was submitted to GMail&#39;s servers?</p>
+      <p> </p>
+      <p> Let&#39;s first look at the email with Thunderbird and try to answer question #1. We&#39;ll use Thunderbird
+        because this is an HTML based email and trying to read the content with a text editor will be too complex. We
+        will
+        use the following command to open up the email.</p>
+      <p> </p>
+      <p> thunderbird /labs/2.3/spam.eml</p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/19-18.png"><img src="images/11-18.png"
+            alt="images/11-18.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> When we over the links, you will find they are shortened with Bit.ly so that we cannot see the true final
+        destination. Thunderbird also warns us the email tries to load remote pictures (likely an attempt at tracking
+        open
+        rates). To find where shortened links go, for bit.ly at least, adding a &quot;+&quot; to the end of the URL will
+        allow you to see a special preview page for any link. If you want to test this yourself be sure to use the URL
+        &quot;<a href="https://bitly.com/2uEOaBn+">https://bitly.com/2uEOaBn+</a>&quot;!</p>
+      <p> </p>
+      <p> Using the above method with link from the email shows the following Bit.ly preview page and the domain the
+        spam
+        attempts to take you to, regardless of which of the 3 links the user clicked:</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/19-19.png"><img src="images/11-19.png"
+            alt="images/11-19.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> Interestingly, through this method, you can also see how many people did click the link looking to buy health
+        supplements from strangers on the internet. We can do this because the preview page includes an activity count
+        for
+        the shortened URL. :)</p>
+      <p> </p>
+      <p> Bit.ly also tells us the link has been flagged as either malicious or spam content. If you were to follow the
+        link, the page it loads looks like this (Classic):</p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/19-20.png"><img src="images/11-20.png"
+            alt="images/11-20.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> Since we have seen this email seems to redirect you to diet supplements, and not to a malicious document or
+        other file download, we can answer question <strong>1. This is probably regular, not particularly malicious
+          spam.</strong></p>
+      <p> </p>
+      <p> Back to the email details to answer the other questions, let&#39;s open up the .eml file with a text editor to
+        take a look at the headers. Type the following command at a terminal to open up Microsoft Visual Studio Code to
+        read the .eml file.</p>
+      <p> </p>
+      <p> code /labs/2.3/spam.eml</p>
+      <p> </p>
+      <p> Lines 1-49 of the .eml file contain the trace headers as expected (of which there are many). Remember that
+        chronologically the first received headers that were generated are at the bottom starting with line 49.</p>
+      <p> </p>
+      <p>
+      <p> <span class="image fit"><img src="images/11-21.png" alt="" /></span>
+      </p>
+      <p> </p>
+      <p> From the trace headers we can learn a few things about where the email came from. On line 49 we have the very
+        first header that was added:</p>
+      <p> </p>
+      <p>
+      <p> <span class="image fit"><img src="images/11-22.png" alt="" /></span>
+      </p>
+      <p> </p>
+      <p> On line 29-32, we have a received topmost trace header where the email left the sending infrastructure and was
+        received by mx.google.com. We&#39;re interested in this because it contains the last known true IP, anything on
+        higher numbered lines could be faked. In this case, we can confidently say the email came to GMail&#39;s servers
+        from the host at IP 52.42.193.106.</p>
+      <p> </p>
+      <p> There&#39;s an interesting twist here though, look at lines 39-43, there seems to be a second line saying the
+        email was received by mx.google.com. Which one is correct?</p>
+      <p> </p>
+      <p>
+      <p> <span class="image fit"><img src="images/11-23.png" alt="" /></span>
+      </p>
+      <p> </p>
+      <p> To figure this out, look at the highlighted information in the line 39-43 entry. Not only is the received line
+        absent of any IP addresses, it also mentions the unresolvable hostname 01.377yelp. The higher up header has the
+        correct formatting, a real hostname, and an IP address. Not only that, the lower received header claims the
+        email
+        was received on 13 Feb! This spam email was actually received 29 March, as shown in the higher header.</p>
+      <p> </p>
+      <p> Although it&#39;s hard to say with absolute certainty, it very much seems that this is a spoofed email header
+        meant to throw spam filtering off the trail. We know mx.google.com can&#39;t receive the email twice, so one of
+        them must be wrong. Given that headers are written from the bottom up and the fact that the header is so odd,
+        the
+        lower one is highly likely to be faked (as well as all other information below the correct received header).</p>
+      <p>
+      <p> <span class="image fit"><img src="images/11-24.png" alt="" /></span>
+      </p>
+      <p> </p>
+      <p> What that means is the best we can say is that the email came from IP 52.42.193.106, which claimed to (on the
+        &quot;EHLO&quot; line in the SMTP connection) be the domain adlexhi.press. When Google resolved the IP with a
+        PTR
+        record request it pointed to ec2-52-42-193-106.us-west-2.compute.amazonaws.com - likely an Amazon AWS instance
+        used transiently for sending spam.</p>
+      <p> </p>
+      <p> We can verify this by checking this domain on the Spamhaus DBL (domain block list) - indeed, at the time of
+        this
+        writing the domain is listed:</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/19-25.png"><img src="images/11-25.png"
+            alt="images/11-25.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> What about the SPF check, why did it say &quot;pass&quot; if the email was spoofed?</p>
+      <p> </p>
+      <p>
+      <p> <span class="image fit"><img src="images/11-26.png" alt="" /></span>
+      </p>
+      <p> </p>
+      <p> First, although it was an spf &quot;pass&quot;, the verbiage says it was a &quot;best guess record&quot; which
+        means the specific subdomain the email claimed to be from did not have an SPF record, so it fell back to using
+        the
+        top level domain. What domain did the email claim to be from though? Remember previously when we typed the MAIL
+        FROM: line upon the initial SMTP connection (the &quot;envelope from&quot; address)? How SMTP works is whatever
+        address was entered there gets filled into the Return-Path header, and the Return-Path header is the domain SPF
+        uses for verification. Therefore in this email we can see the return path (and MAIL FROM:) entered was
+        FDNJWdHw@fdnjwdhw----------------------.us-west-2.compute.amazonaws.com. Since this domain doesn&#39;t exist, it
+        can&#39;t have its own SPF record, so google fell back to checking amazonaws.com&#39;s SPF record. Here&#39;s
+        the
+        response it would&#39;ve received and used to judge the email:</p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/19-27.png"><img src="images/11-27.png"
+            alt="images/11-27.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> Since there is a ~all in this record, the spf check technically passed, just in the most minimal way possible,
+        and using a domain that wasn&#39;t real.</p>
+      <p> </p>
+      <p> Moving on to the message headers on lines 50-65, is there anything else that stands out?</p>
+      <p> </p>
+      <p>
+      <p> <span class="image fit"><img src="images/11-28.png" alt="" /></span>
+      </p>
+      <p> </p>
+      <p> There are a lot of optional &quot;X-&quot; headers that seem to contain useful information here, but the
+        &quot;From:&quot; and &quot;Date:&quot; lines do stick out. For one, the date header is listed here as Feb 13th
+        again. Second, the From: address is set to claim the email is from the domain cclyelp.com. If we check the
+        details
+        on this domain with the whois command, we&#39;ll find that domain doesn&#39;t actually exist!</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/19-29.png"><img src="images/11-29.png"
+            alt="images/11-29.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> As you can see, email header analysis is not always straight foward and you never know what you&#39;re going
+        to
+        find. Although it&#39;s not always 100% possible to know what happened in an emails past, looking for the basic
+        fields we have discussed can give us a clue to the origins, and whether it is likely to be malicious or not.</p>
+      <p> </p>
+      <p>
+      <h5>Conclusion</h5>
+      </p>
+      <p> </p>
+      <p> The goal in of this lab is to get you deep down into the details of how email is sent. Without a full
+        understanding of where the fields in the headers come from, how email is transacted from client to server, and
+        sending server to receiving server, it&#39;s hard to make sense of what is real email and what is spoofed.</p>
+      <p> </p>
+      <p> Strong monitoring of email with a tool like Suricata can help you track down and eliminate spam waves as they
+        come in. When applied to the email in this lab, Suricata produces the following log:</p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/19-30.png"><img src="images/11-30.png"
+            alt="images/11-30.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> Notice it includes both from addresses, as well as an MD5 hash of the subject, which makes it easy to search.
+        With the ability to group and search incoming email fields in your SIEM, once an email is identified as
+        potentially malicious, finding and scoping the problem becomes much easier. Hopefully this lab helped you
+        understand how email is crafted and sent, and will assist you in email alert triage going forward!</p>
+      <p> </p>
+      <p>
+      <h5>In this lab, you have:</h5>
+      </p>
+      <p> </p>
+      <p> • Sent an email through a simulated two-server email system</p>
+      <p> </p>
+      <p> • Analyzed email headers to see where each field comes from</p>
+      <p> </p>
+      <p> • Analyzed a PCAP of an email being sent from a client to server</p>
+      <p> </p>
+      <p> • Manually crafted and sent a spoofed email</p>
+      <p> </p>
+      <p> • Analyzed a real spam email to understand where it came from and find the goal of the attack</p>
+    </section>
+  </div>
+  <!-- Copyright -->
+  <div id="copyright">
+    <ul>
+      <li>
+        <h6>&copy;<a href="index.html">Main Page</h6>
+        </a>
+      </li>
+      <li>
+        <h6>&copy;<a href="https://yrtree.me/@Miguel%20Nogueira">Miguel Nogueira</h6>
+        </a>
+      </li>
+
+    </ul>
+  </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery.scrollex.min.js"></script>
+  <script src="assets/js/jquery.scrolly.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,633 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Generic Page - Massively by HTML5 UP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+</head>
+
+<body class="is-preload">
+
+  <!-- Main -->
+  <div id="main">
+
+    <!-- Post -->
+    <section class="post">
+      <div class="image main"><img src="images/elastic inside.png" alt="" /></div>
+
+      <header class="major">
+        <h2>SIEM with Elastic Stack</h2>
+      </header>
+
+
+      <h2>Objective</h2>
+      </p>
+      <p></p>
+      <p> </p>
+      <p> • Learn to navigate in the Kibana interface</p>
+      <p> </p>
+      <p> • Understand how data is stored in Elasticsearch when using it as a SIEM</p>
+      <p> </p>
+      <p> • Investigate honeypot server traffic logs</p>
+      <p> </p>
+      <p> • Create visualizations and dashboards to find data trends</p>
+      <p> </p>
+      <p> </p>
+      <p> </p>
+      <p>
+
+      <h5>1. Learning the Kibana interface</h5>
+
+      </p>
+      <p></p>
+      <p> </p>
+      <p> Within Kibana, there are 3 main areas you will want to be familiar with, Discover, Visualize, and Dashboards.
+      </p>
+      <p> </p>
+      <p> • Discover is the main interface you will use for searching the text of all logs ingested within Kibana</p>
+      <p> </p>
+      <p> • Visualize is the area to turn logs into various types of charts and graphs</p>
+      <p> </p>
+      <p> • Dashboard takes the saved searches from the Discover tab and saved visualizations from the Visualize tab,
+        and
+        lets you simultaneously display them all at once in an interactive manner. This view can be great for getting a
+        multi-angle view of your data.</p>
+      <p> </p>
+      <p> Click on the Discover tab to go to the main interface for log searching:</p>
+      <p>
+      <p> <span class="image fit"><img src="images/6-1.png" alt="" /></span>
+      </p>
+      <p> </p>
+      <p> Before we are able to see logs, we need to do a crash course in the interface.</p>
+      <p> </p>
+      <p> Date Picker - The Date Picker is one of the most important items in the interface because it tells Kibana
+        which
+        time frame you&#39;d like to search. The first screen you see will not show any logs because by default Kibana
+        will show you logs from the last 15 minutes. Since there is no data streaming in, there&#39;s nothing to find.
+      </p>
+      <p> </p>
+      <p> Index Picker - The Index Picker is the second most important item in the interface, because it tells Kibana
+        which set of logs you want to search through. Elasticsearch stores all logs in various &quot;indexes&quot;,
+        think
+        of them as separate databases. By convention, things like firewall logs would go into one index, http logs in
+        another, and flow logs into yet another, etc. In the screenshot the &quot;suricata-flow&quot; index is selected,
+        meaning the default search will show the NetFlow-style logs captured by Suricata.</p>
+      <p> </p>
+      <p> Field List - The field list tells an analyst the fields that are available in the logs displayed on the
+        screen.
+      </p>
+      <p> Search Bar - The location to enter your search queries.</p>
+      <p> </p>
+      <p> For this lab we will use an actual attack data from a research honeypot sitting on the public internet. The
+        setup involved starting a number of fake services on the server and logging all interaction with them using
+        Suricata. Suricata is a tool similar to Snort in that it can use Snort-style IDS signatures to identify
+        suspicious
+        traffic, but it also records metadata like network flow logs, and specifics for transactions in various
+        application layer protocols like HTTP, DNS, TLS, and more. In this Kibana setup, each of these data sources has
+        it&#39;s own index that can be selected with the index picker. Clicking on it will reveal the other options.</p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-2.png"><img src="images/6-2.png"
+            alt="images/6-2.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> </p>
+      <p> Keep &quot;suricata-flow&quot; selected (this is layer 3 and 4 NetFlow style data). Next, let&#39;s pick a
+        time
+        frame where there is valid data. This honeypot was recording data from 2019-02-19 to 2019-03-29.</p>
+      <p> </p>
+      <p> To select new dates, copy the date below to the clipboard then follow these instructions:</p>
+      <p> </p>
+      <p> <span style="text-decoration:underline;">2019-02-19 00:00:00.000</span></p>
+      <p> </p>
+      <p> First click on the date picker where it says &quot;Last 15 Minutes&quot;</p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-3.png"><img src="images/6-3.png"
+            alt="images/6-3.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> Then click again where it says &quot;~15 minutes ago&quot; option at the top:</p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-4.png"><img src="images/6-4.png"
+            alt="images/6-4.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> A new popup will appear:</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-5.png"><img src="images/6-5.png"
+            alt="images/6-5.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> In this window, select the &quot;Absolute tab&quot; then paste the time from above into the bottom area, this
+        sets the starting bounds of the search.</p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-6.png"><img src="images/6-6.png"
+            alt="images/6-6.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> Once this is done click on the box on the right side of date picker to select ending time for the search:</p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-7.png"><img src="images/6-7.png"
+            alt="images/6-7.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> Use the following time to paste into the box at the bottom.</p>
+      <p> </p>
+      <p> 2019-03-29 12:00:00.000</p>
+      <p> </p>
+      <p> Your search should now look like this:</p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-8.png"><img src="images/6-8.png"
+            alt="images/6-8.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> If it does, press the &quot;Update&quot; button to run a search with the new start and end time. You should
+        now
+        see the page populated with results:</p>
+      <p> </p>
+      <p>
+      <p> <span class="image fit"><img src="images/6-9.png" alt="" /></span>
+      </p>
+      <p> </p>
+      <p> You now see a populated field list, a histogram of the time of where logs are present in that index&#39;s data
+        set, and the time and field details for the logs.</p>
+      <p> </p>
+      <p> To expand the detail for a log, click the arrow to the left side of the time:</p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-10.png"><img src="images/6-10.png"
+            alt="images/6-10.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> This view shows each individual field from the Suricata flow log parsed out into key-value pairs. Fold the log
+        back up for now.</p>
+      <p> </p>
+      <p> On the top we can see there is a large list of all the key-value pairs of the log.</p>
+      <p> </p>
+      <p>
+      <p> <span class="image fit"><img src="images/6-11.png" alt="" /></span>
+      </p>
+      <p> </p>
+      <p> It&#39;s a bit hard to read and some of it we probably aren&#39;t interested in. To filter down logs and only
+        show specific fields, we can mouse over the field list on the left side of the screen. When hovering over any
+        specific item an &quot;add&quot; button will appear that will cause that field to become a dedicated column to
+        display in the main interface. We can also click on the name of any field to expand a drop-down that will show a
+        small statistical analysis of the values in that field (this is not for all logs in that index, just the top
+        500).
+      </p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-12.png"><img src="images/6-12.png"
+            alt="images/6-12.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> This photo shows what happens when you click on the field called &quot;geoip.city_name&quot;. It indicates
+        that
+        most of the flows of the currently displayed logs were sourced from an IP in Macroom a city in Ireland.</p>
+      <p> </p>
+      <p> Let&#39;s add a few columns of interest for flow logs. On the field list, select the &quot;add&quot; button
+        for
+        the following fields in this order.</p>
+      <p> </p>
+      <p> • source_ip</p>
+      <p> • source_port</p>
+      <p> • destination_ip</p>
+      <p> • destination_port</p>
+      <p> • application_protocol</p>
+      <p> • geoip.country_name</p>
+      <p> • geoip.as_org</p>
+      <p> </p>
+      <p> You screen should now look like this - much more readable! These fields give us an idea of what type of
+        traffic
+        was seen by the sensor by showing its layer ¾ information and the application layer protocol that was used. It
+        also has some value-added enrichments added by the SIEM - geoIP information about where on earth the traffic
+        came
+        from, and what organization owns that public IP. These fields were not present in the original logs from
+        Suricata
+        and were added after the fact upon log ingestion!</p>
+      <p> </p>
+      <p>
+      <p> <span class="image fit"><img src="images/6-13.png" alt="" /></span>
+      </p>
+      <p> </p>
+      <p> If you&#39;ve clicked the columns in the wrong order, mousing over their name will expose a small left and
+        right
+        arrow that will let you rearrange them. </p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-14.png"><img src="images/6-14.png"
+            alt="images/6-14.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> If you accidentally click the wrong field, scroll to the top of the field list, all fields currently added as
+        a
+        column move up to the top area under the &quot;Selected Fields&quot; section. You can also hover over the column
+        name in the log list and click the small &quot;x&quot;.</p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-15.png"><img src="images/6-15.png"
+            alt="images/6-15.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> </p>
+      <p> Now that we have a good set of columns selected, lets save this view. At the top of the screen select the
+        &quot;Save&quot; link:</p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-16.png"><img src="images/6-16.png"
+            alt="images/6-16.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> Type the name &quot;Flow Logs&quot; and press &quot;Confirm Save&quot;</p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-17.png"><img src="images/6-17.png"
+            alt="images/6-17.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> This set of columns is now saved and will be available to jump back to any time you use the &quot;Open&quot;
+        link next to the Save button.</p>
+      <p> </p>
+      <p> Before going on the next step, feel free to click around and explore the data in the Discover tab.</p>
+      <p>
+      <h5>2. Create a pie chart visualization of honeypot data</h5>
+
+      </p>
+      <p></p>
+      <p> </p>
+      <p> Now that we&#39;ve seen the data that we&#39;re working with, let&#39;s start to look at some trends in the
+        honeypot data. Since this is honeypot data from a server sitting quietly on the internet, every interaction with
+        it can be considered a scan or attack attempt (minus the honeypot management traffic, which happened over port
+        2222).</p>
+      <p> </p>
+      <p> One basic question you might want to answer is &quot;What port did attackers most commonly attempt to connect
+        to
+        on this server?&quot; Let&#39;s use the visualization features to make a pie chart of the data to find the
+        answer.
+      </p>
+      <p> </p>
+      <p> Click on the visualize tab in Kibana:</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-18.png"><img src="images/6-18.png"
+            alt="images/6-18.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> This page shows some visualizations that were previously constructed for you, you can come back to these and
+        check them out later if you&#39;d like. We are going to make a new visualization, so click the &quot;+&quot;
+        button to start creating a new visualization:</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-19.png"><img src="images/6-19.png"
+            alt="images/6-19.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> Kibana will now ask you what type of visualization you&#39;d like to make, select the pie bar chart.</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-20.png"><img src="images/6-20.png"
+            alt="images/6-20.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> Kibana will then ask which set of data you&#39;d like to use for the chart, select &quot;suricata-flow&quot;
+        as
+        a source.</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-21.png"><img src="images/6-21.png"
+            alt="images/6-21.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> This will then bring you to a basic pie chart that we can use to start the visualization:</p>
+      <p>
+      <p> <span class="image fit"><img src="images/6-22.png" alt="" /></span>
+      </p>
+      <p> In the default pie chart Kibana will simply count the number of logs in the set of data you have selected,
+        within the time window shown in the date picker in the upper right field. Highlighted in this photo is the
+        Metrics
+        and Buckets section on the left side of the screen. Buckets are how the data is grouped, and Metrics are what is
+        calculated on those groups, this is a VERY important concept for creating visualizations in any SIEM even if
+        your
+        vendor doesn&#39;t use these terms, so make sure you understand it. By default, all logs go into one
+        &quot;bucket&quot;, and what is calculated is the &quot;Count&quot;, which is why we see the chart that we have
+        right now.</p>
+      <p> </p>
+      <p> This picture shows that within the date&#39;s we&#39;ve selected, there were 774,140 logs total. We want to
+        ask
+        a different question though, we&#39;re curious which destination port showed up in the most logs. To answer this
+        question we can leave the Metric on &quot;count&quot;, but we need to group (bucket) logs by the
+        &quot;destination_port&quot; field so that we get a count of how many logs exist for each port number. To do
+        this,
+        in the buckets section select &quot;Split Slices&quot;:</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-23.png"><img src="images/6-23.png"
+            alt="images/6-23.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> There are multiple ways to bucket, but we want to bucket our logs based on a log field, or &quot;term&quot; as
+        Kibana calls it. In the Aggregation dropdown select &quot;Terms&quot; (you will have to scroll down to see it,
+        or
+        you can type the word Terms and it will search).</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-24.png"><img src="images/6-24.png"
+            alt="images/6-24.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> Once selected, new options will appear for selecting the field, ordering, counts, and labeling the output. The
+        first thing we need to do is select the &quot;destination_port&quot; field in the &quot;Field&quot; drop down.
+        Again, typing part of the name is the fastest way to find it in the list of field options.</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-25.png"><img src="images/6-25.png"
+            alt="images/6-25.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> After selecting &quot;destination_port&quot;, change the &quot;Size&quot; to 10 so that we will see the top 10
+        hits, and add a Custom Label of &quot;Destination Port&quot; as shown below. Once these items are selected, hit
+        the play button at the top of the visualization setup pane.</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-26.png"><img src="images/6-26.png"
+            alt="images/6-26.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> If your configuration was set correctly, you should now see a new pie chart that gives our answer!</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-27.png"><img src="images/6-27.png"
+            alt="images/6-27.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> The bucket with the highest number of items in it is at the top of the list on the right of the pie chart,
+        which
+        means port 445 was the most commonly talked to port on the honeypot, followed by port 22 and port 53. Mouse over
+        the slices of the chart and you will see the count for each individual item.</p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-28.png"><img src="images/6-28.png"
+            alt="images/6-28.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> Here we can see port 445 had 295,614 hits in the flow logs. This output is also labeled with the
+        &quot;Destination Port&quot; custom label we defined in the setup (without that setup it would say the field
+        name
+        &quot;destination_port&quot;).</p>
+      <p> </p>
+      <p> Now that we have this information, let&#39;s save the setup in Kibana. Select the &quot;Save&quot; button in
+        the
+        upper left corner, name the visualization &quot;Count of Destination Port - Flow&quot;.</p>
+      <p> </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-29.png"><img src="images/6-29.png"
+            alt="images/6-29.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> This type of naming convention gives us an idea of the metric (count) and bucket (destination port) used for
+        the
+        visualization as well as the data source (flows). Congratulations, we&#39;ve made a visualization in our SIEM!
+        Let&#39;s make one more...</p>
+      <p>
+      <h5>3. Create an area chart of attacks by source country</h5>
+
+      </p>
+      <p></p>
+      <p> </p>
+      <p> In this section we&#39;re going to make an area chart of attacks grouped by the country the traffic came from
+        according to the resolved geoIP information.</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-30.png"><img src="images/6-30.png"
+            alt="images/6-30.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> While this is not necessarily actionable data or attribution of attacks, it makes for a good demonstration of
+        how to build an area chart visualization and can be used in the final step of the lab.</p>
+      <p> </p>
+      <p> Click the Visualize breadcrumb at the top of the screen to begin creating a new visualization from scratch.
+      </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-31.png"><img src="images/6-31.png"
+            alt="images/6-31.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> Select the &quot;+&quot; sign for a new visualization, and this time pick an Area chart.</p>
+      <p>
+      <p> <span class="image fit"><img src="images/6-32.png" alt="" /></span>
+      </p>
+      <p> </p>
+      <p> Select the suricata-flow index as a source of data again as well</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-33.png"><img src="images/6-33.png"
+            alt="images/6-33.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> You will be taken to a blank bar chart. Again, we must set up how we want to group the data. This setup is a
+        bit
+        more complex than the pie chart because we want to include both a time element, and break the data out by
+        country.
+      </p>
+      <p> </p>
+      <p> Step 1 will be showing the data over time. It&#39;s slightly less intuitive, but what is an area
+        chart/histogram
+        really? Just grouping (bucketing) logs into evenly spaced time-slots over the range of time selected. To do this
+        in Kibana, under the Buckets section, select &quot;X-Axis&quot; then pick &quot;Date Histogram&quot; in the drop
+        down, once selected, hit the play button to see what happens.</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-34.png"><img src="images/6-34.png"
+            alt="images/6-34.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> We&#39;ve successfully made a area chart of the total volume of data:</p>
+      <p>
+      <p> <span class="image fit"><img src="images/6-35.png" alt="" /></span>
+      </p>
+      <p> </p>
+      <p> Looking at the x-axis, we can see Kibana has auto-decided to break the data into 12-hour time slots. You can
+        mouse over the chart and see for each data point how many specific logs fell into that time slice. We want to go
+        more specific though and break this into countries, which means we need to make a &quot;sub-bucket&quot;, which
+        is
+        a second level of data grouping secondary to the time slots. To do this, go back to the Bucketing section on the
+        left.</p>
+      <p> </p>
+      <p> Underneath the settings we just entered is a button that says &quot;Add sub-buckets&quot;. Click that button
+        and
+        then select &quot;Split Series&quot;.</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-36.png"><img src="images/6-36.png"
+            alt="images/6-36.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> Again we now want to split the data by a field, so pick &quot;Terms&quot;, then in the field selection box
+        start
+        typing &quot;country&quot; and select the field &quot;geoip.country_name.keyword&quot; once you see it show up.
+      </p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-37.png"><img src="images/6-37.png"
+            alt="images/6-37.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> Your visualization setup should now look like this - with an X-Axis Date histogram as the top level grouping
+        (bucket) followed by a Split Series bucket using the geoip.country_name.keyword term. If everything is correct,
+        hit the play button to render the new chart.</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-38.png"><img src="images/6-38.png"
+            alt="images/6-38.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> You should now see the fully rendered area chart split out by countries, with the most common country
+        identified
+        on the top of the list, and at the base of the area chart.</p>
+      <p>
+      <p> <span class="image fit"><img src="images/6-39.png" alt="" /></span>
+      </p>
+      <p> </p>
+      <p> Let&#39;s save this chart as well. Select &quot;Save&quot; then name the visualization &quot;Count of
+        Countries
+        Over Time - Flow&quot;.</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-40.png"><img src="images/6-40.png"
+            alt="images/6-40.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> We now have two saved charts, and one saved search. Let&#39;s now perform the final step - making an
+        interactive
+        dashboard out of all of them!</p>
+      <p>
+      <h5>4. Make an interactive dashboard</h5>
+
+      </p>
+      <p></p>
+      <p> </p>
+      <p> Click on the dashboard icon on the left side of Kibana.</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-41.png"><img src="images/6-41.png"
+            alt="images/6-41.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> From here, select &quot;Create new dashboard&quot;</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-42.png"><img src="images/6-42.png"
+            alt="images/6-42.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> Click the &quot;Add&quot; button in the upper left of the screen to begin adding items to the dashboard</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-43.png"><img src="images/6-43.png"
+            alt="images/6-43.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> In the &quot;Add Panels&quot; view you will by default see all the visualizations that have been saved in
+        Kibana. We want to add the two we&#39;ve just made, so find them in the list and click once each on the two
+        visualizations we&#39;ve previously saved.</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-44.png"><img src="images/6-44.png"
+            alt="images/6-44.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> </p>
+      <p> Once you&#39;ve clicked on them, switch to the &quot;Saved Search&quot; tab and click on the &quot;Flow
+        Logs&quot; saved search we created earlier as well.</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-45.png"><img src="images/6-45.png"
+            alt="images/6-45.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> You now have added all 3 items to the dashboard - 2 visualizations, and 1 saved search. Click the
+        &quot;x&quot;
+        in the Add Panels window to close it and see your dashboard.</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-46.png"><img src="images/6-46.png"
+            alt="images/6-46.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> Here it is, all 3 of your saved items now displayed at once.</p>
+      <p>
+      <p> <span class="image fit"><img src="images/6-47.png" alt="" /></span>
+      </p>
+      <p> </p>
+      <p> </p>
+      <p> Once you have the panels how you like, press the &quot;Save&quot; button in the upper left corner. Name the
+        dashboard &quot;My first flow log dashboard&quot;, select the &quot;Store time with dashboard&quot; switch so
+        that
+        it locks it to the correct time frame and press &quot;Confirm Save&quot;.</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-48.png"><img src="images/6-48.png"
+            alt="images/6-48.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> You&#39;ve now created a interactive dashboard in our SIEM that both groups data on multiple fields and
+        displays
+        the search results simultaneously!</p>
+      <p>
+      <h5>5. Explore Data Using the Dashboard</h5>
+
+      </p>
+      <p></p>
+      <p> </p>
+      <p> Let&#39;s now do a simple example of how this dashboard can be used to explore your data. On the dashboard,
+        each
+        panel is interactive and can be used to filter the data not just for that panel, but for all other panels at the
+        same time. This is great for threat hunting and data analysis.</p>
+      <p> </p>
+      <p> For example, let&#39;s say we want to investigate all the activity sourced from German IP addresses, we can
+        select Germany in our area chart and apply a filter that will adjust both the pie chart and the search box as
+        well
+        to show only flow logs that match a country name of Germany!</p>
+      <p> </p>
+      <p> Click on Germany in the list on the area chart, then select the magnifying glass with the &quot;+&quot; symbol
+        to apply the filter.</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-49.png"><img src="images/6-49.png"
+            alt="images/6-49.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> You will now see a new filter item appear under the search bar, and all the graphs will be re-rendered to show
+        data that had a country name of Germany only!</p>
+      <p>
+      <p> <span class="image fit"><img src="images/6-50.png" alt="" /></span>
+      </p>
+      <p> </p>
+      <p> Notice the distribution of the most common destination port are now different. In the overall dataset it was
+        port 445, but we can see that isolating our data to Germany only, the most popular destination port of traffic
+        to
+        the honeypot from Germany was actually port 22 (SSH) followed by port 2222 (an alternative SSH port).</p>
+      <p> </p>
+      <p> Click on the Germany filter term under the search bar and expand it.</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-51.png"><img src="images/6-51.png"
+            alt="images/6-51.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> Here we can see the ways we can modify the filter to suit our needs such as inverting it (Exclude results),
+        temporarily disabling it, editing it, or deleting it, which will bring us back to the normal dashboard.</p>
+      <p> </p>
+      <p> Click &quot;Delete&quot; to go back to the previous view.</p>
+      <p> <a href="http://../../../../Desktop/project"> </a><a
+          href="file:///C:/Users/Leugim/Desktop/project/images/12-52.png"><img src="images/6-52.png"
+            alt="images/6-52.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+      <p> </p>
+      <p> We now have a fully-functional, filterable dashboard we can use to explore your data. </p>
+      <p></p>
+      <p>
+      <h5>Lab Conclusion</h5>
+      </p>
+      <p></p>
+      <p> </p>
+      <p> In this lab you used the Elastic Stack as a SIEM to explore NetFlow style log data sourced from a research
+        honeypot. Through selecting interesting columns and visualizations, we were able to create a useful dashboard
+        for
+        exploring the data trends and seeing the underlying patterns within it. No matter which SIEM product you have,
+        this is the type of setup that&#39;s very useful for spotting anomalies and other attack trends within your
+        network. All it takes is a bit of data understanding, and the instructions to set it up in your specific SIEM.
+      </p>
+      <p> </p>
+      <p> All SIEMs are capable of grouping and visualizing data ways similar to what we did here. Therefore the focus
+        of
+        this lab was not &quot;how to do this in Elastic&quot; but rather seeing the process of how to translate
+        questions
+        we have about our data into queries that are grouped by some parameter, and choosing what you would like to
+        calculate on each of those groups. This is an extremely common workflow when it comes to SIEM analysis and one
+        that is crucial to understand.</p>
+      <p> </p>
+      <p> Throughout this lab, we grouped based on destination IP address, as well as made a histogram (grouping by time
+        slots) followed by sub-grouping based on a source country, to answer our questions about where the traffic to
+        the
+        honeypot was coming from, and what ports it was using. We could have created more complicated charts like
+        grouping
+        based on the source IP, and instead of counting, we could have summed the number of bytes transferred from that
+        IP
+        address, answering the question &quot;Who used the most bandwidth talking to the honeypot?&quot; We also could
+        have used many other types of visualizations to answer further questions including information outside of the
+        flow
+        logs. The trick to effectively using a SIEM is knowing how to translate questions into the search parameters and
+        visualization types that will bring you the answer.</p>
+      <p> </p>
+      <p>
+      <h5>In this lab, we have:</h5>
+      </p>
+      <p> </p>
+      <p> • Used the Elastic stack to search and view logs recorded from Suricata IDS</p>
+      <p> </p>
+      <p> • Create a saved search with a useful set of columns</p>
+      <p> </p>
+      <p> • Created visualizations to answer questions about the data using Buckets and Metrics to get used to grouping
+        logs based on various characteristics</p>
+      <p> </p>
+      <p> • Created a dashboard that lets you explore the NetFlow data in an interactive way</p>
+  </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery.scrollex.min.js"></script>
+  <script src="assets/js/jquery.scrolly.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
