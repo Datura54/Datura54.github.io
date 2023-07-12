@@ -18,118 +18,126 @@
 
 <body class="is-preload">
 
-  <!-- Main -->
-  <div id="main">
+  <body class="is-preload">
+    <header id="header">
+      <a href="https://datura54.github.io/" class="logo">Home Button</a>
+    </header>
+    <!-- Main -->
+    <div id="main">
 
-    <!-- Post -->
-    <section class="post">
-      <header class="major">
-        <h2>Backdoor Detection and Remediation</h2>
-      </header>
-      <h2>Introduction</h2>
-      <p>
+      <!-- Post -->
+      <section class="post">
+        <header class="major">
+          <h2>Backdoor Detection and Remediation</h2>
+        </header>
+        <h2>Introduction</h2>
+        <p>
 
-        In this project, we uncover and analyze an unauthorized backdoor that has been created on a computer system. The
-        objective is to demonstrate the potential risks associated with such backdoors and showcase the steps involved
-        in detecting and mitigating them.
+          In this project, we uncover and analyze an unauthorized backdoor that has been created on a computer system.
+          The
+          objective is to demonstrate the potential risks associated with such backdoors and showcase the steps involved
+          in detecting and mitigating them.
 
 
-        First let's find what is the net cat executable. </p>
-      <div class="image main"><img src="images/Backdoor/1.jpg" alt="" /></div>
-      I'm gonna copy that net cat executable to here.
-      The copy command will not show any output so to see if everything went ok, we can
-      use the command ls to display every file in the reposotorie we are in
-      <div class="image main"><img src="images/Backdoor/2.jpg" alt="" /></div>
-      Now we will create a backdoor by executing, to the background, the file we have created (which in this case is
-      basicly the netcar executable)
-      <div class="image main"><img src="images/Backdoor/3.jpg" alt="" /></div>
-      In order to see the process running we can the command list all files, with the filters to only show internet
-      based processes and to do not try to assume which protocol is in use in that port, meaning he will directly show
-      me what is the port number, not what might be the protocol in use (lsof -i -P)
-      <div class="image main"><img src="images/Backdoor/4.jpg" alt="" /></div>
-      Now is were the real fun beggins.
-      We will remove the file we have created with the copy of the netcat executable and will check if after the file
-      is removed if the process has stopped or not in use, to do that we will remove notEvil (rm notEvil)
-      <div class="image main"><img src="images/Backdoor/5.jpg" alt="" /></div>
-      Now that we have removed our file, is his process still running? Let's check out!
-      For that we will use once again the command (lsof -i -P)
-      <div class="image main"><img src="images/Backdoor/6.jpg" alt="" /></div>
+          First let's find what is the net cat executable. </p>
+        <div class="image main"><img src="images/Backdoor/1.jpg" alt="" /></div>
+        I'm gonna copy that net cat executable to here.
+        The copy command will not show any output so to see if everything went ok, we can
+        use the command ls to display every file in the reposotorie we are in
+        <div class="image main"><img src="images/Backdoor/2.jpg" alt="" /></div>
+        Now we will create a backdoor by executing, to the background, the file we have created (which in this case is
+        basicly the netcar executable)
+        <div class="image main"><img src="images/Backdoor/3.jpg" alt="" /></div>
+        In order to see the process running we can the command list all files, with the filters to only show internet
+        based processes and to do not try to assume which protocol is in use in that port, meaning he will directly show
+        me what is the port number, not what might be the protocol in use (lsof -i -P)
+        <div class="image main"><img src="images/Backdoor/4.jpg" alt="" /></div>
+        Now is were the real fun beggins.
+        We will remove the file we have created with the copy of the netcat executable and will check if after the file
+        is removed if the process has stopped or not in use, to do that we will remove notEvil (rm notEvil)
+        <div class="image main"><img src="images/Backdoor/5.jpg" alt="" /></div>
+        Now that we have removed our file, is his process still running? Let's check out!
+        For that we will use once again the command (lsof -i -P)
+        <div class="image main"><img src="images/Backdoor/6.jpg" alt="" /></div>
 
-      The process is still running!! This means that currenctly we have a deleted file running on this machine!</p> Lets
-      confirm that the backdoor is running you can see that the lsof command also says what the port is doing, so now
-      the port is listenning/waiting for a connection, so let's make it by using the command netcat on our computer
-      machine on the port assigned, on an user other then root(nc 172.28.52.14 2222).</p>
+        The process is still running!! This means that currenctly we have a deleted file running on this machine!</p>
+        Lets
+        confirm that the backdoor is running you can see that the lsof command also says what the port is doing, so now
+        the port is listenning/waiting for a connection, so let's make it by using the command netcat on our computer
+        machine on the port assigned, on an user other then root(nc 172.28.52.14 2222).</p>
 
-      We could also use 127.0.0.1 as IP because we are already on the computer we want but want to escalate our
-      privilegies. After connecting you can
-      see that we are in the same directory as we were before, because the files are the same, but just to confirm we
-      can run whoami, to confirm whoami, and we will see that we are root. That means that our backdoor works and now
-      we can give any user the privelegies a root user has.
-      <div class="image main"><img src="images/Backdoor/7.jpg" alt="" /></div>
-      If you remember lsof command tells us what the port is doing, so, is did the port status changed? Let's check it
-      <div class="image main"><img src="images/Backdoor/8.jpg" alt="" /></div>
+        We could also use 127.0.0.1 as IP because we are already on the computer we want but want to escalate our
+        privilegies. After connecting you can
+        see that we are in the same directory as we were before, because the files are the same, but just to confirm we
+        can run whoami, to confirm whoami, and we will see that we are root. That means that our backdoor works and now
+        we can give any user the privelegies a root user has.
+        <div class="image main"><img src="images/Backdoor/7.jpg" alt="" /></div>
+        If you remember lsof command tells us what the port is doing, so, is did the port status changed? Let's check it
+        <div class="image main"><img src="images/Backdoor/8.jpg" alt="" /></div>
 
-      It did, it show us that there is another user (adhd) is connected from the port 34190 to root trough the port
-      2222.
-      This can be no good for the Forensics Teams so what would they do?</p>
-      Firstly lets look at their perspective to know what would be their best step. So, we have found that there was
-      in the past an attacker that created a file in our system, executed a backdoor and tried to hide their steps in
-      order to us not be able to reverse engineer their steps. So... What do we do? We can use the command (lsof +L1) to
-      show us every file that is still executing in our computer system
-      <div class="image main"><img src="images/Backdoor/9.jpg" alt="" /></div>
-      This shows us that the file is still running on memory even though we deleted him from the operating system.
-      (When you hit delete or throw to thrash a file you do not delete it from the memory but you break the link that
-      connect the operating system to the memory).</p>
+        It did, it show us that there is another user (adhd) is connected from the port 34190 to root trough the port
+        2222.
+        This can be no good for the Forensics Teams so what would they do?</p>
+        Firstly lets look at their perspective to know what would be their best step. So, we have found that there was
+        in the past an attacker that created a file in our system, executed a backdoor and tried to hide their steps in
+        order to us not be able to reverse engineer their steps. So... What do we do? We can use the command (lsof +L1)
+        to
+        show us every file that is still executing in our computer system
+        <div class="image main"><img src="images/Backdoor/9.jpg" alt="" /></div>
+        This shows us that the file is still running on memory even though we deleted him from the operating system.
+        (When you hit delete or throw to thrash a file you do not delete it from the memory but you break the link that
+        connect the operating system to the memory).</p>
 
-      So in order to retrieve the information from the memory and relink or link that file memory to another in the
-      operating system we first go to the proc depositorie and run (strings ./exe)
-      <div class="image main"><img src="images/Backdoor/10.jpg" alt="" /></div>
+        So in order to retrieve the information from the memory and relink or link that file memory to another in the
+        operating system we first go to the proc depositorie and run (strings ./exe)
+        <div class="image main"><img src="images/Backdoor/10.jpg" alt="" /></div>
 
-      That will output the file we wanted from memory that was previously deleted, i tried to show a bit of the
-      output, it's much bigger then what i can show u can use (| less) to view the output of a command or file one page
-      at a time. It provides scrolling and searching capabilities for easier reading.
-      <div class="image main"><img src="images/Backdoor/11.jpg" alt="" /></div>
-      But how do we end the promiscuous file?!?! That is actually quite easy, you just need to find the PID of the
-      process, how do you find the PID process? You can find it by using (ps aux) or (lsof -i -P) in this case the PID
-      is 501, so we will just do (kill 501)
-      <div class="image main"><img src="images/Backdoor/12.jpg" alt="" /></div>
-      And it's dead, does the other user still has access?
-      <div class="image main"><img src="images/Backdoor/13.jpg" alt="" /></div>
-      Nop, as soon as i typed ls he just kicked me and i returned to the previous user.
+        That will output the file we wanted from memory that was previously deleted, i tried to show a bit of the
+        output, it's much bigger then what i can show u can use (| less) to view the output of a command or file one
+        page
+        at a time. It provides scrolling and searching capabilities for easier reading.
+        <div class="image main"><img src="images/Backdoor/11.jpg" alt="" /></div>
+        But how do we end the promiscuous file?!?! That is actually quite easy, you just need to find the PID of the
+        process, how do you find the PID process? You can find it by using (ps aux) or (lsof -i -P) in this case the PID
+        is 501, so we will just do (kill 501)
+        <div class="image main"><img src="images/Backdoor/12.jpg" alt="" /></div>
+        And it's dead, does the other user still has access?
+        <div class="image main"><img src="images/Backdoor/13.jpg" alt="" /></div>
+        Nop, as soon as i typed ls he just kicked me and i returned to the previous user.
 
-      <h2>Conclusion</h2>
-      By following these steps, the project demonstrates the existence of an unauthorized backdoor, its potential
-      persistence in memory even after file deletion, and the process of detecting, analyzing, and mitigating such
-      backdoors.
+        <h2>Conclusion</h2>
+        By following these steps, the project demonstrates the existence of an unauthorized backdoor, its potential
+        persistence in memory even after file deletion, and the process of detecting, analyzing, and mitigating such
+        backdoors.
 
-      </p>
-    </section>
-  </div>
-  <!-- Copyright -->
-  <div id="copyright">
-    <ul>
-      <li>
-        <h6>&copy;<a href="index.html">Main Page</h6>
-        </a>
-      </li>
-      <li>
-        <h6>&copy;<a href="https://yrtree.me/@Miguel%20Nogueira">Miguel Nogueira</h6>
-        </a>
-      </li>
+        </p>
+      </section>
+    </div>
+    <!-- Copyright -->
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6>&copy;<a href="index.html">Main Page</h6>
+          </a>
+        </li>
+        <li>
+          <h6>&copy;<a href="https://yrtree.me/@Miguel%20Nogueira">Miguel Nogueira</h6>
+          </a>
+        </li>
 
-    </ul>
-  </div>
-  </div>
+      </ul>
+    </div>
+    </div>
 
-  <!-- Scripts -->
-  <script src="assets/js/jquery.min.js"></script>
-  <script src="assets/js/jquery.scrollex.min.js"></script>
-  <script src="assets/js/jquery.scrolly.min.js"></script>
-  <script src="assets/js/browser.min.js"></script>
-  <script src="assets/js/breakpoints.min.js"></script>
-  <script src="assets/js/util.js"></script>
-  <script src="assets/js/main.js"></script>
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
 
-</body>
+  </body>
 
 </html>

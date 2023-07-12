@@ -18,99 +18,108 @@
 
 <body class="is-preload">
 
-  <!-- Main -->
-  <div id="main">
+  <body class="is-preload">
+    <header id="header">
+      <a href="https://datura54.github.io/" class="logo">Home Button</a>
+    </header>
+    <!-- Main -->
+    <div id="main">
 
-    <!-- Post -->
-    <section class="post">
-      <div class="image main"><img src="images/Volatility/volatility.jpg" alt="" /></div>
-      <header class="major">
-        <h2>Memory Dump Analysis and Malware Detection using Volatility
-        </h2>
+      <!-- Post -->
+      <section class="post">
+        <div class="image main"><img src="images/Volatility/volatility.jpg" alt="" /></div>
+        <header class="major">
+          <h2>Memory Dump Analysis and Malware Detection using Volatility
+          </h2>
 
-      </header>
-      <h2>Introduction</h2>
-      <p>In this project, the focus is on analyzing a memory dump of a compromised system using the Volatility tool. The
-        following steps are involved:
-
-
-      <p>Extract Volatility: Change the directory to "/mnt/c/IntroLabs/" and extract the Volatility files using the
-        command `tar xvfz ./volatility3-1.0.0.tar.gz`. Navigate to the "volatility3-1.0.0/" directory.</p>
-      <div class="image main"><img src="images/Volatility/1before1snap.jpg" alt="" /></div>
-      <div class="image main"><img src="images/Volatility/2after2snap.jpg" alt="" /></div>
-
-
-      <p>Analyze network connections: Run the command `python3 vol.py -f
-        /mnt/c/tools/volatility_2.6_win64_standalone/memdump.vmem windows.netscan` to examine the network connections in
-        the memory dump. Look for any suspicious connections, such as SMB (port 445) connections to internal systems.
-      </p>
-      <div class="image main"><img src="images/Volatility/1.jpg" alt="" /></div>
+        </header>
+        <h2>Introduction</h2>
+        <p>In this project, the focus is on analyzing a memory dump of a compromised system using the Volatility tool.
+          The
+          following steps are involved:
 
 
-      <p>Investigate processes: Use the command `python3 vol.py -f
-        /mnt/c/tools/volatility_2.6_win64_standalone/memdump.vmem windows.pslist` to view the list of processes in the
-        memory dump. Look for any unusual or suspicious processes, such as cmd.exe, which is not commonly seen in normal
-        user interactions.
-      <div class="image main"><img src="images/Volatility/2beforesnap.jpg" alt="" /></div>
-      ---snap---
-      <div class="image main"><img src="images/Volatility/2aftersnap.jpg" alt="" /></div>
+        <p>Extract Volatility: Change the directory to "/mnt/c/IntroLabs/" and extract the Volatility files using the
+          command `tar xvfz ./volatility3-1.0.0.tar.gz`. Navigate to the "volatility3-1.0.0/" directory.</p>
+        <div class="image main"><img src="images/Volatility/1before1snap.jpg" alt="" /></div>
+        <div class="image main"><img src="images/Volatility/2after2snap.jpg" alt="" /></div>
 
 
+        <p>Analyze network connections: Run the command `python3 vol.py -f
+          /mnt/c/tools/volatility_2.6_win64_standalone/memdump.vmem windows.netscan` to examine the network connections
+          in
+          the memory dump. Look for any suspicious connections, such as SMB (port 445) connections to internal systems.
+        </p>
+        <div class="image main"><img src="images/Volatility/1.jpg" alt="" /></div>
 
-      <p>Trace parent processes: Use the command `python3 vol.py -f
-        /mnt/c/tools/volatility_2.6_win64_standalone/memdump.vmem windows.pstree` to trace the parent processes of
-        suspicious processes. This can help create a timeline of actions on the system. Note the parent process of
-        TrustMe.exe and the invocation by Explorer.exe.</p>
-      <div class="image main"><img src="images/Volatility/3.jpg" alt="" /></div>
 
-      <p>Examine DLLs associated with a process: Use the command `python3 vol.py -f
-        /mnt/c/tools/volatility_2.6_win64_standalone/memdump.vmem dlllist --pid 5452` to view the DLLs associated with
-        the TrustMe.exe process. This provides insight into the modules loaded by the process and its command line
-        invocation.</p>
-      <div class="image main"><img src="images/Volatility/4.jpg" alt="" /></div>
-
-      <p>Detect suspicious activities with malfind: Run the command `python3 vol.py -f
-        /mnt/c/tools/volatility_2.6_win64_standalone/memdump.vmem windows.malfind.Malfind` to identify any suspicious
-        activities within the processes. Look for memory areas with execute, read, and write permissions simultaneously,
-        as this is uncommon and potentially indicative of malware.
-      <p></p>
-      <div class="image main"><img src="images/Volatility/5.jpg" alt="" /></div>
-
-      <h2>Conclusion</h2>
-      <p>By following these steps and analyzing the memory dump with Volatility, you can gain insights into network
-        connections, processes, parent processes, DLLs, and potentially detect suspicious activities or malware present
-        on the compromised system.</p>
-    </section>
-
-  </div>
+        <p>Investigate processes: Use the command `python3 vol.py -f
+          /mnt/c/tools/volatility_2.6_win64_standalone/memdump.vmem windows.pslist` to view the list of processes in the
+          memory dump. Look for any unusual or suspicious processes, such as cmd.exe, which is not commonly seen in
+          normal
+          user interactions.
+        <div class="image main"><img src="images/Volatility/2beforesnap.jpg" alt="" /></div>
+        ---snap---
+        <div class="image main"><img src="images/Volatility/2aftersnap.jpg" alt="" /></div>
 
 
 
-  <!-- Copyright -->
-  <div id="copyright">
-    <ul>
-      <li>
-        <h6>&copy;<a href="index.html">Main Page</h6>
-        </a>
-      </li>
-      <li>
-        <h6>&copy;<a href="https://yrtree.me/@Miguel%20Nogueira">Miguel Nogueira</h6>
-        </a>
-      </li>
+        <p>Trace parent processes: Use the command `python3 vol.py -f
+          /mnt/c/tools/volatility_2.6_win64_standalone/memdump.vmem windows.pstree` to trace the parent processes of
+          suspicious processes. This can help create a timeline of actions on the system. Note the parent process of
+          TrustMe.exe and the invocation by Explorer.exe.</p>
+        <div class="image main"><img src="images/Volatility/3.jpg" alt="" /></div>
 
-    </ul>
-  </div>
-  </div>
+        <p>Examine DLLs associated with a process: Use the command `python3 vol.py -f
+          /mnt/c/tools/volatility_2.6_win64_standalone/memdump.vmem dlllist --pid 5452` to view the DLLs associated with
+          the TrustMe.exe process. This provides insight into the modules loaded by the process and its command line
+          invocation.</p>
+        <div class="image main"><img src="images/Volatility/4.jpg" alt="" /></div>
 
-  <!-- Scripts -->
-  <script src="assets/js/jquery.min.js"></script>
-  <script src="assets/js/jquery.scrollex.min.js"></script>
-  <script src="assets/js/jquery.scrolly.min.js"></script>
-  <script src="assets/js/browser.min.js"></script>
-  <script src="assets/js/breakpoints.min.js"></script>
-  <script src="assets/js/util.js"></script>
-  <script src="assets/js/main.js"></script>
+        <p>Detect suspicious activities with malfind: Run the command `python3 vol.py -f
+          /mnt/c/tools/volatility_2.6_win64_standalone/memdump.vmem windows.malfind.Malfind` to identify any suspicious
+          activities within the processes. Look for memory areas with execute, read, and write permissions
+          simultaneously,
+          as this is uncommon and potentially indicative of malware.
+        <p></p>
+        <div class="image main"><img src="images/Volatility/5.jpg" alt="" /></div>
 
-</body>
+        <h2>Conclusion</h2>
+        <p>By following these steps and analyzing the memory dump with Volatility, you can gain insights into network
+          connections, processes, parent processes, DLLs, and potentially detect suspicious activities or malware
+          present
+          on the compromised system.</p>
+      </section>
+
+    </div>
+
+
+
+    <!-- Copyright -->
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6>&copy;<a href="index.html">Main Page</h6>
+          </a>
+        </li>
+        <li>
+          <h6>&copy;<a href="https://yrtree.me/@Miguel%20Nogueira">Miguel Nogueira</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+  </body>
 
 </html>

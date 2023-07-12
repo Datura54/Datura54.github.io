@@ -18,52 +18,61 @@
 
 <body class="is-preload">
 
-  <!-- Main -->
-  <div id="main">
+  <body class="is-preload">
+    <header id="header">
+      <a href="https://datura54.github.io/" class="logo">Home Button</a>
+    </header>
+    <!-- Main -->
+    <div id="main">
 
-    <!-- Post -->
-    <section class="post">
-      <header class="major">
-        <h2>Firewall Log Analysis</h2>
-      </header>
-      <h2>Introduction</h2>
-      <p>In this lab, we will be analyzing ASA logs to extract valuable information. The initial logs are messy and
-        contain irrelevant data, so we'll use various commands to filter and organize the data. The goal is to identify
-        connections of interest and patterns within the logs.
+      <!-- Post -->
+      <section class="post">
+        <header class="major">
+          <h2>Firewall Log Analysis</h2>
+        </header>
+        <h2>Introduction</h2>
+        <p>In this lab, we will be analyzing ASA logs to extract valuable information. The initial logs are messy and
+          contain irrelevant data, so we'll use various commands to filter and organize the data. The goal is to
+          identify
+          connections of interest and patterns within the logs.
 
-      <p>Here are the steps we'll follow:
+        <p>Here are the steps we'll follow:
 
-        Open the log file using the "less" command: less ASA-syslogs.txt.</p>
-      <div class="image main"><img src="images/FirewallLogs/1.jpg" alt="" /></div>
+          Open the log file using the "less" command: less ASA-syslogs.txt.</p>
+        <div class="image main"><img src="images/FirewallLogs/1.jpg" alt="" /></div>
 
-      Remove irrelevant data by filtering logs related to the IP address 192.168.1.6 and excluding logs with the IP
-      address 24.230.56.6:<p> grep 192.168.1.6 ASA-syslogs.txt | grep -v 24.230.56.6 | less.</p>
-      <div class="image main"><img src="images/FirewallLogs/2.jpg" alt="" /></div>
+        Remove irrelevant data by filtering logs related to the IP address 192.168.1.6 and excluding logs with the IP
+        address 24.230.56.6:<p> grep 192.168.1.6 ASA-syslogs.txt | grep -v 24.230.56.6 | less.</p>
+        <div class="image main"><img src="images/FirewallLogs/2.jpg" alt="" /></div>
 
-      Further refine the data by focusing on closed connections (FIN) and extracting specific fields. Use the "cut"
-      command with space as the delimiter:<p> grep 192.168.1.6 ASA-syslogs.txt | grep -v 24.230.56.6 | grep FIN | cut -d
-        '
-        ' -f 1,3,4,5,7,8,9,10,11,12,13,14.</p>
-      <div class="image main"><img src="images/FirewallLogs/3.jpg" alt="" /></div>
+        Further refine the data by focusing on closed connections (FIN) and extracting specific fields. Use the "cut"
+        command with space as the delimiter:<p> grep 192.168.1.6 ASA-syslogs.txt | grep -v 24.230.56.6 | grep FIN | cut
+          -d
+          '
+          ' -f 1,3,4,5,7,8,9,10,11,12,13,14.</p>
+        <div class="image main"><img src="images/FirewallLogs/3.jpg" alt="" /></div>
 
-      Analyze the connections made from the IP address 13.107.237.38 by filtering the data:<p> grep 192.168.1.6
-        ASA-syslogs.txt | grep -v 24.230.56.6 | grep FIN | grep 13.107.237.38 | cut -d ' ' -f
-        1,3,4,5,7,8,9,10,11,12,13,14.</p>
-      <div class="image main"><img src="images/FirewallLogs/4.jpg" alt="" /></div>
+        Analyze the connections made from the IP address 13.107.237.38 by filtering the data:<p> grep 192.168.1.6
+          ASA-syslogs.txt | grep -v 24.230.56.6 | grep FIN | grep 13.107.237.38 | cut -d ' ' -f
+          1,3,4,5,7,8,9,10,11,12,13,14.</p>
+        <div class="image main"><img src="images/FirewallLogs/4.jpg" alt="" /></div>
 
-      Repeat the analysis for the IP address 18.160.185.174: <p>grep 192.168.1.6 ASA-syslogs.txt | grep -v 24.230.56.6 |
-        grep FIN | grep 18.160.185.174 | cut -d ' ' -f 1,3,4,5,7,8,9,10,11,12,13,14.</p>
-      <div class="image main"><img src="images/FirewallLogs/5.jpg" alt="" /></div>
+        Repeat the analysis for the IP address 18.160.185.174: <p>grep 192.168.1.6 ASA-syslogs.txt | grep -v 24.230.56.6
+          |
+          grep FIN | grep 18.160.185.174 | cut -d ' ' -f 1,3,4,5,7,8,9,10,11,12,13,14.</p>
+        <div class="image main"><img src="images/FirewallLogs/5.jpg" alt="" /></div>
 
-      Focus specifically on the bytes transferred per connection for the IP address 18.160.185.174: <p>grep 192.168.1.6
-        ASA-syslogs.txt | grep -v 24.230.56.6 | grep FIN | grep 18.160.185.174 | cut -d ' ' -f 14.</p>
-      <div class="image main"><img src="images/FirewallLogs/6.jpg" alt="" /></div>
+        Focus specifically on the bytes transferred per connection for the IP address 18.160.185.174: <p>grep
+          192.168.1.6
+          ASA-syslogs.txt | grep -v 24.230.56.6 | grep FIN | grep 18.160.185.174 | cut -d ' ' -f 14.</p>
+        <div class="image main"><img src="images/FirewallLogs/6.jpg" alt="" /></div>
 
-      Calculate statistics for the bytes transferred using a script. Pipe the data to Rscript and run the calculations:
-      <p>
-        grep 192.168.1.6 ASA-syslogs.txt | grep -v 24.230.56.6 | grep FIN | grep 18.160.185.174 | cut -d ' ' -f 8,14 |
-        tr
-        : ' ' | tr / ' ' | cut -d ' ' -f 4 | Rscript -e 'y <-scan("stdin", quiet=TRUE)' -e 'cat(min(y), max(y), mean(y), sd(y), var(y), sep="\n")</p>. <div class="image main"><img
+        Calculate statistics for the bytes transferred using a script. Pipe the data to Rscript and run the
+        calculations:
+        <p>
+          grep 192.168.1.6 ASA-syslogs.txt | grep -v 24.230.56.6 | grep FIN | grep 18.160.185.174 | cut -d ' ' -f 8,14 |
+          tr
+          : ' ' | tr / ' ' | cut -d ' ' -f 4 | Rscript -e 'y <-scan("stdin", quiet=TRUE)' -e 'cat(min(y), max(y), mean(y), sd(y), var(y), sep="\n")</p>. <div class="image main"><img
               src="images/FirewallLogs/7.jpg" alt="" />
           </div>
 

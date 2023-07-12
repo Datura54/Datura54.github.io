@@ -18,488 +18,492 @@
 
 <body class="is-preload">
 
-  <!-- Main -->
-  <div id="main">
+  <body class="is-preload">
+    <header id="header">
+      <a href="https://datura54.github.io/" class="logo">Home Button</a>
+    </header>
+    <!-- Main -->
+    <div id="main">
 
-    <!-- Post -->
-    <section class="post">
+      <!-- Post -->
+      <section class="post">
 
-      <header class="major">
-        <h2>MISP</h2>
-      </header>
+        <header class="major">
+          <h2>MISP</h2>
+        </header>
 
 
-      <h2>Objective</h2>
-      <p> </p>
-      <p> • Understand the role of the Threat Intelligence Platform in a SOC</p>
-      <p> </p>
-      <p> • Use the MISP Threat Intelligence Platform to ingest threat data</p>
-      <p> </p>
-      <p> • Create a MISP event with information from an open-source report</p>
-      <p> </p>
-      <p> • Push information from a MISP event to TheHive for Triage</p>
-      <p> </p>
-      <p>
-      <h5>1. Log in to MISP and explore events</h5>
-      </p>
-      <p> Firstly we will login into MISP</p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/9-1.png"><img src="images/8-1.png"
-            alt="images/8-1.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> After logging in, you will be taken to the main &quot;Events&quot; list in MISP - the catalog of all
-        information
-        that has been entered. Each row of this display is an &quot;Event&quot; in MISP - a separate piece of
-        information
-        about a specific happening or incident.</p>
-      <p> </p>
-      <p> This MISP instance contains real threat data pre-populated by having MISP subscribe to the CIRCL OSINT
-        feed. All
-        of this information was categorized by the CIRCL group and distributed out to anyone who subscribes to it
-        via MISP
-        (MISP is designed for sharing threat intelligence in this manner).</p>
-      <p> </p>
-      <p> <span class="image fit"><img src="images/8-2.png" alt="" /></span>
-      </p>
-      <p> </p>
-      <p> Notice each event is heavily tagged for categorization and context, things like the source of the data,
-        stages
-        of an attack, and attribution are all used as tags in MISP. Each event also has its own unique ID number in
-        the id
-        column, a number of individual &quot;attributes&quot; (atomic indicators or notes) associated with it which
-        shows
-        in under the &quot;#Attr&quot; column, and the &quot;date&quot; and an &quot;Info&quot; summary of the event
-        is
-        also included in this view. There are 1200+ MISP events already entered from this feed to give you an idea
-        of what
-        a full threat intelligence platform can look like!</p>
-      <p> </p>
-      <p> We&#39;re going to do a demonstration of the workflow for searching past events, and entering a new event
-        of our
-        own. The point is to get an idea of what a threat intelligence team will be doing, and how their workflow
-        intersects with your own.</p>
-      <p> </p>
-      <p> We will:</p>
-      <p> </p>
-      <p> • Use our threat intelligence platform (MISP) to search for indicators from past events and OSINT sources
-        that
-        were downloaded from a partner organization (the CIRCL threat feed)</p>
-      <p> </p>
-      <p> • Enter information from an OSINT attack report into a new MISP event</p>
-      <p> </p>
-      <p> • Push our new event to the IMS (TheHive) so that it can be triaged by SOC analysts</p>
-      <p> </p>
-      <p> • Create a new case in the IMS (TheHive), and push it back to MISP so that threat intelligence analysts
-        will
-        know what has actually been seen in the environment</p>
-      <p> </p>
-      <p> </p>
-      <p>
-      <h6> INFO</h6>
-      </p>
-      <p> We will focus on sending information in both directions from TIP to IMS, and IMS back to the TIP, because
-        a
-        closed loop of threat intelligence feeding investigation, and investigation feeding information back to the
-        threat
-        intelligence team is ESSENTIAL for successful security operations!</p>
-      <p> </p>
-      <p> </p>
-      <p>
-      <h5>2. Use the Threat Intelligence Platform to find previously categorized indicators</h5>
-      </p>
-      <p> </p>
-      <p> Let&#39;s set the scene: Suppose at work one day you receive an alert from your IDS that says a user on
-        your
-        network connected to a known-malicious IP address:</p>
-      <p> </p>
-      <p> 141.105.71.116</p>
-      <p> </p>
-      <p> Unfortunately the IP was on a list of IP addresses from a vendor tool that did not explain why it was bad
-        or
-        what type of attack it was connected to. Good thing we have a well-categorized set of threat intelligence,
-        let&#39;s check in MISP to see if anything is known about this IP address.</p>
-      <p> </p>
-      <p> To search for this IP in MISP, make sure the MISP tab is active in your browser window, enter the IP
-        address
-        into the filter box on the upper-right side of the event list and press Enter or select the
-        &quot;Filter&quot;
-        button.</p>
-      <p> </p>
-      <p> <span class="image fit"><img src="images/8-3.png" alt="" /></span>
-      </p>
-      <p> </p>
-      <p> Since the IP appears in only one event, MISP will automatically take you to the relevant event page.</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/9-4.png"><img src="images/8-4.png"
-            alt="images/8-4.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> </p>
-      <p> Uh oh! It appears this IP address may be associated with the ShadowHammer APT campaign! Reading on, it
-        appears
-        this campaign, discovered in March 2019, involved a supply-chain from computer manufacturer ASUS. Attackers
-        had
-        compromised ASUS servers and pushed out a backdoor system update to ASUS customers in an attempt to target
-        specific unknown individuals. Scroll down in MISP to see additional detail on this event.</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/9-5.png"><img src="images/8-5.png"
-            alt="images/8-5.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> From looking at this event, it appears the C2 channel for the backdoor was asushotfix[.]com and
-        141.105.71.116
-        was the IP address the domain resolved to at the time. Going to VirusTotal and searching the IP address can
-        confirm this and also gives a potential way to time-scope the potential problem:</p>
-      <p> </p>
-      <p> <span class="image fit"><img src="images/8-6.png" alt="" /></span>
-      </p>
-      <p> </p>
-      <p> This means a device in your network may have been compromised and of interest to the ShadowHammer
-        perpetrators!
-        The information from VirusTotal also tells us that we should probably search for all IP traffic back to at
-        least
-        2018-09-06 when the domain was known to point to that address.</p>
-      <p> </p>
-      <p>
-      <h6>NOTE</h6>
-      </p>
-      <p> Notice having this information (which was automatically imported from a threat intelligence feed) allowed
-        us to
-        pivot directly from an IP address to a well-established attack, complete with domains, filenames, motivation
-        and
-        attribution of the attack! This is kind of quick information that external threat intelligence from outside
-        the
-        organization should facilitate on a regular basis.</p>
-      <p> </p>
-      <p> </p>
-      <p> While taking in information from automated sources is a great way to automatically gather threat data,
-        sometimes
-        we must create the entries ourselves or enter them from our own data. That is what we will do in the next
-        step.
-      </p>
-      <p> </p>
-      <p>
-      <h5> 3. Publish an alert to the threat intelligence platform</h5>
-      </p>
-      <p> </p>
-      <p> What if we hadn&#39;t automatically received the ShadowHammer information through an automated feed and
-        wanted
-        to create the event in MISP for ourselves? Let&#39;s walk through the steps it would take to import the data
-        into
-        a new event.</p>
-      <p> </p>
-      <p> To start creating a new event, click the Add Event button on the left side of the screen.</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/9-7.png"><img src="images/8-7.png"
-            alt="images/8-7.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> This will bring you to a new window where you can enter the initial details about the new event.</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/9-8.png"><img src="images/8-8.png"
-            alt="images/8-8.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> On this new screen the Date and Distribution can stay the same, but fill in the following details:</p>
-      <p> </p>
-      <p> Threat Level: High</p>
-      <p> Analysis: Ongoing</p>
-      <p> Event Info: ShadowHammer Campaign</p>
-      <p> </p>
-      <p> Then hit the Add button to create the event. This will bring you to the blank new event.</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/9-9.png"><img src="images/8-9.png"
-            alt="images/8-9.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> On the new event screen, scroll down to the bottom of the page.</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/9-10.png"><img src="images/8-10.png"
-            alt="images/8-10.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> There are no details for the event yet, so now we must add the IOCs (&quot;attributes&quot; as MISP calls
-        them)
-        from the attack. There are multiple ways to accomplish this in MISP, but the easiest for use will be to use
-        the
-        &quot;Freetext Import Tool&quot;. Click on the button as shown in the picture above and a new empty box will
-        appear.</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/9-11.png"><img src="images/8-11.png"
-            alt="images/8-11.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> </p>
-      <p> Using the Kaspersky article that the attack announcement originally came from (located <a
-          href="https://securelist.com/operation-shadowhammer/89992/">https://securelist.com/operation-shadowhammer/89992/</a>)
-        we can extract the following attributes of interest from the bottom of the page.</p>
-      <p> </p>
-      <p> </p>
-      <p> asushotfix[.]com</p>
-      <p> 141.105.71[.]116</p>
-      <p> http://liveupdate01.asus[.]com/pub/ASUS/nb/Apps_for_Win8/LiveUpdate/Liveupdate_Test_VER365.zip</p>
-      <p> https://liveupdate01s.asus[.]com/pub/ASUS/nb/Apps_for_Win8/LiveUpdate/Liveupdate_Test_VER362.zip</p>
-      <p> https://liveupdate01s.asus[.]com/pub/ASUS/nb/Apps_for_Win8/LiveUpdate/Liveupdate_Test_VER360.zip</p>
-      <p> https://liveupdate01s.asus[.]com/pub/ASUS/nb/Apps_for_Win8/LiveUpdate/Liveupdate_Test_VER359.zip</p>
-      <p> aa15eb28292321b586c27d8401703494</p>
-      <p> bebb16193e4b80f4bc053e4fa818aa4e2832885392469cd5b8ace5cec7e4ca19</p>
-      <p> </p>
-      <p> </p>
-      <p> These are the minimum details we would want to take from the article. Since threat intelligence platforms
-        often
-        feed SIEM watch lists for threat data matching, putting these IOCs in MISP would ideally cause any sighting
-        of
-        them in the environment to raise an alert from that moment on. Take the indicator list and paste it into the
-        Freetext Import Tool box and hit &quot;Submit&quot;.</p>
-      <p> </p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/9-12.png"><img src="images/8-12.png"
-            alt="images/8-12.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> </p>
-      <p> Freetext import is usually the easiest way to import indicators in any tool that supports it since it
-        requires
-        the minimum amount of work on the part of the analysts. There&#39;s nothing worse than having a tool that
-        requires
-        one at a time IOC entry when you have a large list of indicators. Fortunately MISP takes care of this for us
-        and
-        also automatically detects each attribute&#39;s data type! The next screen shows what MISP has detected.</p>
-      <p> </p>
-      <p> </p>
-      <p> <span class="image fit"><img src="images/8-13.png" alt="" /></span>
-      </p>
-      <p> </p>
-      <p> </p>
-      <p> Notice that MISP has successfully determined a category and data type for each line of our freetext
-        import,
-        wonderful, no manual entry! Not only that, but it has also already started to correlate these indicators
-        with
-        previous events. Notice the &quot;Similar Attributes&quot; column shows that MISP Event ID 110 has these
-        same
-        indicators - it is telling us we&#39;ve already seen these indicators before! In this case, this is because
-        of the
-        ShadowHammer event we already have present in the system. In day to day data entry however, it&#39;s a great
-        feature to know that at the time of import, you already have that attribute in a different event, giving you
-        the
-        extra context.</p>
-      <p> </p>
-      <p> Since everything is correct, press the &quot;Submit attributes&quot; button to create the new items in the
-        event. You will be taken back to the event page where it will tell you your freetext import submission is
-        being
-        processed in the background, and will be available in the event shortly.</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/9-14.png"><img src="images/8-14.png"
-            alt="images/8-14.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> After 10 seconds or so, press the refresh page button in Firefox and then scroll down to the bottom of the
-        event
-        window. You should now see all your entered attributes faithfully recorded into the event! Notice still
-        points out
-        that event 110 is relevant to each data item, and even took care to properly format the attributes even
-        though
-        they were entered in &quot;de-fanged&quot; format - another nice touch!</p>
-      <p> </p>
-      <p> <span class="image fit"><img src="images/8-15.png" alt="" /></span>
-      </p>
-      <p> </p>
-      <p> To see the correlated events in a visual graph, scroll to the top of the page and select the View
-        Correlation
-        Graph option.</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/9-16.png"><img src="images/8-16.png"
-            alt="images/8-16.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> This brings up a graph that will look something like this (note that these icons were rearranged for
-        clarity,
-        your graph may look different):</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/9-17.png"><img src="images/8-17.png"
-            alt="images/8-17.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> </p>
-      <p> Notice the two numbered events on the top and bottom, each of which are connected in the middle by an
-        attribute.
-        Since these two events are actually identical, every single attribute matches in this case. On large events
-        with
-        many attributes that are in common with multiple other events, this view can get hard to interpret, which is
-        why
-        it is sometimes easier to read this directly off each line in the attribute list.</p>
-      <p> </p>
-      <p> Return to the previous window by scrolling to the top of the screen and selecting &quot;View Event&quot;.
-      </p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/9-18.png"><img src="images/8-18.png"
-            alt="images/8-18.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> </p>
-      <p>
-      <h5>4. Push your MISP event into TheHive</h5>
-      </p>
-      <p> </p>
-      <p> Now that we&#39;ve created our event in MISP, let&#39;s connect it to the incident management platform.
-      </p>
-      <p> </p>
-      <p> TheHive and MISP specifically work quite well together and the integration between them is rather simple.
-        It can
-        work in two ways, first, events in MISP can be pushed into TheHive and will become new alerts to be triaged
-        in the
-        alert tab. Second, cases can be pushed from TheHive back into MISP to become new events. In this step,
-        we&#39;ll
-        get a look at how this works.</p>
-      <p> </p>
-      <p> In the virtual machine, the link between MISP and TheHive functions as follows: Once per minute, TheHive
-        will
-        poll MISP and look for any new events that have had the tag &quot;thehive&quot; applied to them and in the
-        &quot;published&quot; state. When such an event is found, all the details will be pulled into MISP into the
-        event
-        tab.</p>
-      <p> </p>
-      <p> Let&#39;s add the tag &quot;thehive&quot; to our newly created event and see this process in action. Keep
-        in
-        mind that much of what we&#39;ve done so far, may be a task your threat intelligence team is doing. Once the
-        event
-        is sent to TheHive as an alert, this is when SOC analysts would typically take over.</p>
-      <p> </p>
-      <p> Scroll to the top of your new event in MISP and locate the Tags section and press the &quot;+&quot;
-        button.</p>
-      <p> </p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/9-19.png"><img src="images/8-19.png"
-            alt="images/8-19.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> </p>
-      <p> This will cause the &quot;Add a tag&quot; window to appear. Select the &quot;All Tags&quot; button then
-        type
-        &quot;thehive&quot; into the box, which should auto-populate the yellow tag. Select it then press the submit
-        button. You should now see the tag appear in the event.</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/9-20.png"><img src="images/8-20.png"
-            alt="images/8-20.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> </p>
-      <p> Next we must &quot;publish&quot; the event before it will be picked up by TheHive. &quot;Publishing&quot;
-        is a
-        designation MISP uses to show that a given event is finalized and ready to be seen by others and the wider
-        the
-        community you share with.</p>
-      <p> </p>
-      <p> Select the &quot;Publish Event&quot; option in the sidebar on the left and select &quot;Yes&quot; to
-        publish the
-        event.</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/9-21.png"><img src="images/8-21.png"
-            alt="images/8-21.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> Afterwards the publishing event is queued up for MISP. After a few moments hit the refresh button in the
-        browser
-        and the red bar will disappear because the event is now &quot;published&quot;. Congratulations, we&#39;ve
-        created
-        our published event in MISP and sent it to TheHive for triage!</p>
-      <p> </p>
-      <p> The next step may take a minute or so to complete since TheHive only polls once every 60 seconds for new
-        events.
-        While you wait, switch tabs in your browser back to TheHive.</p>
-      <p> </p>
-      <p> Once back in TheHive you should see the alert count increment in the top bar.</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/9-22.png"><img src="images/8-22.png"
-            alt="images/8-22.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> </p>
-      <p> Click on the Alert tab to bring up the new alert sent from MISP.</p>
-      <p> </p>
-      <p> </p>
-      <p> <span class="image fit"><img src="images/8-23.png" alt="" /></span>
-      </p>
-      <p> </p>
-      <p> This is the alerts pane for TheHive, and there is the alert we sent from MISP. Notice the reference number
-        on
-        the left corresponds to the event ID in MISP, the title is the same as the event we made, the source system
-        is
-        noted, and the tags on the event traveled with the event.</p>
-      <p> </p>
-      <p> To get more detail, select the icon that looks like a piece of paper at the end of the line. This brings
-        up the
-        Alert Preview screen - the screen you can use to see the detail on an alert and decide if it should be
-        dropped as
-        a false positive or accepted as a new case.</p>
-      <p> </p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/9-24.png"><img src="images/8-24.png"
-            alt="images/8-24.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> </p>
-      <p> Notice that TheHive automatically imports all the attributes entered in MISP as attributes, a very useful
-        feature for reducing manual effort. To accept this alert as a case, scroll to the bottom of the Alert
-        Preview page
-        and select &quot;Yes, Import&quot;.</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/9-25.png"><img src="images/8-25.png"
-            alt="images/8-25.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> This will bring in the alert as a new case and leaves us where our last lab started - with a new case
-        ready to
-        be worked with observables already imported!</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/9-26.png"><img src="images/8-26.png"
-            alt="images/8-26.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> </p>
-      <p> If we had applied a &quot;case template&quot; at this point with the previous drop down box, the new case
-        would
-        be filled with tasks to complete and we would be ready to pick it up and run with it!</p>
-      <p> </p>
-      <p> </p>
-      <p>
-      <h5>Conclusion</h5>
-      </p>
-      <p> </p>
-      <p> In this lab we saw the workflow for a threat intelligence program, created a new event inside it from
-        OSINT
-        data, and moved a threat intelligence event into an alert into our incident management system&#39;s alert
-        queue.
-        We also pointed out some of the everyday conveniences that should be present to make using these tools easy.
-        Features like freetext import, auto-categorization of attribute types, and preservation of those items as
-        the data
-        moves from tool to tool seem small, but in a workflow you will use multiple times a day for years, the
-        absence of
-        these small items can be a big downer.</p>
-      <p> </p>
-      <p>
-      <h6>In this lab, we have:</h6>
-      </p>
-      <p> </p>
-      <p> • Seen how threat intel platforms store and correlate data</p>
-      <p> </p>
-      <p> • Created a new entry in a threat intelligence platform</p>
-      <p> </p>
-      <p> • Pushed the new event into an incident management system alert queue</p>
-      <p> </p>
-      <p> • Accepted the alert into a new incident (a case in TheHive) for investigation</p>
-  </div>
-  </div>
+        <h2>Objective</h2>
+        <p> </p>
+        <p> • Understand the role of the Threat Intelligence Platform in a SOC</p>
+        <p> </p>
+        <p> • Use the MISP Threat Intelligence Platform to ingest threat data</p>
+        <p> </p>
+        <p> • Create a MISP event with information from an open-source report</p>
+        <p> </p>
+        <p> • Push information from a MISP event to TheHive for Triage</p>
+        <p> </p>
+        <p>
+        <h5>1. Log in to MISP and explore events</h5>
+        </p>
+        <p> Firstly we will login into MISP</p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/9-1.png"><img src="images/8-1.png"
+              alt="images/8-1.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> After logging in, you will be taken to the main &quot;Events&quot; list in MISP - the catalog of all
+          information
+          that has been entered. Each row of this display is an &quot;Event&quot; in MISP - a separate piece of
+          information
+          about a specific happening or incident.</p>
+        <p> </p>
+        <p> This MISP instance contains real threat data pre-populated by having MISP subscribe to the CIRCL OSINT
+          feed. All
+          of this information was categorized by the CIRCL group and distributed out to anyone who subscribes to it
+          via MISP
+          (MISP is designed for sharing threat intelligence in this manner).</p>
+        <p> </p>
+        <p> <span class="image fit"><img src="images/8-2.png" alt="" /></span>
+        </p>
+        <p> </p>
+        <p> Notice each event is heavily tagged for categorization and context, things like the source of the data,
+          stages
+          of an attack, and attribution are all used as tags in MISP. Each event also has its own unique ID number in
+          the id
+          column, a number of individual &quot;attributes&quot; (atomic indicators or notes) associated with it which
+          shows
+          in under the &quot;#Attr&quot; column, and the &quot;date&quot; and an &quot;Info&quot; summary of the event
+          is
+          also included in this view. There are 1200+ MISP events already entered from this feed to give you an idea
+          of what
+          a full threat intelligence platform can look like!</p>
+        <p> </p>
+        <p> We&#39;re going to do a demonstration of the workflow for searching past events, and entering a new event
+          of our
+          own. The point is to get an idea of what a threat intelligence team will be doing, and how their workflow
+          intersects with your own.</p>
+        <p> </p>
+        <p> We will:</p>
+        <p> </p>
+        <p> • Use our threat intelligence platform (MISP) to search for indicators from past events and OSINT sources
+          that
+          were downloaded from a partner organization (the CIRCL threat feed)</p>
+        <p> </p>
+        <p> • Enter information from an OSINT attack report into a new MISP event</p>
+        <p> </p>
+        <p> • Push our new event to the IMS (TheHive) so that it can be triaged by SOC analysts</p>
+        <p> </p>
+        <p> • Create a new case in the IMS (TheHive), and push it back to MISP so that threat intelligence analysts
+          will
+          know what has actually been seen in the environment</p>
+        <p> </p>
+        <p> </p>
+        <p>
+        <h6> INFO</h6>
+        </p>
+        <p> We will focus on sending information in both directions from TIP to IMS, and IMS back to the TIP, because
+          a
+          closed loop of threat intelligence feeding investigation, and investigation feeding information back to the
+          threat
+          intelligence team is ESSENTIAL for successful security operations!</p>
+        <p> </p>
+        <p> </p>
+        <p>
+        <h5>2. Use the Threat Intelligence Platform to find previously categorized indicators</h5>
+        </p>
+        <p> </p>
+        <p> Let&#39;s set the scene: Suppose at work one day you receive an alert from your IDS that says a user on
+          your
+          network connected to a known-malicious IP address:</p>
+        <p> </p>
+        <p> 141.105.71.116</p>
+        <p> </p>
+        <p> Unfortunately the IP was on a list of IP addresses from a vendor tool that did not explain why it was bad
+          or
+          what type of attack it was connected to. Good thing we have a well-categorized set of threat intelligence,
+          let&#39;s check in MISP to see if anything is known about this IP address.</p>
+        <p> </p>
+        <p> To search for this IP in MISP, make sure the MISP tab is active in your browser window, enter the IP
+          address
+          into the filter box on the upper-right side of the event list and press Enter or select the
+          &quot;Filter&quot;
+          button.</p>
+        <p> </p>
+        <p> <span class="image fit"><img src="images/8-3.png" alt="" /></span>
+        </p>
+        <p> </p>
+        <p> Since the IP appears in only one event, MISP will automatically take you to the relevant event page.</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/9-4.png"><img src="images/8-4.png"
+              alt="images/8-4.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> </p>
+        <p> Uh oh! It appears this IP address may be associated with the ShadowHammer APT campaign! Reading on, it
+          appears
+          this campaign, discovered in March 2019, involved a supply-chain from computer manufacturer ASUS. Attackers
+          had
+          compromised ASUS servers and pushed out a backdoor system update to ASUS customers in an attempt to target
+          specific unknown individuals. Scroll down in MISP to see additional detail on this event.</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/9-5.png"><img src="images/8-5.png"
+              alt="images/8-5.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> From looking at this event, it appears the C2 channel for the backdoor was asushotfix[.]com and
+          141.105.71.116
+          was the IP address the domain resolved to at the time. Going to VirusTotal and searching the IP address can
+          confirm this and also gives a potential way to time-scope the potential problem:</p>
+        <p> </p>
+        <p> <span class="image fit"><img src="images/8-6.png" alt="" /></span>
+        </p>
+        <p> </p>
+        <p> This means a device in your network may have been compromised and of interest to the ShadowHammer
+          perpetrators!
+          The information from VirusTotal also tells us that we should probably search for all IP traffic back to at
+          least
+          2018-09-06 when the domain was known to point to that address.</p>
+        <p> </p>
+        <p>
+        <h6>NOTE</h6>
+        </p>
+        <p> Notice having this information (which was automatically imported from a threat intelligence feed) allowed
+          us to
+          pivot directly from an IP address to a well-established attack, complete with domains, filenames, motivation
+          and
+          attribution of the attack! This is kind of quick information that external threat intelligence from outside
+          the
+          organization should facilitate on a regular basis.</p>
+        <p> </p>
+        <p> </p>
+        <p> While taking in information from automated sources is a great way to automatically gather threat data,
+          sometimes
+          we must create the entries ourselves or enter them from our own data. That is what we will do in the next
+          step.
+        </p>
+        <p> </p>
+        <p>
+        <h5> 3. Publish an alert to the threat intelligence platform</h5>
+        </p>
+        <p> </p>
+        <p> What if we hadn&#39;t automatically received the ShadowHammer information through an automated feed and
+          wanted
+          to create the event in MISP for ourselves? Let&#39;s walk through the steps it would take to import the data
+          into
+          a new event.</p>
+        <p> </p>
+        <p> To start creating a new event, click the Add Event button on the left side of the screen.</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/9-7.png"><img src="images/8-7.png"
+              alt="images/8-7.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> This will bring you to a new window where you can enter the initial details about the new event.</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/9-8.png"><img src="images/8-8.png"
+              alt="images/8-8.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> On this new screen the Date and Distribution can stay the same, but fill in the following details:</p>
+        <p> </p>
+        <p> Threat Level: High</p>
+        <p> Analysis: Ongoing</p>
+        <p> Event Info: ShadowHammer Campaign</p>
+        <p> </p>
+        <p> Then hit the Add button to create the event. This will bring you to the blank new event.</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/9-9.png"><img src="images/8-9.png"
+              alt="images/8-9.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> On the new event screen, scroll down to the bottom of the page.</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/9-10.png"><img src="images/8-10.png"
+              alt="images/8-10.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> There are no details for the event yet, so now we must add the IOCs (&quot;attributes&quot; as MISP calls
+          them)
+          from the attack. There are multiple ways to accomplish this in MISP, but the easiest for use will be to use
+          the
+          &quot;Freetext Import Tool&quot;. Click on the button as shown in the picture above and a new empty box will
+          appear.</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/9-11.png"><img src="images/8-11.png"
+              alt="images/8-11.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> </p>
+        <p> Using the Kaspersky article that the attack announcement originally came from (located <a
+            href="https://securelist.com/operation-shadowhammer/89992/">https://securelist.com/operation-shadowhammer/89992/</a>)
+          we can extract the following attributes of interest from the bottom of the page.</p>
+        <p> </p>
+        <p> </p>
+        <p> asushotfix[.]com</p>
+        <p> 141.105.71[.]116</p>
+        <p> http://liveupdate01.asus[.]com/pub/ASUS/nb/Apps_for_Win8/LiveUpdate/Liveupdate_Test_VER365.zip</p>
+        <p> https://liveupdate01s.asus[.]com/pub/ASUS/nb/Apps_for_Win8/LiveUpdate/Liveupdate_Test_VER362.zip</p>
+        <p> https://liveupdate01s.asus[.]com/pub/ASUS/nb/Apps_for_Win8/LiveUpdate/Liveupdate_Test_VER360.zip</p>
+        <p> https://liveupdate01s.asus[.]com/pub/ASUS/nb/Apps_for_Win8/LiveUpdate/Liveupdate_Test_VER359.zip</p>
+        <p> aa15eb28292321b586c27d8401703494</p>
+        <p> bebb16193e4b80f4bc053e4fa818aa4e2832885392469cd5b8ace5cec7e4ca19</p>
+        <p> </p>
+        <p> </p>
+        <p> These are the minimum details we would want to take from the article. Since threat intelligence platforms
+          often
+          feed SIEM watch lists for threat data matching, putting these IOCs in MISP would ideally cause any sighting
+          of
+          them in the environment to raise an alert from that moment on. Take the indicator list and paste it into the
+          Freetext Import Tool box and hit &quot;Submit&quot;.</p>
+        <p> </p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/9-12.png"><img src="images/8-12.png"
+              alt="images/8-12.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> </p>
+        <p> Freetext import is usually the easiest way to import indicators in any tool that supports it since it
+          requires
+          the minimum amount of work on the part of the analysts. There&#39;s nothing worse than having a tool that
+          requires
+          one at a time IOC entry when you have a large list of indicators. Fortunately MISP takes care of this for us
+          and
+          also automatically detects each attribute&#39;s data type! The next screen shows what MISP has detected.</p>
+        <p> </p>
+        <p> </p>
+        <p> <span class="image fit"><img src="images/8-13.png" alt="" /></span>
+        </p>
+        <p> </p>
+        <p> </p>
+        <p> Notice that MISP has successfully determined a category and data type for each line of our freetext
+          import,
+          wonderful, no manual entry! Not only that, but it has also already started to correlate these indicators
+          with
+          previous events. Notice the &quot;Similar Attributes&quot; column shows that MISP Event ID 110 has these
+          same
+          indicators - it is telling us we&#39;ve already seen these indicators before! In this case, this is because
+          of the
+          ShadowHammer event we already have present in the system. In day to day data entry however, it&#39;s a great
+          feature to know that at the time of import, you already have that attribute in a different event, giving you
+          the
+          extra context.</p>
+        <p> </p>
+        <p> Since everything is correct, press the &quot;Submit attributes&quot; button to create the new items in the
+          event. You will be taken back to the event page where it will tell you your freetext import submission is
+          being
+          processed in the background, and will be available in the event shortly.</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/9-14.png"><img src="images/8-14.png"
+              alt="images/8-14.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> After 10 seconds or so, press the refresh page button in Firefox and then scroll down to the bottom of the
+          event
+          window. You should now see all your entered attributes faithfully recorded into the event! Notice still
+          points out
+          that event 110 is relevant to each data item, and even took care to properly format the attributes even
+          though
+          they were entered in &quot;de-fanged&quot; format - another nice touch!</p>
+        <p> </p>
+        <p> <span class="image fit"><img src="images/8-15.png" alt="" /></span>
+        </p>
+        <p> </p>
+        <p> To see the correlated events in a visual graph, scroll to the top of the page and select the View
+          Correlation
+          Graph option.</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/9-16.png"><img src="images/8-16.png"
+              alt="images/8-16.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> This brings up a graph that will look something like this (note that these icons were rearranged for
+          clarity,
+          your graph may look different):</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/9-17.png"><img src="images/8-17.png"
+              alt="images/8-17.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> </p>
+        <p> Notice the two numbered events on the top and bottom, each of which are connected in the middle by an
+          attribute.
+          Since these two events are actually identical, every single attribute matches in this case. On large events
+          with
+          many attributes that are in common with multiple other events, this view can get hard to interpret, which is
+          why
+          it is sometimes easier to read this directly off each line in the attribute list.</p>
+        <p> </p>
+        <p> Return to the previous window by scrolling to the top of the screen and selecting &quot;View Event&quot;.
+        </p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/9-18.png"><img src="images/8-18.png"
+              alt="images/8-18.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> </p>
+        <p>
+        <h5>4. Push your MISP event into TheHive</h5>
+        </p>
+        <p> </p>
+        <p> Now that we&#39;ve created our event in MISP, let&#39;s connect it to the incident management platform.
+        </p>
+        <p> </p>
+        <p> TheHive and MISP specifically work quite well together and the integration between them is rather simple.
+          It can
+          work in two ways, first, events in MISP can be pushed into TheHive and will become new alerts to be triaged
+          in the
+          alert tab. Second, cases can be pushed from TheHive back into MISP to become new events. In this step,
+          we&#39;ll
+          get a look at how this works.</p>
+        <p> </p>
+        <p> In the virtual machine, the link between MISP and TheHive functions as follows: Once per minute, TheHive
+          will
+          poll MISP and look for any new events that have had the tag &quot;thehive&quot; applied to them and in the
+          &quot;published&quot; state. When such an event is found, all the details will be pulled into MISP into the
+          event
+          tab.</p>
+        <p> </p>
+        <p> Let&#39;s add the tag &quot;thehive&quot; to our newly created event and see this process in action. Keep
+          in
+          mind that much of what we&#39;ve done so far, may be a task your threat intelligence team is doing. Once the
+          event
+          is sent to TheHive as an alert, this is when SOC analysts would typically take over.</p>
+        <p> </p>
+        <p> Scroll to the top of your new event in MISP and locate the Tags section and press the &quot;+&quot;
+          button.</p>
+        <p> </p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/9-19.png"><img src="images/8-19.png"
+              alt="images/8-19.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> </p>
+        <p> This will cause the &quot;Add a tag&quot; window to appear. Select the &quot;All Tags&quot; button then
+          type
+          &quot;thehive&quot; into the box, which should auto-populate the yellow tag. Select it then press the submit
+          button. You should now see the tag appear in the event.</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/9-20.png"><img src="images/8-20.png"
+              alt="images/8-20.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> </p>
+        <p> Next we must &quot;publish&quot; the event before it will be picked up by TheHive. &quot;Publishing&quot;
+          is a
+          designation MISP uses to show that a given event is finalized and ready to be seen by others and the wider
+          the
+          community you share with.</p>
+        <p> </p>
+        <p> Select the &quot;Publish Event&quot; option in the sidebar on the left and select &quot;Yes&quot; to
+          publish the
+          event.</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/9-21.png"><img src="images/8-21.png"
+              alt="images/8-21.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> Afterwards the publishing event is queued up for MISP. After a few moments hit the refresh button in the
+          browser
+          and the red bar will disappear because the event is now &quot;published&quot;. Congratulations, we&#39;ve
+          created
+          our published event in MISP and sent it to TheHive for triage!</p>
+        <p> </p>
+        <p> The next step may take a minute or so to complete since TheHive only polls once every 60 seconds for new
+          events.
+          While you wait, switch tabs in your browser back to TheHive.</p>
+        <p> </p>
+        <p> Once back in TheHive you should see the alert count increment in the top bar.</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/9-22.png"><img src="images/8-22.png"
+              alt="images/8-22.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> </p>
+        <p> Click on the Alert tab to bring up the new alert sent from MISP.</p>
+        <p> </p>
+        <p> </p>
+        <p> <span class="image fit"><img src="images/8-23.png" alt="" /></span>
+        </p>
+        <p> </p>
+        <p> This is the alerts pane for TheHive, and there is the alert we sent from MISP. Notice the reference number
+          on
+          the left corresponds to the event ID in MISP, the title is the same as the event we made, the source system
+          is
+          noted, and the tags on the event traveled with the event.</p>
+        <p> </p>
+        <p> To get more detail, select the icon that looks like a piece of paper at the end of the line. This brings
+          up the
+          Alert Preview screen - the screen you can use to see the detail on an alert and decide if it should be
+          dropped as
+          a false positive or accepted as a new case.</p>
+        <p> </p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/9-24.png"><img src="images/8-24.png"
+              alt="images/8-24.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> </p>
+        <p> Notice that TheHive automatically imports all the attributes entered in MISP as attributes, a very useful
+          feature for reducing manual effort. To accept this alert as a case, scroll to the bottom of the Alert
+          Preview page
+          and select &quot;Yes, Import&quot;.</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/9-25.png"><img src="images/8-25.png"
+              alt="images/8-25.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> This will bring in the alert as a new case and leaves us where our last lab started - with a new case
+          ready to
+          be worked with observables already imported!</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/9-26.png"><img src="images/8-26.png"
+              alt="images/8-26.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> </p>
+        <p> If we had applied a &quot;case template&quot; at this point with the previous drop down box, the new case
+          would
+          be filled with tasks to complete and we would be ready to pick it up and run with it!</p>
+        <p> </p>
+        <p> </p>
+        <p>
+        <h5>Conclusion</h5>
+        </p>
+        <p> </p>
+        <p> In this lab we saw the workflow for a threat intelligence program, created a new event inside it from
+          OSINT
+          data, and moved a threat intelligence event into an alert into our incident management system&#39;s alert
+          queue.
+          We also pointed out some of the everyday conveniences that should be present to make using these tools easy.
+          Features like freetext import, auto-categorization of attribute types, and preservation of those items as
+          the data
+          moves from tool to tool seem small, but in a workflow you will use multiple times a day for years, the
+          absence of
+          these small items can be a big downer.</p>
+        <p> </p>
+        <p>
+        <h6>In this lab, we have:</h6>
+        </p>
+        <p> </p>
+        <p> • Seen how threat intel platforms store and correlate data</p>
+        <p> </p>
+        <p> • Created a new entry in a threat intelligence platform</p>
+        <p> </p>
+        <p> • Pushed the new event into an incident management system alert queue</p>
+        <p> </p>
+        <p> • Accepted the alert into a new incident (a case in TheHive) for investigation</p>
+    </div>
+    </div>
 
-  <!-- Scripts -->
-  <script src="assets/js/jquery.min.js"></script>
-  <script src="assets/js/jquery.scrollex.min.js"></script>
-  <script src="assets/js/jquery.scrolly.min.js"></script>
-  <script src="assets/js/browser.min.js"></script>
-  <script src="assets/js/breakpoints.min.js"></script>
-  <script src="assets/js/util.js"></script>
-  <script src="assets/js/main.js"></script>
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
 
-</body>
+  </body>
 
 </html>

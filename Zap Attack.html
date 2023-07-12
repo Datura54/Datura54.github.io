@@ -18,104 +18,108 @@
 
 <body class="is-preload">
 
-  <!-- Main -->
-  <div id="main">
+  <body class="is-preload">
+    <header id="header">
+      <a href="https://datura54.github.io/" class="logo">Home Button</a>
+    </header>
+    <!-- Main -->
+    <div id="main">
 
-    <!-- Post -->
-    <section class="post">
-
-
-      <header class="major">
-        <h2>ZAP Attack</h2>
-      </header>
-
-      <h2>Introduction</h2>
-      <p>In this lab we will be standing up a vulnerable web server called DVWA. It is designed from the ground up to
-        teach people about a number of web application attacks.
-
-        While a full intro to web attacks is out of the scope of this class, it is great to show you how to use tools
-        like ZAP to automatically look for some vulnerabilities, and to show you that automated tools do not always
-        catch everything.
-
-        Let's get started by opening a Terminal as Administrator
-        PS C:\Users\adhd> docker run --rm -it -p 80:80 vulnerables/web-dvwa
-      <div class="image main"><img src="images/ZAP/DVWA.jpg" alt="" /></div>
-
-      In another Command Prompt window run ipconfig and record your IP address. Remember, your IP address may be
-      different from mine.
-
-      C:\Users\adhd> ipconfig
-      <div class="image main"><img src="images/ZAP/IP.jpg" alt="" /></div>
+      <!-- Post -->
+      <section class="post">
 
 
-      Now, let's start ZAP.
+        <header class="major">
+          <h2>ZAP Attack</h2>
+        </header>
 
-      Now, let's insert your IP address from the ipconfig command above and start the scan.
+        <h2>Introduction</h2>
+        <p>In this lab we will be standing up a vulnerable web server called DVWA. It is designed from the ground up to
+          teach people about a number of web application attacks.
 
-      First, select the Automated Scan button:
+          While a full intro to web attacks is out of the scope of this class, it is great to show you how to use tools
+          like ZAP to automatically look for some vulnerabilities, and to show you that automated tools do not always
+          catch everything.
 
-      <div class="image main"><img src="images/ZAP/ZAPGUI.jpg" alt="" /></div>
+          Let's get started by opening a Terminal as Administrator
+          PS C:\Users\adhd> docker run --rm -it -p 80:80 vulnerables/web-dvwa
+        <div class="image main"><img src="images/ZAP/DVWA.jpg" alt="" /></div>
 
-      Then enter the URL of your Docker system. It will be in http:// syntax like below:
+        In another Command Prompt window run ipconfig and record your IP address. Remember, your IP address may be
+        different from mine.
 
-      <div class="image main"><img src="images/ZAP/ZAPIP.jpg" alt="" /></div>
+        C:\Users\adhd> ipconfig
+        <div class="image main"><img src="images/ZAP/IP.jpg" alt="" /></div>
 
-      Then select the Attack button:
 
-      This will start the scan. You should be able to see the scan activity in the lower part of ZAP.
+        Now, let's start ZAP.
 
-      <div class="image main"><img src="images/ZAP/attack.jpg" alt="" /></div>
+        Now, let's insert your IP address from the ipconfig command above and start the scan.
 
-      Now, let's go back to the Powershell window and see the logs:
+        First, select the Automated Scan button:
 
-      <div class="image main"><img src="images/ZAP/PowerShel.jpg" alt="" /></div>
+        <div class="image main"><img src="images/ZAP/ZAPGUI.jpg" alt="" /></div>
 
-      What are some things to look for?
+        Then enter the URL of your Docker system. It will be in http:// syntax like below:
 
-      First, notice the high number of requests from an IP address in a very, very short time.
+        <div class="image main"><img src="images/ZAP/ZAPIP.jpg" alt="" /></div>
 
-      Also, look for odd things like below:
+        Then select the Attack button:
 
-      <div class="image main"><img src="images/ZAP/SUS.jpg" alt="" /></div>
+        This will start the scan. You should be able to see the scan activity in the lower part of ZAP.
 
-      But what would qualify as odd? Let's think this through. First, look at timing. Notice how fast the connections
-      are comming in from a single IP. Also, notice how many of the same connections are going after the exact same
-      thing again and again. Now, lets look for odd encodings. Looking for characters like %. Finally. spend some time
-      getting to know what attacks look like at OWASP.
+        <div class="image main"><img src="images/ZAP/attack.jpg" alt="" /></div>
 
-      <h2>Conclusion</h2>
-      The key for any SOC analysts is to first learn what is normal log traffic from the apps we monitor. Then, slowly
-      we start attacking and seeing what the different attack patterns look like. There is no simple signature-based
-      detection approach that works for all applications. The security industry has been trying this for years with
-      various levels of success.
-      </p>
-    </section>
-  </div>
-  <!-- Copyright -->
-  <div id="copyright">
-    <ul>
-      <li>
-        <h6>&copy;<a href="index.html">Main Page</h6>
-        </a>
-      </li>
-      <li>
-        <h6>&copy;<a href="https://yrtree.me/@Miguel%20Nogueira">Miguel Nogueira</h6>
-        </a>
-      </li>
+        Now, let's go back to the Powershell window and see the logs:
 
-    </ul>
-  </div>
-  </div>
+        <div class="image main"><img src="images/ZAP/PowerShel.jpg" alt="" /></div>
 
-  <!-- Scripts -->
-  <script src="assets/js/jquery.min.js"></script>
-  <script src="assets/js/jquery.scrollex.min.js"></script>
-  <script src="assets/js/jquery.scrolly.min.js"></script>
-  <script src="assets/js/browser.min.js"></script>
-  <script src="assets/js/breakpoints.min.js"></script>
-  <script src="assets/js/util.js"></script>
-  <script src="assets/js/main.js"></script>
+        What are some things to look for?
 
-</body>
+        First, notice the high number of requests from an IP address in a very, very short time.
+
+        Also, look for odd things like below:
+
+        <div class="image main"><img src="images/ZAP/SUS.jpg" alt="" /></div>
+
+        But what would qualify as odd? Let's think this through. First, look at timing. Notice how fast the connections
+        are comming in from a single IP. Also, notice how many of the same connections are going after the exact same
+        thing again and again. Now, lets look for odd encodings. Looking for characters like %. Finally. spend some time
+        getting to know what attacks look like at OWASP.
+
+        <h2>Conclusion</h2>
+        The key for any SOC analysts is to first learn what is normal log traffic from the apps we monitor. Then, slowly
+        we start attacking and seeing what the different attack patterns look like. There is no simple signature-based
+        detection approach that works for all applications. The security industry has been trying this for years with
+        various levels of success.
+        </p>
+      </section>
+    </div>
+    <!-- Copyright -->
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6>&copy;<a href="index.html">Main Page</h6>
+          </a>
+        </li>
+        <li>
+          <h6>&copy;<a href="https://yrtree.me/@Miguel%20Nogueira">Miguel Nogueira</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+  </body>
 
 </html>
