@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Snapped Phish-ing Line</title>
+  <meta name="generator" content="CherryTree">
+  <link rel="stylesheet" href="res/styles4.css" type="text/css" />
+</head>
+
+<body>
+  <div class='page'>
+    <h1 class='title'>Snapped Phish-ing Line</h1><br /><br />
+    <h1>Snapped Phish-ing Line</h1><br /> Start AttackBox<br /><br /><br /><br />NOTES WE GRINDING <br /><br /><br />
+    <h1>Investigate anomalies using Splunk.</h1><br /><br />Tittle: Investigating With Splunk<br /><br /><strong>
+      <h2>Scenario Notes:</h2>
+    </strong><br />• SOC Analyst Johny noticed anomalous behaviors in Windows machine logs.<br />• Adversary access and
+    backdoor creation detected.<br />• Logs pulled from suspected hosts, ingested into Splunk for investigation.<br />•
+    Focus on identifying unauthorized access, privilege escalation, unusual network traffic, and
+    processes.<br /><br /><br /><strong>
+      <h2>Objective:</h2>
+    </strong><br />Successfully investigate and identify anomalous behaviors in Windows machine logs to detect and
+    mitigate potential security breaches in a real-world scenario.<br /><strong>
+      <h2>Question 1:</h2>
+    </strong><br />Who is the individual who received an email attachment containing a PDF?<br /><strong>
+      <h2>Explanation:</h2>
+    </strong><br /><br /><br /><br /><br /><br /><strong>
+      <h2>Answer:</h2>
+    </strong><br />C:\Users\FINANC~1\AppData\Local\Temp\11111.exe<br /><br /><br /><strong>
+      <h2>Question 2:</h2>
+    </strong><br />What is listed as the company name? <br /><strong>
+      <h2>Explanation:</h2>
+    </strong><br /><br /><br /><br /><br /><br /><strong>
+      <h2>Answer:</h2>
+    </strong><br />Nirsoft<br /><br /><br /><br /><strong>
+      <h2>Question 3:</h2>
+    </strong><br /><br /><strong>
+      <h2>Explanation:</h2>
+    </strong><br /><br /><br /><br /><br /><br /><br /><strong>
+      <h2>Answer:</h2>
+    </strong><br />
+    <h3>IonicLarge.exe,PalitExplorer.exe</h3><br /><br /><strong>
+      <h2>Question 4:</h2>
+    </strong><br />
+    <h3>The binary from the previous question made two outbound connections to a malicious IP address. What was the IP
+      address? Enter the answer in a defang format.</h3><br /><strong>
+      <h2>Explanation:</h2>
+    </strong><br /><br /><br /><br /><br /><br /><br /><br /><strong>
+      <h2>Answer:</h2>
+    </strong><br />2[.]56[.]59[.]42<br /><br /><br /><strong>
+      <h2>Question 5:</h2>
+    </strong><br />The same binary made some change to a registry key. What was the key path?<br /><strong>
+      <h2>Explanation:</h2>
+    </strong><br /><br /><br /><br /><br /><br /><br /><strong>
+      <h2>Answer:</h2>
+    </strong><br />HKLM\SOFTWARE\Policies\Microsoft\Windows Defender<br /><br /><strong>
+      <h2>Question 6:</h2>
+    </strong><br />Some processes were killed and the associated binaries were deleted. What were the names of the two
+    binaries? (<strong>format: file.xyz,file.xyz</strong>)<br /><strong>
+      <h2>Explanation:</h2>
+    </strong><br /><br /><br /><br /><br /><br /><br /><strong>
+      <h2>Answer:</h2>
+    </strong><br />phcIAmLJMAIMSa9j9MpgJo1m.exe,WvmIOrcfsuILdX6SNwIRmGOJ.exe<br /><br /><strong>
+      <h2>Question 7:</h2>
+    </strong><br />The attacker ran several commands within a PowerShell session to change the behaviour of Windows
+    Defender. What was the last command executed in the series of similar commands?<br /><strong>
+      <h3>Explanation:</h3>
+    </strong><br /><br /><br /><br /><br /><br /><br /><br /><strong>
+      <h2>Answer:</h2>
+    </strong><br />powershell WMIC /NAMESPACE:\\root\Microsoft\Windows\Defender PATH MSFT_MpPreference call Add
+    ThreatIDDefaultAction_Ids=2147737394 ThreatIDDefaultAction_Actions=6 Force=True <br /><strong>
+      <h2>Question 8:</h2>
+    </strong><br />Based on the previous answer, what were the four IDs set by the attacker? Enter the answer in order
+    of execution. (<strong>format: 1st,2nd,3rd,4th</strong>)<br /><strong>
+      <h2>Explanation:</h2>
+    </strong><br /><br /><br /><br /><strong>
+      <h2>Answer:</h2>
+    </strong><br />2147735503,2147737010,2147737007,2147737394<br /><strong>
+      <h2>Question 9:</h2>
+    </strong><br />Another malicious binary was executed on the infected workstation from another AppData location. What
+    was the full path to the binary?<br /><strong>
+      <h2>Explanation:</h2>
+    </strong><br /><br /><br /><br /><br /><br /><br /><br /><strong>
+      <h2>Answer:</h2>
+    </strong><br />C:\\Users\\Finance01\\AppData\\Roaming\\EasyCalc\\EasyCalc.exe<br /><strong>
+      <h2>Question 10:</h2>
+    </strong><br /><br /><strong>
+      <h2>Explanation:</h2>
+    </strong><br /><br /><br /><br /><br /><br /><br /><br /><strong>
+      <h2>Answer:</h2>
+    </strong><br />ffmpeg.dll,nw.dll,nw_elf.dll<br /><br /><strong>
+      <h2>Conclusion:</h2>
+    </strong><br />1. A Web Browser Password Viewer was executed on the infected machine, with the binary located at
+    &quot;C:\Users\FINANC~1\AppData\Local\Temp\11111.exe&quot;.<br /><br />2. The company name listed in the logs was
+    &quot;Nirsoft.&quot;<br /><br />3. Another suspicious binary, &quot;IonicLarge.exe,&quot; was executed from the same
+    folder as the previous binary. Its original filename was listed as &quot;PalitExplorer.exe&quot; (format:
+    IonicLarge.exe,PalitExplorer.exe).<br /><br />4. The binary &quot;IonicLarge.exe&quot; made two outbound connections
+    to the malicious IP address &quot;2[.]56[.]59[.]42&quot;.<br /><br />5. The same binary, &quot;IonicLarge.exe,&quot;
+    made changes to the Windows Defender registry key path &quot;HKLM\SOFTWARE\Policies\Microsoft\Windows
+    Defender&quot;.<br /><br />6. Two processes were killed, and their associated binaries were deleted. The names of
+    the binaries were &quot;phcIAmLJMAIMSa9j9MpgJo1m.exe&quot; and &quot;WvmIOrcfsuILdX6SNwIRmGOJ.exe&quot; (format:
+    phcIAmLJMAIMSa9j9MpgJo1m.exe,WvmIOrcfsuILdX6SNwIRmGOJ.exe).<br /><br />7. The attacker ran several commands within a
+    PowerShell session to change Windows Defender&#39;s behavior. The last executed command was &quot;powershell WMIC
+    /NAMESPACE:\root\Microsoft\Windows\Defender PATH MSFT_MpPreference call Add ThreatIDDefaultAction_Ids=2147737394
+    ThreatIDDefaultAction_Actions=6 Force=True&quot;.<br /><br />8. The attacker set four IDs in chronological order of
+    execution: 2147735503, 2147737010, 2147737007, 2147737394 <br /><br />9. Another malicious binary,
+    &quot;EasyCalc.exe,&quot; was executed on the infected workstation from the location
+    &quot;C:\Users\Finance01\AppData\Roaming\EasyCalc\EasyCalc.exe&quot;.<br /><br />10. The DLLs loaded from the
+    &quot;EasyCalc.exe&quot; binary were &quot;ffmpeg.dll,&quot; &quot;nw.dll,&quot; and &quot;nw_elf.dll&quot;
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+  </div>
+</body>
+
+</html>

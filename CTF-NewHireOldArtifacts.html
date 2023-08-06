@@ -1,0 +1,305 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Massively by HTML5 UP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+</head>
+
+<body class="is-preload">
+
+  <!-- Wrapper -->
+  <div id="wrapper" class="fade-in">
+
+    <!-- Intro -->
+    <div id="intro">
+      <h2>Investigate the intrusion attack using Splunk<br /></h2>
+      <a href="https://tryhackme.com/room/newhireoldartifacts">New Hire Old Artifacts</a></h1>
+      <p>Miguel Nogueira</p>
+      <ul class="actions">
+        <li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+      </ul>
+    </div>
+
+
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Home</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="CTFS.html">CTF's</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+    <!-- Main -->
+    <div id="main">
+      <!-- Post -->
+      <section class="post"><strong><strong>
+            <h2>Scenario Notes:</h2>
+          </strong>• Widget LLC has some concerns with the endpoints in the Finance Dept.<br>
+          • Especially an endpoint for a recently hired Financial Analyst.<br>
+          • The concern is that there was a period (December 2021) when the
+          endpoint security product was turned off, but an official investigation was never conducted.<br>
+          • Your manager has tasked you to sift through the events of Widget LLC&#39;s Splunk instance to see if there
+          is
+          anything that the customer needs to be alerted on.<strong>
+            <h2>Objective:</h2>
+          </strong>Identify any suspicious activities related to the Financial Analyst&#39;s endpoint during December
+          2021.<strong>
+            <h2>Question 1:</h2>
+          </strong>A Web Browser Password Viewer executed on the infected machine. What is the name of the binary? Enter
+          the full path.<strong>
+            <h2>Explanation:</h2>
+          </strong>Firstly we will search for all the logs with the wild card “*”, and will select the timeframe to only
+          “December 2021”.<a href=""><img src="images/26-1.png" alt="images/26-1.png" /></a>Based on
+          this scenario we know that the user must an Financial Analyst, so he must be in the finance sector.<a
+            href=""><img src="images/26-2.png" alt="images/26-2.png" /></a>Thanks to this “filter” we were able to
+          go from 27k events to only 4k:<a href=""><img src="images/26-3.png" alt="images/26-3.png" /></a>Now we will
+          only
+          search for events that have “Web Browser Password
+          Viewer” on their description <a href=""><img src="images/26-4.png" alt="images/26-4.png" /></a>Only 27 events
+          left!<a href=""><img src="images/26-5.png" alt="images/26-5.png" /></a>Click on the image field and we will
+          see
+          that every event will have the
+          same executable, that&#39;s our answer<a href=""><span class="image fit"><img src="images/26-6.png"
+                alt="images/26-6.png" /></a></span><strong>
+            <h2>Answer:</h2>
+          </strong>C:\Users\FINANC~1\AppData\Local\Temp\11111.exe<strong>
+            <h2>Question 2:</h2>
+          </strong>What is listed as the company name? <strong>
+            <h2>Explanation:</h2>
+          </strong>From the same search, inspect any event and you will see the name of the company<a href=""><span
+              class="image fit"><img src="images/26-7.png" alt="images/26-7.png" /></span></a><strong>
+            <h2>Answer:</h2>
+          </strong>Nirsoft<strong>
+            <h2>Question 3:</h2>
+          </strong>Another suspicious binary running from the same folder was executed on the workstation. What was the
+          name of the binary? What is listed as its original filename? (<strong>format:
+            file.xyz,file.xyz</strong>)<strong>
+            <h2>Explanation:</h2>
+          </strong>We will search for every binary on the same folder as the previous one
+          <a href=""><span class="image fit"><img src="images/26-8.png"
+                alt="images/26-8.png" /></span></a>IonicLarge.exe
+          is the only one present, so we can
+          search for the OriginalFileName and see that &quot;PalitExplorer.exe&quot; is the most prevalent
+          <a href=""><span class="image fit"><img src="images/26-9.png" alt="images/26-9.png" /></a></span><strong>
+            <h2>Answer:</h2>
+          </strong>
+          IonicLarge.exe,PalitExplorer.exe<strong>
+            <h2>Question 4:</h2>
+          </strong>
+          The binary from the previous question made two outbound connections to a malicious IP address. What was the
+          IP address? Enter the answer in a defang format.<strong>
+            <h2>Explanation:</h2>
+          </strong>Search for DestinationIP of the previous binary and we will capture a IP Address that only made two
+          connections <a href=""><img src="images/26-10.png" alt="images/26-10.png" /></a>There is
+          only one IP Address that coincide with our what we were looking for, but let&#39;s confirm with VirusTotal if
+          the IP
+          is malicious<a href="https://miro.medium.com/v2/resize:fit:695/1*3pfEB6_wiDWKqOwU7X-OmQ.png"><img
+              src="images/26-11.png" alt="images/26-11.png" /></a>8 Security Vendors classified this IP Address as
+          malicious, must be the IP Address we were looking for, so let&#39;s defand it using CyberCheff
+          <a href=""><span class="image fit"><img src="images/26-12.png" alt="images/26-12.png" /></a></span><strong>
+            <h2>Answer:</h2>
+          </strong>2[.]56[.]59[.]42<strong>
+            <h2>Question 5:</h2>
+          </strong>The same binary made some change to a registry key. What was the key path?<strong>
+            <h2>Explanation:</h2>
+          </strong>Search for the name of the executable and on &quot;TaskCategory&quot; Select only the tasks were
+          There was a value set on the registry key.<em>Note: Using eventcode 13 was another pahway to get the
+            answer.</em><a href=""><img src="images/26-13.png"
+              alt="images/26-13.png" /></a>HKLM\SOFTWARE\Policies\Microsoft\Windows DefenderLet&#39;s check
+          “TargetObject” and Oh wow the executable is making 8 different changes to the Windows Defender key path, this
+          cannot
+          be good<a href=""><img src="images/26-14.png" alt="images/26-14.png" /></a><strong>
+            <h2>Answer:</h2>
+          </strong>HKLM\SOFTWARE\Policies\Microsoft\Windows Defender<strong>
+            <h2>Question 6:</h2>
+          </strong>Some processes were killed and the associated binaries were deleted. What were the names of the two
+          binaries? (<strong>format: file.xyz,file.xyz</strong>)<strong>
+            <h2>Explanation:</h2>
+          </strong>First we will have to make an important distiction, tasks terminated are different from tasks killed,
+          why does that matter? Because if you go to “TaskCategory” and search for Terminated processess you will not be
+          able
+          to see the process killed by the attacker<a href=""><img src="images/26-15.png"
+              alt="images/26-15.png" /></a><br>
+          In order to see the process killed by the attacker you will have to search specificly for the command taskkill
+          in the command line, to do that you can just search it on the search
+          bar
+          in Splunk<a href=""><img src="images/26-16.png" alt="images/26-16.png" /></a><strong>
+            <h2>Answer:</h2>
+          </strong>phcIAmLJMAIMSa9j9MpgJo1m.exe,WvmIOrcfsuILdX6SNwIRmGOJ.exe<strong>
+            <h2>Question 7:</h2>
+          </strong>The attacker ran several commands within a PowerShell session to change the behaviour of Windows
+          Defender. What was the last command executed in the series of similar commands?<strong>
+            <h3>Explanation:</h3>
+          </strong>From the question we know, a lot of commands were run within a PowerShell session, so let&#39;s
+          search for them<a href=""><img src="images/26-17.png" alt="images/26-17.png" /></a>We are looking
+          for the last command executed, meaning the one with the most recent timestamp and he has to change Windows
+          Defender,
+          leaving no other event then this one<a href=""><img src="images/26-18.png"
+              alt="images/26-18.png" /></a><strong>
+            <h2>Answer:</h2>
+          </strong>powershell WMIC /NAMESPACE:\\root\Microsoft\Windows\Defender PATH MSFT_MpPreference call Add
+          ThreatIDDefaultAction_Ids=2147737394 ThreatIDDefaultAction_Actions=6 Force=True <strong>
+            <h2>Question 8:</h2>
+          </strong>Based on the previous answer, what were the four IDs set by the attacker? Enter the answer in order
+          of execution. (<strong>format: 1st,2nd,3rd,4th</strong>)<strong>
+            <h2>Explanation:</h2>
+          </strong>Since we only want events that changed Windows Defender we will make that Query in order to make
+          things more simple to look<a href=""><img src="images/26-19.png" alt="images/26-19.png" /></a>After that
+          we want the four IDs set by the attacker in cornological order from the first to the last, meaning from the
+          lowest
+          timestamp to the higher. Were do we look for the IDs?<a href=""><img src="images/26-20.png"
+              alt="images/26-20.png" /></a>Right there, after every “ThreatIDDefaultAction_Ids”. After we acquire every
+          IDs set by the attacker we will have our answer<strong>
+            <h2>Answer:</h2>
+          </strong>2147735503,2147737010,2147737007,2147737394<strong>
+            <h2>Question 9:</h2>
+          </strong>Another malicious binary was executed on the infected workstation from another AppData location. What
+          was the full path to the binary?<strong>
+            <h2>Explanation:</h2>
+          </strong>Now we want to find an binary(image) on our infected workstation that&#39;s in another AppData
+          location, to do that we will search for every AppData path.<a href=""><img src="images/26-21.png"
+              alt="images/26-21.png" /></a>After this we will see the present images<a href=""><img
+              src="images/26-22.png" alt="images/26-22.png" /></a>Wow there are a lot of images how can we detect
+          a malicios one? Clearly there are two prominent possibilities from the format of the question we already know
+          that
+          &quot;EasyCalc.exe&quot; path is our answer because he is the only one different from “AppData\Local\”. But in
+          the
+          real world we would have to confirm our suspicions, how do we do it? Well we investigate what it was used for,
+          so it
+          seems logical to check what were the descriptions used<a href=""><img src="images/26-23.png"
+              alt="images/26-23.png" /></a><br>
+          If you do not understand what are those things, can&#39;t see logic in them
+          or they seem just strange. Congratulations, they are. A lot of forensics and log analysis is pattern
+          recognition, if
+          something does not make sense or is not inside your pattern recognition knowledge, it&#39;s time to either
+          improve
+          by learning a new good pattern or improve by learning a bad one. So the questions persits... How do we confirm
+          it&#39;s malicious? If we search it on Google we will just get sketchy answers not confirming nor denying. So
+          let&#39;s look for his &quot;TaskCategory&quot;.<a href=""><img src="images/26-24.png"
+              alt="images/26-24.png" /></a>There is a lot of of suspicious activity but what screams for attention is
+          that one task where he set a value in RegistryKey.<a href=""><img src="images/26-25.png"
+              alt="images/26-25.png" /></a><br> Digging further we can see EasyCalc added a trusted CA to the Registry.
+          It&#39;s time to ring the bells <strong>
+            <h2>Answer:</h2>
+          </strong>C:\\Users\\Finance01\\AppData\\Roaming\\EasyCalc\\EasyCalc.exe<strong>
+            <h2>Question 10:</h2>
+          </strong>What were the DLLs that were loaded from the binary from the previous question? Enter the answers in
+          alphabetical order. (<strong>format: file1.dll,file2.dll,file3.dll</strong>)<strong>
+            <h2>Explanation:</h2>
+          </strong>Here we will have to investigate what DLLs were used by the previous binary. DLLs are a shared
+          library dynamically linked to applications at runtime, meaning they are not compiled directly into the
+          executable
+          file of a program but are loaded and used as needed while the program is running. When a program needs access
+          to
+          a
+          specific function, it dynamically links to the DLL, and the required code is loaded into memory, allowing the
+          program to access the functionality.Knowing this, it is logical to see what binarys (images) were run from the
+          previous binary. <a href=""><img src="images/26-26.png" alt="images/26-26.png" /></a><br>If this binary has
+          what we are looking for it has to be inside the “TaskCategory” ”Image Loaded&quot;<a href=""><img
+              src="images/26-27.png" alt="images/26-27.png" /></a>
+          From here we acquired every image loaded from the binary we were investigating. Eventhough TryHackMe asks to
+          answer the question in alphabetical order. The Truth is they want it by inverse order of usage, meaning to us
+          that it is from the first shown to the last like this:<br>
+          <a href=""><img src="images/26-28.png" alt="images/26-28.png" /></a><strong>
+            <h2>Answer:</h2>
+          </strong>ffmpeg.dll,nw.dll,nw_elf.dll<strong>
+            <h2>Conclusion:</h2>
+            By methodically analyzing Splunk logs, I was able to uncover a series of activities that raised alarms
+            within
+            the Financial Analyst's endpoint. The combination of pattern recognition, focused queries, and contextual
+            analysis proved instrumental in uncovering the suspicious events that occurred during December 2021. This
+            investigation highlights the importance of continuous monitoring and thorough analysis to detect and
+            mitigate
+            potential security threats.<br><br>
+
+            1. Web Browser Password Viewer Binary:<br> An executable associated with a Web Browser Password Viewer was
+            discovered on the infected machine. The binary's full path was identified as
+            "C:\Users\FINANC~1\AppData\Local\Temp\11111.exe".<br><br>
+
+            2. Company Name Identification:<br> Through diligent analysis, it was determined that the company name
+            listed
+            in
+            the logs was "Nirsoft".<br><br>
+
+            3. Suspicious Binary Execution:<br> An additional suspicious binary named "IonicLarge.exe" was executed from
+            the
+            same folder as the previous binary. This binary's original filename was listed as "PalitExplorer.exe"
+            (format:
+            IonicLarge.exe, PalitExplorer.exe).<br><br>
+
+            4. Outbound Connections:<br> The "IonicLarge.exe" binary initiated two outbound connections to the malicious
+            IP
+            address "2[.]56[.]59[.]42".<br><br>
+
+            5. Registry Key Alteration:<br> The same "IonicLarge.exe" binary was found to have made modifications to the
+            Windows Defender registry key path, which was identified as "HKLM\SOFTWARE\Policies\Microsoft\Windows
+            Defender".<br><br>
+
+            6. Terminated Processes and Deleted Binaries:<br> Two processes were terminated, and the corresponding
+            binaries
+            were deleted. The binary names were "phcIAmLJMAIMSa9j9MpgJo1m.exe" and "WvmIOrcfsuILdX6SNwIRmGOJ.exe"
+            (format:
+            phcIAmLJMAIMSa9j9MpgJo1m.exe, WvmIOrcfsuILdX6SNwIRmGOJ.exe).<br><br>
+
+            7. PowerShell Command Series:<br> The attacker executed a series of PowerShell commands to modify Windows
+            Defender's behavior. The final command in this sequence was "powershell WMIC
+            /NAMESPACE:\root\Microsoft\Windows\Defender PATH MSFT_MpPreference call Add
+            ThreatIDDefaultAction_Ids=2147737394 ThreatIDDefaultAction_Actions=6 Force=True".<br><br>
+
+            8. Set IDs by the Attacker:<br> In chronological order of execution, the attacker set four IDs: 2147735503,
+            2147737010, 2147737007, and 2147737394.<br><br>
+
+            9. Execution of Malicious Binary:<br> Another malicious binary named "EasyCalc.exe" was executed on the
+            infected
+            workstation. The full path to this binary was
+            "C:\Users\Finance01\AppData\Roaming\EasyCalc\EasyCalc.exe".<br><br>
+
+            10. Loaded DLLs from Malicious Binary:<br> The DLLs loaded from the "EasyCalc.exe" binary were "ffmpeg.dll,"
+            "nw.dll," and "nw_elf.dll". These DLLs were loaded in the order of "ffmpeg.dll," "nw.dll," and
+            "nw_elf.dll".<br><br>
+
+
+    </div>
+
+    <body class="is-preload">
+      <header id="header">
+        <a href="https://yrtree.me/@Miguel%20Nogueira" class="logo">Connect with
+          me</a>
+      </header>
+      <div id="copyright">
+        <ul>
+          <li>
+            <h6><a href="index.html">Home</h6>
+            </a>
+          </li>
+          <li>
+            <h6><a href="CTFS.html">CTF's</h6>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+  </div>
+  <!-- Scripts -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery.scrollex.min.js"></script>
+  <script src="assets/js/jquery.scrolly.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

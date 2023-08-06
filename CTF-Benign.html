@@ -1,0 +1,223 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Massively by HTML5 UP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+</head>
+
+<body class="is-preload">
+
+  <!-- Wrapper -->
+  <div id="wrapper" class="fade-in">
+
+    <!-- Intro -->
+    <div id="intro">
+      <h2>Investigating a compromised host<br /></h2>
+      <a href="https://tryhackme.com/room/benign">Benign
+      </a>
+      <p>Miguel Nogueira</p>
+      <ul class="actions">
+        <li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+      </ul>
+    </div>
+
+
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Home</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="CTFS.html">CTF's</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+
+
+
+
+
+    <!-- Main -->
+    <div id="main">
+
+      <!-- Post -->
+      <section class="post"><strong><strong>
+            <h2>Scenario Notes:</h2>
+            • A host from the HR department has been identified as potentially compromised based on suspicious
+            process execution alerts from the IDS.<br>
+            • Further investigation using network information gathering tools
+            and scheduled tasks revealed activities that confirmed the suspicion of a compromised host within the HR
+            department.<br>
+            • The investigation was constrained by limited resources, leading to the extraction of
+            process execution logs with Event ID 4688, which were ingested into Splunk for analysis.<br>
+            • The network is
+            divided into three segments - IT Department, HR Department, and Marketing Department. Understanding this
+            segmentation could help in narrowing down the scope of the investigation and identifying potential attack
+            vectors.<strong>
+              <h2>Objective:</h2>
+            </strong>Identify the root cause of a network connectivity issue for a specific workstation in the IT
+            department.<strong>
+              <h2>Question 1:</h2>
+            </strong>How many logs are ingested from the month of March, 2022?<strong>
+              <h2>Explanation:</h2>
+            </strong><a href=""><img src="images/34-1.png" alt="images/34-1.png" /></a><a href=""><img
+                src="images/34-2.png" alt="images/34-2.png" /></a><strong>
+              <h2>Answer:</h2>
+            </strong>13959<strong>
+              <h2>Question 2:</h2>
+            </strong>Imposter Alert: There seems to be an imposter account observed in the logs, what is the name of
+            that
+            user? <strong>
+              <h2>Explanation:</h2>
+            </strong>By querying the database for the top 20 &quot;Username&quot; entries, it becomes evident that
+            further
+            investigation of the account named &quot;Amel1a&quot; is warranted. It is intriguing that the creator chose
+            to
+            name
+            it &quot;Amel1a&quot; while there is another account with the name &quot;Amelia.&quot; This coincidence
+            raises
+            interesting points for consideration.<a href=""><img src="images/34-3.png"
+                alt="images/34-3.png" /></a><strong>
+              <h2>Answer:</h2>
+            </strong>Amel1a<strong>
+              <h2>Question 3:</h2>
+            </strong>Which user from the HR department was observed to be running scheduled tasks?<strong>
+              <h2>Explanation:</h2>
+            </strong>On this next query we will ask for every user that is in the HR department and runned a process
+            named
+            schtasks.exe<a href=""><img src="images/34-4.png" alt="images/34-4.png" /></a>There were 18
+            events but after a bit of scrolling this event was the only one that actually run a schedule task, the other
+            ones
+            are updates<a href=""><img src="images/34-5.png" alt="images/34-5.png" /></a><strong>
+              <h2>Answer:</h2>
+            </strong>Chris.fort<strong>
+              <h2>Question 4:</h2>
+            </strong>Which user from the HR department executed a system process (LOLBIN) to download a payload from a
+            file-sharing host.<strong>
+              <h2>Explanation:</h2>
+            </strong>Let&#39;s apply the same query logic as the last question but now let&#39;s run the command
+            &quot;stats&quot;, in Splunk it counts occurrences of each unique value in the &quot;CommandLine&quot; field
+            and
+            then display the results.<a href=""><img src="images/34-6.png" alt="images/34-6.png" /></a>Let&#39;s further
+            investigate the first result as It appears that the
+            command uses &quot;certutil.exe&quot; to download a file from a specific URL (&quot;<a
+              href="https://controlc.com/548ab556">https://controlc.com/548ab556</a>&quot;) and save it as
+            &quot;benign.exe&quot; in the local directory. Meaning this command can be used to download a file from the
+            internet
+            and store it on your computer.<a href=""><img src="images/34-7.png" alt="images/34-7.png" /></a>Now we will
+            change the format a bit because just in this print we have
+            the answer for 6 questions and the answers are self explanatory <strong>
+              <h2>Answer:</h2>
+            </strong>haroon<strong>
+              <h2>Question 5:</h2>
+            </strong>To bypass the security controls, which system process (lolbin) was used to download a payload from
+            the internet?<strong>
+              <h2>Answer:</h2>
+            </strong>certutil.exe<strong>
+              <h2>Question 6:</h2>
+            </strong>What was the date that this binary was executed by the infected host? format
+            (YYYY-MM-DD)<strong>
+              <h2>Answer:</h2>
+            </strong>2022-03-04<strong>
+              <h2>Question 7:</h2>
+            </strong>Which third-party site was accessed to download the malicious payload?<strong>
+              <h2>Answer:</h2>
+            </strong>controlc.com<strong>
+              <h2>Question 8:</h2>
+            </strong>What is the name of the file that was saved on the host machine from the C2 server during the
+            post-exploitation phase?<strong>
+              <h2>Answer:</h2>
+            </strong>benign.exe<strong>
+              <h2>Question 9:</h2>
+            </strong>The suspicious file downloaded from the C2 server contained malicious content with the pattern
+            THM{..........}; what is that pattern?<strong>
+              <h2>Explanation:</h2>
+            </strong>To see the content from where the malicious content was downloaded, we have to go into the
+            website itself <a href=""><img src="images/34-8.png" alt="images/34-8.png" /></a><strong>
+              <h2>Answer:</h2>
+            </strong>C:\\Users\\Finance01\\AppData\\Roaming\\EasyCalc\\EasyCalc.exe<strong>
+              <h2>Question 10:</h2>
+            </strong>What is the URL that the infected host connected to?<strong>
+              <h2>Answer:</h2>
+            </strong>hxxps://controlc.com/548ab556<strong>
+              <h2>Conclusion:</h2>
+              In this investigation, suspicious activities on a compromised host in the HR department were analyzed.
+              Limited resources necessitated focusing on Event ID 4688 logs in Splunk. The investigation revealed an
+              imposter account, scheduled tasks run by a user named "Chris.fort," execution of LOLBIN "certutil.exe" to
+              download a payload from controlc.com, and other related details. The date, filename, content pattern, and
+              URL associated with the malicious payload were also identified, aiding in understanding the nature of the
+              compromise.<br><br>
+            </strong>1. A total of 13,959 logs were ingested from the month of March 2022, providing a comprehensive
+            dataset for analysis.<br><br>
+            2. An imposter account named &quot;Amel1a&quot; was observed in the logs, raising
+            concerns about potential unauthorized access.<br><br>
+            3. The user &quot;Chris.fort&quot; from the HR department
+            was observed running scheduled tasks, warranting further investigation into their activities.<br><br>
+            4. The user
+            &quot;haroon&quot; from the HR department executed the system process &quot;certutil.exe&quot; to download a
+            payload
+            from the URL &quot;<a href="https://controlc.com/548ab556">https://controlc.com/548ab556</a>,&quot; saving
+            it
+            as
+            &quot;benign.exe&quot; in the local directory. This allowed the attacker to bypass security controls and
+            initiate
+            the download of a malicious payload.<br><br>
+            5. To bypass security controls, the attacker used the system process
+            &quot;certutil.exe&quot; to download the payload from the internet.<br><br>
+            6. The execution date of the
+            malicious binary was on March 4, 2022.<br><br>
+            7. The third-party site &quot;controlc.com&quot; was accessed to
+            download the malicious payload.<br><br>
+            8. The file saved on the host machine from the C2 server during the
+            post-exploitation phase was named &quot;benign.exe.&quot;<br><br>
+            9. The malicious content in the downloaded file
+            had the pattern &quot;THM{..........},&quot; indicating the presence of a threat or malware.<br><br>
+            10. The URL
+            that the infected host connected to was &quot;hxxps://controlc.com/548ab556,&quot; confirming the source of
+            the
+            malicious payload.
+    </div>
+
+    <body class="is-preload">
+      <header id="header">
+        <a href="https://yrtree.me/@Miguel%20Nogueira" class="logo">Connect with
+          me</a>
+      </header>
+      <!-- Copyright -->
+      <div id="copyright">
+        <ul>
+          <li>
+            <h6><a href="index.html">Home</h6>
+            </a>
+          </li>
+          <li>
+            <h6><a href="CTFS.html">CTF's</h6>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery.scrollex.min.js"></script>
+  <script src="assets/js/jquery.scrolly.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

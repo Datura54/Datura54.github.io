@@ -1,13 +1,8 @@
 <!DOCTYPE HTML>
-<!--
-	Massively by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 
 <head>
-  <title>Generic Page - Massively by HTML5 UP</title>
+  <title>Massively by HTML5 UP</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <link rel="stylesheet" href="assets/css/main.css" />
@@ -17,665 +12,731 @@
 </head>
 
 <body class="is-preload">
-  <header id="header">
-    <a href="https://datura54.github.io/" class="logo">Home Button</a>
-  </header>
 
-  <!-- Main -->
-  <div id="main">
+  <!-- Wrapper -->
+  <div id="wrapper" class="fade-in">
 
-    <!-- Post -->
-    <section class="post">
+    <!-- Intro -->
+    <div id="intro">
+      <h2>Exploring DNS<br /> </h2>
+      <p>Miguel Nogueira</p>
+      <ul class="actions">
+        <li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+      </ul>
+    </div>
 
-      <header class="major">
-        <h2>Exploring DNS</h2>
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Main</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="LABS.html">Labs</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+    <!-- Main -->
+    <div id="main">
+
+      <!-- Post -->
+      <section class="post">
+        <h2>Objective</h2>
+        </p>
+        <p></p>
+        <p> </p>
+        <p> • Run a DNS Server (Pi-Hole) to see how it accepts, records, and forwards requests</p>
+        <p> </p>
+        <p> • Manually generate DNS requests from the command line to our Pi-Hole DNS server using &quot;dig&quot;</p>
+        <p> </p>
+        <p> • Log in to the DNS server and see the information it records from client lookups</p>
+        <p> </p>
+        <p> • Look at the packets of the DNS traffic in Wireshark</p>
+        <p> </p>
+        <p> • Use Suricata IDS signatures to detect suspicious DNS requests</p>
+        <p> </p>
+        <p> • Use DNS event logs recorded by Suricata to identify DNS tunneling in a SIEM</p>
+        <p></p>
+        <p>
+        <h3>Lab Setup</h3>
+        </p>
+        <p></p>
+        <p> </p>
+        <p> Tell your virtual machine to request a new DHCP lease. </p>
+        <p> </p>
+        <p> sudo dhclient -i ens33 -v</p>
+        <p> </p>
+        <p> </p>
+        <p> Start the Suricata IDS, which will be used to capture our traffic:</p>
+        <p> </p>
+        <p> sudo suricata -c /labs/2.1/data/suricata.yaml -S /labs/2.1/data/emerging-dns.rules -i ens33 -D</p>
+        <p> </p>
+        <p> After a moment (it may take a while for Suricata to start up depending on your CPU) you should see the
+          following
+          response:</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/15-1.png"><img src="images/9-1.png"
+              alt="images/9-1.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> Next we must stop the built-in DNS resolver, use the following command to stop the systemd-resolved service.
+        </p>
+        <p> </p>
+        <p> sudo service systemd-resolved stop</p>
+        <p> </p>
+        <p> </p>
+        <p> Next start up Elasticsearch and Kibana using the following command:</p>
+        <p> </p>
+        <p> cd /labs/2.1</p>
+        <p> docker-compose up -d</p>
+        <p>
+        <h5>1. Manually generate DNS requests via dig</h5>
+
+        </p>
+        <p></p>
+        <p> </p>
+        <p> In the setup for this lab, we have started multiple services. To give you the full perspective of why we did
+          that, here&#39;s what they are and why we started each:</p>
+        <p> </p>
+        <p> • Pi-Hole - A forwarding DNS server which can service DNS requests, cache answers, and perform recursive
+          lookups. It also comes with a very nice web GUI for setup and monitoring which we will use to see the requests
+          from the DNS server perspective.</p>
+        <p> </p>
+        <p> • Suricata IDS - Suricata will record a PCAP of all traffic, apply Snort-style IDS signatures to the
+          traffic,
+          and produce metadata events on all traffic it observes (regardless of signature matches).</p>
+        <p> </p>
+        <p> • Elasticsearch &amp; Kibana - Acting as our SIEM, Elasticsearch is the data store and Kibana is the front
+          end
+          for running searches and visualizing our data. It will store the event and alert logs we produce with
+          Suricata.
+        </p>
+        <p> </p>
+        <p> In the following steps we&#39;re going to manually generate DNS traffic by sending requests to the Pi-Hole
+          server. The goal of this lab is to see DNS requests from multiple viewpoints. To achieve this, Suricata is
+          recording metadata event logs and a PCAP. That means we will see how the traffic looks in 3 ways:</p>
+        <p> </p>
+        <p> • &quot;On the wire&quot; from the PCAP</p>
+        <p> </p>
+        <p> • Logs produced by Suricata observing the network traffic</p>
+        <p> </p>
+        <p> • As logged by the DNS server itself</p>
+        <p> </p>
+        <p> Now that we&#39;ve started our DNS server and the IDS is recording traffic, go back to your terminal. We
+          will
+          use &quot;dig&quot;, the DNS lookup utility to produce DNS requests. We will provide different command line
+          arguments to dig to perform different types of DNS queries from the command line.</p>
+        <p></p>
+        <p>
+        <h3>A Record Request</h3>
+        </p>
+        <p></p>
+        <p> </p>
+        <p> In our terminal, use will use the following command to send an A record request for SEC450.com to the
+          Pi-Hole:
+        </p>
+        <p> </p>
+        <p> dig @127.0.0.1 sec450.com A</p>
+        <p> </p>
+        <p> The format of this command is dig [DNS server name] [lookup] [request type]. Since the Pi-Hole is not the
+          standard DNS server used by our virtual machine we must specify which server to ask (the @127.0.0.1 argument),
+          the
+          second argument is the name we wish to resolve (sec450.com) and the third argument is the record type,
+          &quot;A&quot; since we are doing an A record lookup.</p>
+        <p> </p>
+        <p> You should see the following output showing the A record for sec450.com.</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/15-2.png"><img src="images/9-2.png"
+              alt="images/9-2.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> The items of interest in the dig output are highlighted</p>
+        <p> </p>
+        <p> • The QUESTION section showing that we made an &quot;A&quot; record request about the hostname sec450.com
+        </p>
+        <p> </p>
+        <p> • The ANSWER section shows the returned answer given by the Pi-Hole server</p>
+        <p> </p>
+        <p> • The SERVER line shows which server was used for the resolution.</p>
+        <p> </p>
+        <p> This step shows how you can directly look up an A record for a given domain.</p>
+        <p></p>
+        <p>
+        <h3>PTR Record Request</h3>
+        </p>
+        <p></p>
+        <p> </p>
+        <p> Next, take the IP address found from the previous &quot;A&quot; record request and use it to perform a
+          &quot;PTR&quot; record lookup for the IP address of A record for sec450.com. </p>
+        <p> </p>
+        <p> dig @127.0.0.1 -x 70.32.97.206</p>
+        <p> </p>
+        <p> You should see the following output:</p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/15-3.png"><img src="images/9-3.png"
+              alt="images/9-3.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> This step shows how you can directly look up a PTR record for a given IP address. Let&#39;s now look at
+          where
+          this answer comes from, but wait shouldn&#39;t the PTR Record return the hostname &quot;sec450.com&quot;? Yes
+          and
+          No, let me explain. </p>
+        <p> A record lookups and PTR records do not always resolve a name faithfully, it is two different settings in
+          two
+          different locations! Imagine if I attacked your organization from the IP address 70.32.97.206 and, not having
+          any
+          other info, you performed a PTR record lookup and found it resolved to “simcoe.identityvector.com.”, that
+          might
+          be
+          confusing if you don&#39;t understand how this system works! The idea is to not place full trust in PTR
+          records,
+          they rely on the owner of the IP address to fill them out and a malicious actor may fill in a false answer, or
+          leave the information blank.</p>
+        <p> </p>
+        <p> The sec450.com domain was registered through Namecheap.com and the IP address (which was 70.32.97.206) was
+          hosted on a VPS at DigitalOcean. While all other DNS records types must be setup through the DNS settings at
+          the
+          registrar (which was Namecheap), the PTR record is not, it is controlled by the company that owns the IP
+          address.
+          That means that while all other record types (A, CNAME, TXT, ...) are configured through logging in to
+          Namecheap,
+          the PTR record is actually set by logging in and changing it at DigitalOcean. In the management console at
+          DigitalOcean, the name of the VPS can be changed to anything, and whatever is entered in this box becomes the
+          PTR
+          record.</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/15-4.png"><img src="images/9-4.png"
+              alt="images/9-4.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> The box above is in the VPS settings in the DigitalOcean console. If I were to fill this out with some other
+          hostname, the PTR lookup would reflect that, regardless of if it were &quot;true&quot; or not. This means I
+          could
+          fill this box in with &quot;google.com&quot; and anyone making a PTR record request for this IP would see
+          &quot;google.com&quot; returned instead.</p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+        <p></p>
+        <p>
+        <h3>TXT Record Request</h3>
+        </p>
+        <p></p>
+        <p> </p>
+        <p> Next, use the following command to send an TXT record request for SEC450.com:</p>
+        <p> </p>
+        <p> dig @127.0.0.1 sec450.com TXT</p>
+        <p> </p>
+        <p> You should see output similar to the following:</p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/15-5.png"><img src="images/9-5.png"
+              alt="images/9-5.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> This step shows how you can directly look up the TXT record for a given domain.</p>
+        <p></p>
+        <p>
+        <h3>NS Record Request</h3>
+        </p>
+        <p></p>
+        <p> </p>
+        <p> Finally, let&#39;s check where the official name servers of sec450.com are with an NS request. Run the
+          following
+          command:</p>
+        <p> </p>
+        <p> dig @127.0.0.1 sec450.com NS</p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+        <p> You should see a response similar to following:</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/15-6.png"><img src="images/9-6.png"
+              alt="images/9-6.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> This tells us that, at the time of this screenshot, sec450.com DNS was handled by ns-1286.awsdns-32.org. |
+          ns-1602.awsdns-08.co.uk. | ns-290.awsdns-36.com. | ns-581.awsdns-08.net.</p>
+        <p> </p>
+        <p> Therefore, if we want a definitive answer on anything in the sec450.com zone, these are the authoritative
+          name
+          servers we would ask. They are the single &quot;source of truth&quot; for the sec450.com zone.</p>
+        <p> </p>
+        <p> These servers are the free DNS service provided by Amazon.</p>
+        <p>
+        <h5>2. Log in to Pi-Hole to see the DNS server view of your requests</h5>
+
+        </p>
+        <p></p>
+        <p> </p>
+        <p> We&#39;ll log in to the Pi-Hole server which resolved our requests in the previous step.</p>
+        <p> </p>
+        <p> This is the Pi-Hole dashboard which will show statistics on all the DNS requests that have been recorded
+          (note
+          your numbers will be different than the screenshot).</p>
+        <p> </p>
+        <p> Select the Query Log tab on the left side to see the individual logs that were created.</p>
+        <p> <span class="image fit"><img src="images/9-7.png" alt="" /></span>
+        </p>
+        <p> </p>
+        <p> </p>
+        <p> The next page will show a list of all queries that were made in the recent past. As long as you have moved
+          directly to this step from the previous page, you should now be able to find your sec450.com DNS lookups
+          recorded.
+        </p>
+        <p> </p>
+        <p> To filter it down, type &quot;sec450&quot; into the search box into the upper right of the page. You should
+          now
+          see a screen similar to the following.</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/15-8.png"><img src="images/9-8.png"
+              alt="images/9-8.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> Here we can see the &quot;DNS server view&quot; of what DNS requests look like. Pi-Hole acts very similar to
+          most DNS servers, whether Windows DNS, ISC Bind, or others. They all record the source of the incoming
+          request,
+          which we can see in the &quot;client&quot; column in this view, as well the lookup type and domain that was
+          searched. In the &quot;Status&quot; column we can also see whether the request was forwarded or served from
+          the
+          DNS servers cache. If we were to look at the text-based log files produced by the pi-hole, we would see the
+          same
+          information. Pi-Hole also gives us the ability to easily block domains from this view if desired!</p>
+        <p> </p>
+        <p> Now that we&#39;ve seen what the DNS server records, lets take a deeper look at the traffic by diving into
+          the
+          actual packets. We will leave the browser open in orther to watch new requests stream by until the end of the
+          lab.
+        </p>
+        <p>
+        <h5>3. View PCAPs for DNS traffic in Wireshark</h5>
+
+        </p>
+        <p></p>
+        <p> </p>
+        <p> Next, switch back to the terminal and run the following command to enumerate the files in the Suricata
+          logging
+          folder.</p>
+        <p> </p>
+        <p> ls -l /var/log/suricata/lab2.1*</p>
+        <p> </p>
+        <p> You will need to find the file called lab2.1.pcap.[x] where the x is a number depending on the time of the
+          capture. There should be only one result, but if you run the lab more than once there may be others present.
+        </p>
+        <p> </p>
+        <p> Here&#39;s an example output you may see if you had more than one entry, pick the filename at the bottom of
+          the
+          list.</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/15-9.png"><img src="images/9-9.png"
+              alt="images/9-9.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> Use this filename with the full path for the next command. This command will open Wireshark.</p>
+        <p> </p>
+        <p> wireshark /var/log/suricata/lab2.1.pcap.1688538292</p>
+        <p> </p>
+        <p> Press Enter to open Wireshark, if you see an error saying the file was cut short in the middle of a packet
+          that
+          is ok.</p>
+        <p> </p>
+        <p> Once Wireshark is open, find your A record request for sec450.com take the following text and place it in
+          the
+          filter box in Wireshark.</p>
+        <p> </p>
+        <p> dns.qry.name == &quot;sec450.com&quot; &amp;&amp; (dns.qry.type == 1)</p>
+        <p> </p>
+        <p> You should now see two lines in Wireshark with the A record request for sec450.com as shown below (depending
+          on
+          how the query was made by Pi-Hole there could be more than 2 lines, in my case i have 3 requests).</p>
+        <p> </p>
+        <p> <span class="image fit"><img src="images/9-10.png" alt="" /></span>
+        </p>
+        <p> </p>
+        <p> How can we tell which entry is the response for a specific query? By looking at the hex number preceding the
+          lookup type. In the case of the capture shown here the lookup was numbered 0x91de and the corresponding
+          response
+          has the same label as shown below. </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/15-11.png"><img src="images/9-11.png"
+              alt="images/9-11.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> What about the other details? To dive into the packet details first click on the request packet in the
+          Wireshark
+          packet list. go down to the middle panel in Wireshark and find the line at the bottom that says &quot;Domain
+          Name
+          System (query)&quot; and expand it. Once expanded, find the line that says &quot;Queries&quot; and expand that
+          as
+          well. Then, expand the line that says &quot;sec450.com: type A, class IN&quot;.</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/15-12.png"><img src="images/9-12.png"
+              alt="images/9-12.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> You should now see the additional detail on each field in the DNS request. Notice how each item in the Info
+          line
+          in the packet overview above is represented in the detail below, as well as additional details. In Wireshark,
+          any
+          time you need to find specific details on one of the layers of the network transaction you can use this panel
+          to
+          recursively expand fields until you drill down to the information you&#39;re looking for.</p>
+        <p> </p>
+        <p> <span class="image fit"><img src="images/9-13.png" alt="" /></span>
+        </p>
+        <p> </p>
+        <p> Next let&#39;s take a look at the TXT record request. Enter the following filter in Wireshark (the only
+          difference is changing the &quot;1&quot; to a &quot;16&quot;).</p>
+        <p> </p>
+        <p> dns.qry.name == &quot;sec450.com&quot; &amp;&amp; (dns.qry.type == 16)</p>
+        <p> </p>
+        <p> Now we can see at least two lines in Wireshark with the TXT record request for sec450.com as shown below
+          (depending on how the query was made by Pi-Hole there could be more).</p>
+        <p> </p>
+        <p> <span class="image fit"><img src="images/9-14.png" alt="" /></span>
+        </p>
+        <p> </p>
+        <p> Remember when this request was made we saw the TXT record contents printed to the screen in the dig output.
+          Notice that while the response to an &quot;A&quot; record was shown in the info line in Wireshark, TXT record
+          responses are not, so in this case we must go into the details to see the response in Wireshark.</p>
+        <p> </p>
+        <p> Click on the packet that says &quot;query response&quot; in the info column in Wireshark this time. Unfold
+          the
+          layers of the packet in the middle pane in Wireshark so that both the &quot;Answers&quot; section as well as
+          the
+          &quot;sec450.com: TXT, class IN&quot; item beneath it are unfolded, as shown below:</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/15-15.png"><img src="images/9-15.png"
+              alt="images/9-15.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> From this view we can see the TXT record response Hello SEC450 lab 2.1! ;)</p>
+        <p> </p>
+        <p> This is how we can investigate DNS traffic in a PCAP in Wireshark.</p>
+        <p> </p>
+        <p> Now let&#39;s look at all DNS activity. Delete the current filter in the Wireshark search bar and replace it
+          simply with the filter dns and press enter.</p>
+        <p> </p>
+        <p> <span class="image fit"><img src="images/9-16.png" alt="" /></span>
+        </p>
+        <p> </p>
+        <p> </p>
+        <p> Notice there is much more activity than just the packets we generated. This is because your system is
+          constantly
+          running background processes that make DNS requests, and open web pages and other tools can create traffic as
+          well.</p>
+        <p> </p>
+        <p> We are now done looking at the PCAP, close Wireshark using the X in the upper right corner and return to
+          your
+          terminal.</p>
+        <p>
+        <h5>4. Detect malicious DNS requests via IDS</h5>
+
+        </p>
+        <p></p>
+        <p> </p>
+        <p> In this section, we&#39;ll see the Suricata Intrusion Detection System in action by picking out a suspicious
+          DNS
+          request with a signature. To do this we&#39;ll look at the /var/log/suricata/fast.log file, which gives a
+          one-line
+          summary of any IDS alerts being generated by what Suricata has observed in live traffic.</p>
+        <p> </p>
+        <p> Open a second terminal and run the following command to show the fast.log from Suricata.</p>
+        <p> </p>
+        <p> tail -f /var/log/suricata/fast.log</p>
+        <p> </p>
+        <p> There will be no output yet. Your screen should now look something like this..</p>
+        <p> </p>
+        <p> <span class="image fit"><img src="images/9-17.png" alt="" /></span>
+        </p>
+        <p> </p>
+        <p> Switch back to your first terminal window, but keep this new window open as you perform the next steps, it
+          will
+          print anything the IDS engine detects in real-time.</p>
+        <p> </p>
+        <p> Although the full detail for every alert is stored in Suricata&#39;s eve.json log, the eve.json&#39;s JSON
+          format is better ingested and viewed with the SIEM, the fast.log file is better used for easily readable quick
+          checks.</p>
+        <p> </p>
+        <p> To trigger an alert from Suricata, enter the following command into the first terminal. Note that you may
+          need
+          to send it several times before the alert appears:</p>
+        <p> </p>
+        <p> dig @8.8.8.8 sec450.top A</p>
+        <p> </p>
+        <p> You should see the 2nd terminal running &quot;tail&quot; print an alert to the screen as shown below. If it
+          does
+          not work on the first try, press the up arrow on the keyboard to reload the command and try it again.</p>
+        <p> </p>
+        <p> <span class="image fit"><img src="images/9-18.png" alt="" /></span>
+        </p>
+        <p> </p>
+        <p> This is an alert from the Suricata alert engine that tells us a suspicious DNS request was made!</p>
+        <p> </p>
+        <p> You can now click on the terminal running the tail command and press Ctrl + c to stop it. You can now close
+          this
+          terminal by clicking the &quot;x&quot; in the upper right.</p>
+        <p> </p>
+        <p> Why did this specific traffic trigger an alert when nothing else so far has? If we look into the alert rule
+          list
+          we started Suricata with, we can find the answer. To look up a rule, you can use it&#39;s unique identifier.
+          In
+          the case of the alert we just set off, it&#39;s 2023883 as seen in the alert output.</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/15-19.png"><img src="images/9-19.png"
+              alt="images/9-19.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> </p>
+        <p> In the terminal, enter the following command to see the rule in the rules list.</p>
+        <p> </p>
+        <p> grep 2023883 /labs/2.1/data/emerging-dns.rules</p>
+        <p> </p>
+        <p> You should see the following output.</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/15-20.png"><img src="images/9-20.png"
+              alt="images/9-20.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> This rule effectively says &quot;If Suricata sees traffic from any internal IP address and any source port
+          to
+          any destination IP and port that contains .top, alert&quot;. Since we looked up sec450.top, this matches the
+          rule
+          and it fired the alert! This is a simple demonstration of how a DNS based Intrusion Detection System works! In
+          a
+          production setup scenario, this alert would then be sent to analysts to triage and investigate.</p>
+        <p>
+        <h5>5. Detect malicious DNS requests via SIEM Analysis</h5>
+
+        </p>
+        <p></p>
+        <p> </p>
+        <p> While Suricata may pick up many types of malicious traffic with one of it&#39;s signatures, signatures are
+          ultimately still a block list-based technique that relies on enumerating &quot;known bad&quot;, an impossible
+          task
+          to cover all situations with. While this approach can catch a large portion of problems, there will always be
+          additional attacks for which you don&#39;t have signatures. For attacks that use new atomic indicators
+          (domains,
+          hashes), or methods that are unknown, we must rely on other methods to pick up malicious activity, and that is
+          where SIEM analysis comes in.</p>
+        <p> </p>
+        <p> Let&#39;s say you have malware utilizing DNS tunneling within your environment. If you do not know the
+          domain
+          is
+          malicious and the TLD is not something that Suricata will alert on (such as the .top domain in the previous
+          step),
+          how can you pick it up? Given what we know about DNS tunneling and how it has to use high-frequency, long,
+          encoded
+          looking subdomains, if we have the log of all DNS requests made, we should still be able to find it!</p>
+        <p> </p>
+        <p> For this next step, we will open Kibana to a set of pre-ingested DNS data:</p>
+        <p> </p>
+        <p> The following window shows DNS request details:</p>
+        <p> <span class="image fit"><img src="images/9-21.png" alt="" /></span>
+        </p>
+        <p> </p>
+        <p> </p>
+        <p> This page shows selected fields information as recorded by Suricata while observing DNS traffic. Note that
+          this
+          is event metadata such as the source and destination IP, request type, and hostname.</p>
+        <p> </p>
+        <p> Within this set of recorded data is an active DNS tunneling command and control channel. While scrolling
+          through
+          the records may eventually highlight the domain that was used, it&#39;s much easier to find it via visual
+          analysis. To do that we will go to a configured DNS dashboard</p>
+        <p> </p>
+        <p> We can see now a dashboard with multiple different visualizations created by the data we saw on the previous
+          tab.</p>
+        <p> </p>
+        <p> <span class="image fit"><img src="images/9-22.png" alt="" /></span>
+        </p>
+        <p> </p>
+        <p> Each one of these visualizations highlights the domain that was used for an attack, showing that there are
+          multiple easy ways to identify DNS tunneling, assuming you have the data and it is parsed correctly.</p>
+        <p> </p>
+        <p> • DNS Heatmap - Fist look at the box labeled &quot;DNS Heatmap&quot;, this is a visualization showing DNS
+          requests over time, split up by the parent domain they were going to. Although it is least obvious in this
+          chart,
+          we can see the domain contentdelivery.info is at the top with the most traffic. Could this be the domain
+          we&#39;re
+          looking for?</p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/15-23.png"><img src="images/9-23.png"
+              alt="images/9-23.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> </p>
+        <p> • DNS Table - Next look at the item to the right of the heatmap labeled &quot;DNS Table&quot; this is
+          breakdown
+          of the total count of domain queries per parent domain, again contentdelivery.info dominates this list by a
+          large
+          margin. Since we know DNS tunneling requires lots of requests over time, this also lines up with what we saw
+          in
+          the heatmap.</p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/15-24.png"><img src="images/9-24.png"
+              alt="images/9-24.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> • DNS Types - Look at the bottom left item labeled &quot;DNS Types&quot; This is a chart per domain, showing
+          the
+          breakdown what types of DNS queries were made for them. Notice that while almost all entries consist of
+          &quot;A&quot; and &quot;AAAA&quot; records, contentdelivery.info is mostly CNAME, MX, and TXT record requests,
+          an
+          incredibly odd breakdown compared to normal DNS activity (which should be mostly A record requests).</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/15-25.png"><img src="images/9-25.png"
+              alt="images/9-25.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> </p>
+        <p> • DNS Subdomains - The final item on the list is the &quot;DNS Subdomains&quot; visualization. This
+          breakdown
+          shows how many unique subdomains were used from each top level domain - a characteristic that would highlight
+          the
+          encoded data used for DNS tunneling. In this graph, we can clearly see that contentdelivery.info has way more
+          subdomains than any other item in the list.</p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/15-26.png"><img src="images/9-26.png"
+              alt="images/9-26.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> </p>
+        <p> Given all of this information, it would be quite safe to assume that something highly suspicious is going on
+          here and that it&#39;s very likely DNS tunneling is being used with this domain.</p>
+        <p> </p>
+        <p> Although we have no signature for DNS tunneling active in Suricata, this dashboard shows that attacks like
+          this
+          are still incredibly easy to catch...if you know where to look.</p>
+        <p>
+        <h5>6. Explore DNS over HTTPS Traffic in Wireshark</h5>
+
+        </p>
+        <p></p>
+        <p> </p>
+        <p> Now a bit outside of the scope of the lab, let&#39;s explore how DoH queries look in Wireshark, run the
+          following command in a terminal.</p>
+        <p> </p>
+        <p> wireshark -r doh_example.pcap -Y &quot;dns and tls&quot; -o
+          &#39;tls.keylog_file:/labs/2.1/sslkeylog.log&#39;
+        </p>
+        <p> </p>
+        <p> This command will open a pre-created example capture of DoH trafic with the decryption keys in place needed
+          to
+          decrypt and read it and a Wireshark display filter of dns and tls, which narrows packets down to DoH only (you
+          cannot simply use &quot;doh&quot; like you can with other protocol names at the time of this writing). The
+          screenshot below shows the resolution of A and AAAA records for isc.sans.edu.</p>
+        <p> </p>
+        <p> </p>
+        <p> <span class="image fit"><img src="images/9-27.png" alt="" /></span>
+        </p>
+        <p> </p>
+        <p> SIDE NOTE: If you are looking for a specific information you can ctrl+F, select to search by string in this
+          case
+          and Wireshark will search for you the packet you are hunting, like this:</p>
+        <p> <span class="image fit"><img src="images/9-28.png" alt="" /></span>
+        </p>
+        <p> </p>
+        <p> Back to the lab we can alternatively, use the broader filter (dns and tls) or http2 to show both the DoH
+          query
+          and the HTTP/2 portion. This filter shows both the DoH packet and the preceeding HTTP/2 packet that
+          facilitates
+          it. Although we have not yet discussed HTTP/2, note that there is an HTTP/2 protocol POST request to the URL
+          &quot;/dns-query&quot;. This is because DoH is literally talking to an HTTP server to make a DNS request
+          embedded
+          within an HTTP request!</p>
+        <p> </p>
+        <p> <span class="image fit"><img src="images/9-29.png" alt="" /></span>
+        </p>
+        <p> </p>
+        <p> Also note that the DNS transaction ID is now 0x0000 for all requests. How do we then track a response to a
+          given
+          request? We now need to use the HTTP/2 stream identifier. The easiest way to trace the unique answer to a DoH
+          request in the above screenshot would be to right-click on a packet like #552 in the screenshot, select
+          &quot;Follow&quot;, then select &quot;HTTP/2 Stream&quot;. Wireshark in this specific scenario would apply the
+          filter tcp.stream eq 2 and http2.streamid eq 81. This filters traffic down to just the unique TCP connection
+          to
+          the DoH server and the HTTP/2 stream identifier, &quot;81&quot; in this case (seen in packet #552 in brackets
+          after the word &quot;HEADERS&quot;).</p>
+        <p> </p>
+        <p> This capture is Firefox using it&#39;s built-in default DNS over HTTPS functionality. If you&#39;d like to
+          see
+          what this traffic looks like without the encryption keys applied, close wireshark and reopen the capture with
+          the
+          command below that omits the -o argument (which provides the decryption keys).</p>
+        <p> </p>
+        <p> wireshark -r doh_example.pcap -Y &quot;dns and tls&quot;</p>
+        <p> </p>
+        <p> You should see the following:</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/15-30.png"><img src="images/9-30.png"
+              alt="images/9-30.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> Where&#39;d the traffic go? Note that without the decryption keys provided, the DoH traffic can no longer be
+          identified by Wireshark due to encryption! DNS simply looks like any other TLS traffic without decryption, so
+          the
+          filter won&#39;t find anything to show you!</p>
+        <p> </p>
+        <p> If you want to narrow down the traffic to only what you saw before (but now encrypted), switch the Wireshark
+          filter to tls and ip.addr == 70.32.97.206 instead of dns and tls. This limits traffic to the IP of
+          Amazon&#39;s
+          DoH server used by Firefox which is now wrapped in TLS encryption.</p>
+        <p> </p>
+        <p> <a href="http://../../../../Desktop/project"> </a><a
+            href="file:///C:/Users/Leugim/Desktop/project/images/15-31.png"><img src="images/9-31.png"
+              alt="images/9-31.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
+        <p> </p>
+        <p> Doesn&#39;t look like much does it? That&#39;s the point, and hopefully it&#39;s also further motivation to
+          get
+          that TLS decryption effort moving, without it, you&#39;ll soon have no idea what domains are being resolved!
+        </p>
+        <p></p>
+        <p>
+        <h5>Lab Conclusion</h5>
+        </p>
+        <p></p>
+        <p> </p>
+        <p>
+        <h5> In this lab, we have:</h5>
+        </p>
+        <p> </p>
+        <p> • Used your own DNS server, IDS, and SIEM to analyze DNS traffic</p>
+        <p> </p>
+        <p> • Manually created DNS requests of several types using the dig tool</p>
+        <p> </p>
+        <p> • Seen the information a DNS server records about the requests it handles</p>
+        <p> </p>
+        <p> • Analyzed DNS traffic PCAPs with multiple request types</p>
+        <p> </p>
+        <p> • Used Suricata to detect suspicious DNS traffic with signature matching</p>
+        <p> </p>
+        <p> • Seen how the corresponding fields of DNS traffic are logged using Suricata and can be sent to a SIEM</p>
+        <p> </p>
+        <p> • Used a SIEM dashboard set to visualize DNS fields to easily identify DNS tunneling</p>
+        <p> </p>
+        <p> • DNS over HTTPS, and the importance of TLS decryption for network security monitoring</p>
+        <p></p>
+
+      </section>
+    </div>
+    <!-- Copyright -->
+
+    <body class="is-preload">
+      <header id="header">
+        <a href="https://yrtree.me/@Miguel%20Nogueira" class="logo">Connect with
+          me</a>
       </header>
-      <h2>Objective</h2>
-      </p>
-      <p></p>
-      <p> </p>
-      <p> • Run a DNS Server (Pi-Hole) to see how it accepts, records, and forwards requests</p>
-      <p> </p>
-      <p> • Manually generate DNS requests from the command line to our Pi-Hole DNS server using &quot;dig&quot;</p>
-      <p> </p>
-      <p> • Log in to the DNS server and see the information it records from client lookups</p>
-      <p> </p>
-      <p> • Look at the packets of the DNS traffic in Wireshark</p>
-      <p> </p>
-      <p> • Use Suricata IDS signatures to detect suspicious DNS requests</p>
-      <p> </p>
-      <p> • Use DNS event logs recorded by Suricata to identify DNS tunneling in a SIEM</p>
-      <p></p>
-      <p>
-      <h3>Lab Setup</h3>
-      </p>
-      <p></p>
-      <p> </p>
-      <p> Tell your virtual machine to request a new DHCP lease. </p>
-      <p> </p>
-      <p> sudo dhclient -i ens33 -v</p>
-      <p> </p>
-      <p> </p>
-      <p> Start the Suricata IDS, which will be used to capture our traffic:</p>
-      <p> </p>
-      <p> sudo suricata -c /labs/2.1/data/suricata.yaml -S /labs/2.1/data/emerging-dns.rules -i ens33 -D</p>
-      <p> </p>
-      <p> After a moment (it may take a while for Suricata to start up depending on your CPU) you should see the
-        following
-        response:</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/15-1.png"><img src="images/9-1.png"
-            alt="images/9-1.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> Next we must stop the built-in DNS resolver, use the following command to stop the systemd-resolved service.
-      </p>
-      <p> </p>
-      <p> sudo service systemd-resolved stop</p>
-      <p> </p>
-      <p> </p>
-      <p> Next start up Elasticsearch and Kibana using the following command:</p>
-      <p> </p>
-      <p> cd /labs/2.1</p>
-      <p> docker-compose up -d</p>
-      <p>
-      <h5>1. Manually generate DNS requests via dig</h5>
+      <div id="copyright">
+        <ul>
+          <li>
+            <h6><a href="index.html">Home</h6>
+            </a>
+          </li>
+          <li>
+            <h6><a href="LABS.html">Labs</h6>
+            </a>
+          </li>
 
-      </p>
-      <p></p>
-      <p> </p>
-      <p> In the setup for this lab, we have started multiple services. To give you the full perspective of why we did
-        that, here&#39;s what they are and why we started each:</p>
-      <p> </p>
-      <p> • Pi-Hole - A forwarding DNS server which can service DNS requests, cache answers, and perform recursive
-        lookups. It also comes with a very nice web GUI for setup and monitoring which we will use to see the requests
-        from the DNS server perspective.</p>
-      <p> </p>
-      <p> • Suricata IDS - Suricata will record a PCAP of all traffic, apply Snort-style IDS signatures to the traffic,
-        and produce metadata events on all traffic it observes (regardless of signature matches).</p>
-      <p> </p>
-      <p> • Elasticsearch &amp; Kibana - Acting as our SIEM, Elasticsearch is the data store and Kibana is the front end
-        for running searches and visualizing our data. It will store the event and alert logs we produce with Suricata.
-      </p>
-      <p> </p>
-      <p> In the following steps we&#39;re going to manually generate DNS traffic by sending requests to the Pi-Hole
-        server. The goal of this lab is to see DNS requests from multiple viewpoints. To achieve this, Suricata is
-        recording metadata event logs and a PCAP. That means we will see how the traffic looks in 3 ways:</p>
-      <p> </p>
-      <p> • &quot;On the wire&quot; from the PCAP</p>
-      <p> </p>
-      <p> • Logs produced by Suricata observing the network traffic</p>
-      <p> </p>
-      <p> • As logged by the DNS server itself</p>
-      <p> </p>
-      <p> Now that we&#39;ve started our DNS server and the IDS is recording traffic, go back to your terminal. We will
-        use &quot;dig&quot;, the DNS lookup utility to produce DNS requests. We will provide different command line
-        arguments to dig to perform different types of DNS queries from the command line.</p>
-      <p></p>
-      <p>
-      <h3>A Record Request</h3>
-      </p>
-      <p></p>
-      <p> </p>
-      <p> In our terminal, use will use the following command to send an A record request for SEC450.com to the Pi-Hole:
-      </p>
-      <p> </p>
-      <p> dig @127.0.0.1 sec450.com A</p>
-      <p> </p>
-      <p> The format of this command is dig [DNS server name] [lookup] [request type]. Since the Pi-Hole is not the
-        standard DNS server used by our virtual machine we must specify which server to ask (the @127.0.0.1 argument),
-        the
-        second argument is the name we wish to resolve (sec450.com) and the third argument is the record type,
-        &quot;A&quot; since we are doing an A record lookup.</p>
-      <p> </p>
-      <p> You should see the following output showing the A record for sec450.com.</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/15-2.png"><img src="images/9-2.png"
-            alt="images/9-2.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> The items of interest in the dig output are highlighted</p>
-      <p> </p>
-      <p> • The QUESTION section showing that we made an &quot;A&quot; record request about the hostname sec450.com</p>
-      <p> </p>
-      <p> • The ANSWER section shows the returned answer given by the Pi-Hole server</p>
-      <p> </p>
-      <p> • The SERVER line shows which server was used for the resolution.</p>
-      <p> </p>
-      <p> This step shows how you can directly look up an A record for a given domain.</p>
-      <p></p>
-      <p>
-      <h3>PTR Record Request</h3>
-      </p>
-      <p></p>
-      <p> </p>
-      <p> Next, take the IP address found from the previous &quot;A&quot; record request and use it to perform a
-        &quot;PTR&quot; record lookup for the IP address of A record for sec450.com. </p>
-      <p> </p>
-      <p> dig @127.0.0.1 -x 70.32.97.206</p>
-      <p> </p>
-      <p> You should see the following output:</p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/15-3.png"><img src="images/9-3.png"
-            alt="images/9-3.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> This step shows how you can directly look up a PTR record for a given IP address. Let&#39;s now look at where
-        this answer comes from, but wait shouldn&#39;t the PTR Record return the hostname &quot;sec450.com&quot;? Yes
-        and
-        No, let me explain. </p>
-      <p> A record lookups and PTR records do not always resolve a name faithfully, it is two different settings in two
-        different locations! Imagine if I attacked your organization from the IP address 70.32.97.206 and, not having
-        any
-        other info, you performed a PTR record lookup and found it resolved to “simcoe.identityvector.com.”, that might
-        be
-        confusing if you don&#39;t understand how this system works! The idea is to not place full trust in PTR records,
-        they rely on the owner of the IP address to fill them out and a malicious actor may fill in a false answer, or
-        leave the information blank.</p>
-      <p> </p>
-      <p> The sec450.com domain was registered through Namecheap.com and the IP address (which was 70.32.97.206) was
-        hosted on a VPS at DigitalOcean. While all other DNS records types must be setup through the DNS settings at the
-        registrar (which was Namecheap), the PTR record is not, it is controlled by the company that owns the IP
-        address.
-        That means that while all other record types (A, CNAME, TXT, ...) are configured through logging in to
-        Namecheap,
-        the PTR record is actually set by logging in and changing it at DigitalOcean. In the management console at
-        DigitalOcean, the name of the VPS can be changed to anything, and whatever is entered in this box becomes the
-        PTR
-        record.</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/15-4.png"><img src="images/9-4.png"
-            alt="images/9-4.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> The box above is in the VPS settings in the DigitalOcean console. If I were to fill this out with some other
-        hostname, the PTR lookup would reflect that, regardless of if it were &quot;true&quot; or not. This means I
-        could
-        fill this box in with &quot;google.com&quot; and anyone making a PTR record request for this IP would see
-        &quot;google.com&quot; returned instead.</p>
-      <p> </p>
-      <p> </p>
-      <p> </p>
-      <p> </p>
-      <p></p>
-      <p>
-      <h3>TXT Record Request</h3>
-      </p>
-      <p></p>
-      <p> </p>
-      <p> Next, use the following command to send an TXT record request for SEC450.com:</p>
-      <p> </p>
-      <p> dig @127.0.0.1 sec450.com TXT</p>
-      <p> </p>
-      <p> You should see output similar to the following:</p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/15-5.png"><img src="images/9-5.png"
-            alt="images/9-5.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> This step shows how you can directly look up the TXT record for a given domain.</p>
-      <p></p>
-      <p>
-      <h3>NS Record Request</h3>
-      </p>
-      <p></p>
-      <p> </p>
-      <p> Finally, let&#39;s check where the official name servers of sec450.com are with an NS request. Run the
-        following
-        command:</p>
-      <p> </p>
-      <p> dig @127.0.0.1 sec450.com NS</p>
-      <p> </p>
-      <p> </p>
-      <p> </p>
-      <p> You should see a response similar to following:</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/15-6.png"><img src="images/9-6.png"
-            alt="images/9-6.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> This tells us that, at the time of this screenshot, sec450.com DNS was handled by ns-1286.awsdns-32.org. |
-        ns-1602.awsdns-08.co.uk. | ns-290.awsdns-36.com. | ns-581.awsdns-08.net.</p>
-      <p> </p>
-      <p> Therefore, if we want a definitive answer on anything in the sec450.com zone, these are the authoritative name
-        servers we would ask. They are the single &quot;source of truth&quot; for the sec450.com zone.</p>
-      <p> </p>
-      <p> These servers are the free DNS service provided by Amazon.</p>
-      <p>
-      <h5>2. Log in to Pi-Hole to see the DNS server view of your requests</h5>
-
-      </p>
-      <p></p>
-      <p> </p>
-      <p> We&#39;ll log in to the Pi-Hole server which resolved our requests in the previous step.</p>
-      <p> </p>
-      <p> This is the Pi-Hole dashboard which will show statistics on all the DNS requests that have been recorded (note
-        your numbers will be different than the screenshot).</p>
-      <p> </p>
-      <p> Select the Query Log tab on the left side to see the individual logs that were created.</p>
-      <p> <span class="image fit"><img src="images/9-7.png" alt="" /></span>
-      </p>
-      <p> </p>
-      <p> </p>
-      <p> The next page will show a list of all queries that were made in the recent past. As long as you have moved
-        directly to this step from the previous page, you should now be able to find your sec450.com DNS lookups
-        recorded.
-      </p>
-      <p> </p>
-      <p> To filter it down, type &quot;sec450&quot; into the search box into the upper right of the page. You should
-        now
-        see a screen similar to the following.</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/15-8.png"><img src="images/9-8.png"
-            alt="images/9-8.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> Here we can see the &quot;DNS server view&quot; of what DNS requests look like. Pi-Hole acts very similar to
-        most DNS servers, whether Windows DNS, ISC Bind, or others. They all record the source of the incoming request,
-        which we can see in the &quot;client&quot; column in this view, as well the lookup type and domain that was
-        searched. In the &quot;Status&quot; column we can also see whether the request was forwarded or served from the
-        DNS servers cache. If we were to look at the text-based log files produced by the pi-hole, we would see the same
-        information. Pi-Hole also gives us the ability to easily block domains from this view if desired!</p>
-      <p> </p>
-      <p> Now that we&#39;ve seen what the DNS server records, lets take a deeper look at the traffic by diving into the
-        actual packets. We will leave the browser open in orther to watch new requests stream by until the end of the
-        lab.
-      </p>
-      <p>
-      <h5>3. View PCAPs for DNS traffic in Wireshark</h5>
-
-      </p>
-      <p></p>
-      <p> </p>
-      <p> Next, switch back to the terminal and run the following command to enumerate the files in the Suricata logging
-        folder.</p>
-      <p> </p>
-      <p> ls -l /var/log/suricata/lab2.1*</p>
-      <p> </p>
-      <p> You will need to find the file called lab2.1.pcap.[x] where the x is a number depending on the time of the
-        capture. There should be only one result, but if you run the lab more than once there may be others present.</p>
-      <p> </p>
-      <p> Here&#39;s an example output you may see if you had more than one entry, pick the filename at the bottom of
-        the
-        list.</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/15-9.png"><img src="images/9-9.png"
-            alt="images/9-9.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> Use this filename with the full path for the next command. This command will open Wireshark.</p>
-      <p> </p>
-      <p> wireshark /var/log/suricata/lab2.1.pcap.1688538292</p>
-      <p> </p>
-      <p> Press Enter to open Wireshark, if you see an error saying the file was cut short in the middle of a packet
-        that
-        is ok.</p>
-      <p> </p>
-      <p> Once Wireshark is open, find your A record request for sec450.com take the following text and place it in the
-        filter box in Wireshark.</p>
-      <p> </p>
-      <p> dns.qry.name == &quot;sec450.com&quot; &amp;&amp; (dns.qry.type == 1)</p>
-      <p> </p>
-      <p> You should now see two lines in Wireshark with the A record request for sec450.com as shown below (depending
-        on
-        how the query was made by Pi-Hole there could be more than 2 lines, in my case i have 3 requests).</p>
-      <p> </p>
-      <p> <span class="image fit"><img src="images/9-10.png" alt="" /></span>
-      </p>
-      <p> </p>
-      <p> How can we tell which entry is the response for a specific query? By looking at the hex number preceding the
-        lookup type. In the case of the capture shown here the lookup was numbered 0x91de and the corresponding response
-        has the same label as shown below. </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/15-11.png"><img src="images/9-11.png"
-            alt="images/9-11.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> What about the other details? To dive into the packet details first click on the request packet in the
-        Wireshark
-        packet list. go down to the middle panel in Wireshark and find the line at the bottom that says &quot;Domain
-        Name
-        System (query)&quot; and expand it. Once expanded, find the line that says &quot;Queries&quot; and expand that
-        as
-        well. Then, expand the line that says &quot;sec450.com: type A, class IN&quot;.</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/15-12.png"><img src="images/9-12.png"
-            alt="images/9-12.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> You should now see the additional detail on each field in the DNS request. Notice how each item in the Info
-        line
-        in the packet overview above is represented in the detail below, as well as additional details. In Wireshark,
-        any
-        time you need to find specific details on one of the layers of the network transaction you can use this panel to
-        recursively expand fields until you drill down to the information you&#39;re looking for.</p>
-      <p> </p>
-      <p> <span class="image fit"><img src="images/9-13.png" alt="" /></span>
-      </p>
-      <p> </p>
-      <p> Next let&#39;s take a look at the TXT record request. Enter the following filter in Wireshark (the only
-        difference is changing the &quot;1&quot; to a &quot;16&quot;).</p>
-      <p> </p>
-      <p> dns.qry.name == &quot;sec450.com&quot; &amp;&amp; (dns.qry.type == 16)</p>
-      <p> </p>
-      <p> Now we can see at least two lines in Wireshark with the TXT record request for sec450.com as shown below
-        (depending on how the query was made by Pi-Hole there could be more).</p>
-      <p> </p>
-      <p> <span class="image fit"><img src="images/9-14.png" alt="" /></span>
-      </p>
-      <p> </p>
-      <p> Remember when this request was made we saw the TXT record contents printed to the screen in the dig output.
-        Notice that while the response to an &quot;A&quot; record was shown in the info line in Wireshark, TXT record
-        responses are not, so in this case we must go into the details to see the response in Wireshark.</p>
-      <p> </p>
-      <p> Click on the packet that says &quot;query response&quot; in the info column in Wireshark this time. Unfold the
-        layers of the packet in the middle pane in Wireshark so that both the &quot;Answers&quot; section as well as the
-        &quot;sec450.com: TXT, class IN&quot; item beneath it are unfolded, as shown below:</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/15-15.png"><img src="images/9-15.png"
-            alt="images/9-15.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> From this view we can see the TXT record response Hello SEC450 lab 2.1! ;)</p>
-      <p> </p>
-      <p> This is how we can investigate DNS traffic in a PCAP in Wireshark.</p>
-      <p> </p>
-      <p> Now let&#39;s look at all DNS activity. Delete the current filter in the Wireshark search bar and replace it
-        simply with the filter dns and press enter.</p>
-      <p> </p>
-      <p> <span class="image fit"><img src="images/9-16.png" alt="" /></span>
-      </p>
-      <p> </p>
-      <p> </p>
-      <p> Notice there is much more activity than just the packets we generated. This is because your system is
-        constantly
-        running background processes that make DNS requests, and open web pages and other tools can create traffic as
-        well.</p>
-      <p> </p>
-      <p> We are now done looking at the PCAP, close Wireshark using the X in the upper right corner and return to your
-        terminal.</p>
-      <p>
-      <h5>4. Detect malicious DNS requests via IDS</h5>
-
-      </p>
-      <p></p>
-      <p> </p>
-      <p> In this section, we&#39;ll see the Suricata Intrusion Detection System in action by picking out a suspicious
-        DNS
-        request with a signature. To do this we&#39;ll look at the /var/log/suricata/fast.log file, which gives a
-        one-line
-        summary of any IDS alerts being generated by what Suricata has observed in live traffic.</p>
-      <p> </p>
-      <p> Open a second terminal and run the following command to show the fast.log from Suricata.</p>
-      <p> </p>
-      <p> tail -f /var/log/suricata/fast.log</p>
-      <p> </p>
-      <p> There will be no output yet. Your screen should now look something like this..</p>
-      <p> </p>
-      <p> <span class="image fit"><img src="images/9-17.png" alt="" /></span>
-      </p>
-      <p> </p>
-      <p> Switch back to your first terminal window, but keep this new window open as you perform the next steps, it
-        will
-        print anything the IDS engine detects in real-time.</p>
-      <p> </p>
-      <p> Although the full detail for every alert is stored in Suricata&#39;s eve.json log, the eve.json&#39;s JSON
-        format is better ingested and viewed with the SIEM, the fast.log file is better used for easily readable quick
-        checks.</p>
-      <p> </p>
-      <p> To trigger an alert from Suricata, enter the following command into the first terminal. Note that you may need
-        to send it several times before the alert appears:</p>
-      <p> </p>
-      <p> dig @8.8.8.8 sec450.top A</p>
-      <p> </p>
-      <p> You should see the 2nd terminal running &quot;tail&quot; print an alert to the screen as shown below. If it
-        does
-        not work on the first try, press the up arrow on the keyboard to reload the command and try it again.</p>
-      <p> </p>
-      <p> <span class="image fit"><img src="images/9-18.png" alt="" /></span>
-      </p>
-      <p> </p>
-      <p> This is an alert from the Suricata alert engine that tells us a suspicious DNS request was made!</p>
-      <p> </p>
-      <p> You can now click on the terminal running the tail command and press Ctrl + c to stop it. You can now close
-        this
-        terminal by clicking the &quot;x&quot; in the upper right.</p>
-      <p> </p>
-      <p> Why did this specific traffic trigger an alert when nothing else so far has? If we look into the alert rule
-        list
-        we started Suricata with, we can find the answer. To look up a rule, you can use it&#39;s unique identifier. In
-        the case of the alert we just set off, it&#39;s 2023883 as seen in the alert output.</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/15-19.png"><img src="images/9-19.png"
-            alt="images/9-19.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> </p>
-      <p> In the terminal, enter the following command to see the rule in the rules list.</p>
-      <p> </p>
-      <p> grep 2023883 /labs/2.1/data/emerging-dns.rules</p>
-      <p> </p>
-      <p> You should see the following output.</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/15-20.png"><img src="images/9-20.png"
-            alt="images/9-20.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> This rule effectively says &quot;If Suricata sees traffic from any internal IP address and any source port to
-        any destination IP and port that contains .top, alert&quot;. Since we looked up sec450.top, this matches the
-        rule
-        and it fired the alert! This is a simple demonstration of how a DNS based Intrusion Detection System works! In a
-        production setup scenario, this alert would then be sent to analysts to triage and investigate.</p>
-      <p>
-      <h5>5. Detect malicious DNS requests via SIEM Analysis</h5>
-
-      </p>
-      <p></p>
-      <p> </p>
-      <p> While Suricata may pick up many types of malicious traffic with one of it&#39;s signatures, signatures are
-        ultimately still a block list-based technique that relies on enumerating &quot;known bad&quot;, an impossible
-        task
-        to cover all situations with. While this approach can catch a large portion of problems, there will always be
-        additional attacks for which you don&#39;t have signatures. For attacks that use new atomic indicators (domains,
-        hashes), or methods that are unknown, we must rely on other methods to pick up malicious activity, and that is
-        where SIEM analysis comes in.</p>
-      <p> </p>
-      <p> Let&#39;s say you have malware utilizing DNS tunneling within your environment. If you do not know the domain
-        is
-        malicious and the TLD is not something that Suricata will alert on (such as the .top domain in the previous
-        step),
-        how can you pick it up? Given what we know about DNS tunneling and how it has to use high-frequency, long,
-        encoded
-        looking subdomains, if we have the log of all DNS requests made, we should still be able to find it!</p>
-      <p> </p>
-      <p> For this next step, we will open Kibana to a set of pre-ingested DNS data:</p>
-      <p> </p>
-      <p> The following window shows DNS request details:</p>
-      <p> <span class="image fit"><img src="images/9-21.png" alt="" /></span>
-      </p>
-      <p> </p>
-      <p> </p>
-      <p> This page shows selected fields information as recorded by Suricata while observing DNS traffic. Note that
-        this
-        is event metadata such as the source and destination IP, request type, and hostname.</p>
-      <p> </p>
-      <p> Within this set of recorded data is an active DNS tunneling command and control channel. While scrolling
-        through
-        the records may eventually highlight the domain that was used, it&#39;s much easier to find it via visual
-        analysis. To do that we will go to a configured DNS dashboard</p>
-      <p> </p>
-      <p> We can see now a dashboard with multiple different visualizations created by the data we saw on the previous
-        tab.</p>
-      <p> </p>
-      <p> <span class="image fit"><img src="images/9-22.png" alt="" /></span>
-      </p>
-      <p> </p>
-      <p> Each one of these visualizations highlights the domain that was used for an attack, showing that there are
-        multiple easy ways to identify DNS tunneling, assuming you have the data and it is parsed correctly.</p>
-      <p> </p>
-      <p> • DNS Heatmap - Fist look at the box labeled &quot;DNS Heatmap&quot;, this is a visualization showing DNS
-        requests over time, split up by the parent domain they were going to. Although it is least obvious in this
-        chart,
-        we can see the domain contentdelivery.info is at the top with the most traffic. Could this be the domain
-        we&#39;re
-        looking for?</p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/15-23.png"><img src="images/9-23.png"
-            alt="images/9-23.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> </p>
-      <p> • DNS Table - Next look at the item to the right of the heatmap labeled &quot;DNS Table&quot; this is
-        breakdown
-        of the total count of domain queries per parent domain, again contentdelivery.info dominates this list by a
-        large
-        margin. Since we know DNS tunneling requires lots of requests over time, this also lines up with what we saw in
-        the heatmap.</p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/15-24.png"><img src="images/9-24.png"
-            alt="images/9-24.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> • DNS Types - Look at the bottom left item labeled &quot;DNS Types&quot; This is a chart per domain, showing
-        the
-        breakdown what types of DNS queries were made for them. Notice that while almost all entries consist of
-        &quot;A&quot; and &quot;AAAA&quot; records, contentdelivery.info is mostly CNAME, MX, and TXT record requests,
-        an
-        incredibly odd breakdown compared to normal DNS activity (which should be mostly A record requests).</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/15-25.png"><img src="images/9-25.png"
-            alt="images/9-25.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> </p>
-      <p> • DNS Subdomains - The final item on the list is the &quot;DNS Subdomains&quot; visualization. This breakdown
-        shows how many unique subdomains were used from each top level domain - a characteristic that would highlight
-        the
-        encoded data used for DNS tunneling. In this graph, we can clearly see that contentdelivery.info has way more
-        subdomains than any other item in the list.</p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/15-26.png"><img src="images/9-26.png"
-            alt="images/9-26.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> </p>
-      <p> Given all of this information, it would be quite safe to assume that something highly suspicious is going on
-        here and that it&#39;s very likely DNS tunneling is being used with this domain.</p>
-      <p> </p>
-      <p> Although we have no signature for DNS tunneling active in Suricata, this dashboard shows that attacks like
-        this
-        are still incredibly easy to catch...if you know where to look.</p>
-      <p>
-      <h5>6. Explore DNS over HTTPS Traffic in Wireshark</h5>
-
-      </p>
-      <p></p>
-      <p> </p>
-      <p> Now a bit outside of the scope of the lab, let&#39;s explore how DoH queries look in Wireshark, run the
-        following command in a terminal.</p>
-      <p> </p>
-      <p> wireshark -r doh_example.pcap -Y &quot;dns and tls&quot; -o &#39;tls.keylog_file:/labs/2.1/sslkeylog.log&#39;
-      </p>
-      <p> </p>
-      <p> This command will open a pre-created example capture of DoH trafic with the decryption keys in place needed to
-        decrypt and read it and a Wireshark display filter of dns and tls, which narrows packets down to DoH only (you
-        cannot simply use &quot;doh&quot; like you can with other protocol names at the time of this writing). The
-        screenshot below shows the resolution of A and AAAA records for isc.sans.edu.</p>
-      <p> </p>
-      <p> </p>
-      <p> <span class="image fit"><img src="images/9-27.png" alt="" /></span>
-      </p>
-      <p> </p>
-      <p> SIDE NOTE: If you are looking for a specific information you can ctrl+F, select to search by string in this
-        case
-        and Wireshark will search for you the packet you are hunting, like this:</p>
-      <p> <span class="image fit"><img src="images/9-28.png" alt="" /></span>
-      </p>
-      <p> </p>
-      <p> Back to the lab we can alternatively, use the broader filter (dns and tls) or http2 to show both the DoH query
-        and the HTTP/2 portion. This filter shows both the DoH packet and the preceeding HTTP/2 packet that facilitates
-        it. Although we have not yet discussed HTTP/2, note that there is an HTTP/2 protocol POST request to the URL
-        &quot;/dns-query&quot;. This is because DoH is literally talking to an HTTP server to make a DNS request
-        embedded
-        within an HTTP request!</p>
-      <p> </p>
-      <p> <span class="image fit"><img src="images/9-29.png" alt="" /></span>
-      </p>
-      <p> </p>
-      <p> Also note that the DNS transaction ID is now 0x0000 for all requests. How do we then track a response to a
-        given
-        request? We now need to use the HTTP/2 stream identifier. The easiest way to trace the unique answer to a DoH
-        request in the above screenshot would be to right-click on a packet like #552 in the screenshot, select
-        &quot;Follow&quot;, then select &quot;HTTP/2 Stream&quot;. Wireshark in this specific scenario would apply the
-        filter tcp.stream eq 2 and http2.streamid eq 81. This filters traffic down to just the unique TCP connection to
-        the DoH server and the HTTP/2 stream identifier, &quot;81&quot; in this case (seen in packet #552 in brackets
-        after the word &quot;HEADERS&quot;).</p>
-      <p> </p>
-      <p> This capture is Firefox using it&#39;s built-in default DNS over HTTPS functionality. If you&#39;d like to see
-        what this traffic looks like without the encryption keys applied, close wireshark and reopen the capture with
-        the
-        command below that omits the -o argument (which provides the decryption keys).</p>
-      <p> </p>
-      <p> wireshark -r doh_example.pcap -Y &quot;dns and tls&quot;</p>
-      <p> </p>
-      <p> You should see the following:</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/15-30.png"><img src="images/9-30.png"
-            alt="images/9-30.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> Where&#39;d the traffic go? Note that without the decryption keys provided, the DoH traffic can no longer be
-        identified by Wireshark due to encryption! DNS simply looks like any other TLS traffic without decryption, so
-        the
-        filter won&#39;t find anything to show you!</p>
-      <p> </p>
-      <p> If you want to narrow down the traffic to only what you saw before (but now encrypted), switch the Wireshark
-        filter to tls and ip.addr == 70.32.97.206 instead of dns and tls. This limits traffic to the IP of Amazon&#39;s
-        DoH server used by Firefox which is now wrapped in TLS encryption.</p>
-      <p> </p>
-      <p> <a href="http://../../../../Desktop/project"> </a><a
-          href="file:///C:/Users/Leugim/Desktop/project/images/15-31.png"><img src="images/9-31.png"
-            alt="images/9-31.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
-      <p> </p>
-      <p> Doesn&#39;t look like much does it? That&#39;s the point, and hopefully it&#39;s also further motivation to
-        get
-        that TLS decryption effort moving, without it, you&#39;ll soon have no idea what domains are being resolved!</p>
-      <p></p>
-      <p>
-      <h5>Lab Conclusion</h5>
-      </p>
-      <p></p>
-      <p> </p>
-      <p>
-      <h5> In this lab, we have:</h5>
-      </p>
-      <p> </p>
-      <p> • Used your own DNS server, IDS, and SIEM to analyze DNS traffic</p>
-      <p> </p>
-      <p> • Manually created DNS requests of several types using the dig tool</p>
-      <p> </p>
-      <p> • Seen the information a DNS server records about the requests it handles</p>
-      <p> </p>
-      <p> • Analyzed DNS traffic PCAPs with multiple request types</p>
-      <p> </p>
-      <p> • Used Suricata to detect suspicious DNS traffic with signature matching</p>
-      <p> </p>
-      <p> • Seen how the corresponding fields of DNS traffic are logged using Suricata and can be sent to a SIEM</p>
-      <p> </p>
-      <p> • Used a SIEM dashboard set to visualize DNS fields to easily identify DNS tunneling</p>
-      <p> </p>
-      <p> • DNS over HTTPS, and the importance of TLS decryption for network security monitoring</p>
-      <p></p>
-
-    </section>
-  </div>
-  <!-- Copyright -->
-  <div id="copyright">
-    <ul>
-      <li>
-        <h6>&copy;<a href="index.html">Main Page</h6>
-        </a>
-      </li>
-      <li>
-        <h6>&copy;<a href="https://yrtree.me/@Miguel%20Nogueira">Miguel Nogueira</h6>
-        </a>
-      </li>
-
-    </ul>
-  </div>
+        </ul>
+      </div>
   </div>
 
   <!-- Scripts -->

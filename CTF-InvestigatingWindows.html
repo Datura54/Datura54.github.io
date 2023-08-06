@@ -1,0 +1,279 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Massively by HTML5 UP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+</head>
+
+<body class="is-preload">
+
+  <!-- Wrapper -->
+  <div id="wrapper" class="fade-in">
+
+    <!-- Intro -->
+    <div id="intro">
+      <h2>Analyzing a Potentially Malicious Email<br /></h2>
+      <a href="https://tryhackme.com/room/phishingemails5fgjlzxc">The greenholt Phish</a></h1>
+      <p>Miguel Nogueira</p>
+    </div>
+
+
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Home</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="https://yrtree.me/@Miguel%20Nogueira">CTF's</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+
+
+
+
+
+    <!-- Main -->
+    <div id="main">
+
+      <!-- Post -->
+      <section class="post">
+
+
+        <header class="major">
+          <h2>TheHive</h2>
+        </header>
+        <h1>Investigating Windows</h1>Tittle: A windows machine has been hacked, its your job to go investigate
+        this windows machine and find clues to what the hacker might have done.<strong>
+          <h2>Scenario Notes:</h2>
+        </strong>
+        <h3>This is a challenge that is exactly what is says on the tittle, there are a few challenges around
+          investigating
+          a windows machine that has been previously compromised.</h3><strong>
+          <h2>Objective:</h2>
+        </strong>Successfully investigate and identify anomalous behaviors in Windows machine logs to detect and
+        mitigate potential security breaches in a real-world scenario.<strong>
+          <h2>Question 1:</h2>
+        </strong>Whats the version and year of the windows machine?<strong>
+          <h2>Explanation:</h2>
+        </strong>We could jusst go to setting and see the about section, but that wouldn&#39;t be much hacker of
+        us<a href=""><img src="images/39-1.png" alt="images/39-1.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>Windows Server 2016</pre>
+        </div><strong>
+          <h2>Question 2:</h2>
+        </strong>Which user logged in last?<strong>
+          <h2>Explanation:</h2>
+        </strong><a href=""><img src="images/39-2.png" alt="images/39-2.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>Administrator</pre>
+        </div><strong>
+          <h2>Question 3:</h2>
+        </strong>When did John log onto the system last?Answer format: MM/DD/YYYY H:MM:SS AM/PM<strong>
+          <h2>Explanation:</h2>
+        </strong><a href=""><img src="images/39-3.png" alt="images/39-3.png" /></a><a href=""><img src="images/39-4.png"
+            alt="images/39-4.png" /></a><a href=""><img src="images/39-5.png" alt="images/39-5.png" /></a>Or we could
+        just <a href=""><img src="images/39-6.png" alt="images/39-6.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>03/02/2019 5:48:32 PM<strong>
+          <h2>Question 4:</h2>
+        </strong>What IP does the system connect to when it first starts?<strong>
+          <h2>Explanation:</h2>
+        </strong>As soon as i openned the VM a command was automactly executed with this IP Address, i quickly
+        grab it but did not took a print So... I like prints, meaning i had three options, restart the room and
+        take the print, get it from somebody else or discover a way to find the IP again<a href=""><img
+            src="images/39-7.png" alt="images/39-7.png" /></a>After a soul consu ing research, we can find it in
+        the Registry Editor “Regedit”, and the follow HKEY_LOCAL_MACHINE → SOFTWARE → Microsoft → Windows →
+        CurrentVersion →
+        RUN <strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>10.34.2.3</pre>
+        </div><strong>
+          <h2>Question 5:</h2>
+        </strong>What two accounts had administrative privileges (other than the Administrator user)?Answer
+        format: username1, username2<strong>
+          <h2>Explanation:</h2>
+        </strong><a href=""><img src="images/39-8.png" alt="images/39-8.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>Guest , Jenny</pre>
+        </div><strong>
+          <h2>Question 6:</h2>
+        </strong>Whats the name of the scheduled task that is malicous.<strong>
+          <h2>Explanation:</h2>
+        </strong>We can go to the “Task Scheduler” and find a suspicios task that also states the same file path as
+        the IP Address that we catch earlier. What can this be? By the look of it, it has a high chance of being a
+        netcat in
+        powershell listenning in the port 1348. How do we know it&#39;s listenning? by the order “-l”<a href=""><img
+            src="images/39-9.png" alt="images/39-9.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>Clean File System</pre>
+        </div><strong>
+          <h2>Question 6:</h2>
+        </strong>What file was the task trying to run daily?<strong>
+          <h2>Explanation:</h2>
+        </strong>We already found out and talked about it in the previous question.<strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>nc.ps1</pre>
+        </div><strong>
+          <h2>Question 7:</h2>
+        </strong>What port did this file listen locally for?<strong>
+          <h3>Explanation:</h3>
+        </strong>Also mentioned in the previous previous question. <strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>1348</pre>
+        </div><strong>
+          <h2>Question 8:</h2>
+        </strong>When did Jenny last logon?<strong>
+          <h2>Explanation:</h2>
+        </strong><a href=""><img src="images/39-10.png" alt="images/39-10.png" /></a>This was a tricky
+        question for me because we cannot retain any information here... or can we? Is no information, information? In
+        this
+        case yes, because she never logon<strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>Never</pre>
+        </div><strong>
+          <h2>Question 9:</h2>
+        </strong>At what date did the compromise take place?Answer format: MM/DD/YYYY<strong>
+          <h2>Explanation:</h2>
+        </strong><a href=""><img src="images/39-11.png" alt="images/39-11.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>03<span style="color:#ff9d00;font-weight:700">/</span>02<span style="color:#ff9d00;font-weight:700">/</span>2019</pre>
+        </div><strong>
+          <h2>Question 10:</h2>
+        </strong>During the compromise, at what time did Windows first assign special privileges to a new
+        logon?Answer format: MM/DD/YYYY HH:MM:SS AM/PM<strong>
+          <h2>Explanation:</h2>
+        </strong><a href=""><img src="images/39-12.png" alt="images/39-12.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>03<span style="color:#ff9d00;font-weight:700">/</span>02<span style="color:#ff9d00;font-weight:700">/</span>2019 4<span style="color:#ff9d00;font-weight:700">:</span>04<span style="color:#ff9d00;font-weight:700">:</span>49 PM</pre>
+        </div><strong>
+          <h2>Question 10:</h2>
+        </strong>What tool was used to get Windows passwords?<strong>
+          <h2>Explanation:</h2>
+        </strong><a href=""><img src="images/39-13.png" alt="images/39-13.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>mimikatz</pre>
+        </div><strong>
+          <h2>Question 10:</h2>
+        </strong>What was the attackers external control and command servers IP?<strong>
+          <h2>Explanation:</h2>
+        </strong>Windows hosts file is used for maps the server or hostname to IP addresses. In windows the location
+        of the hosts file is C:\Windows\Syste m32\drivers\etc\hosts<a href=""><img src="images/39-14.png"
+            alt="images/39-14.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>76.32.97.132</pre>
+        </div><strong>
+          <h2>Question 10:</h2>
+        </strong>What was the extension name of the shell uploaded via the servers website?<strong>
+          <h2>Explanation:</h2>
+        </strong>Microsoft uses IIS (Internet Informaion Services) as a default web server on the Windows. inetpub is
+        the default folder situated under C:\inetpub. It contains the webserver’s content. wwwroot is a subfolder placed
+        under the inetpub (C:\inetpub\wwwroot) holds all the content like of a webpages.<a
+          href="https://miro.medium.com/v2/resize:fit:610/1*9P98W57DV39VhBfzZuX6iA.png"><img src="images/39-15.png"
+            alt="images/39-15.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>.jsp</pre>
+        </div><strong>
+          <h2>Question 10:</h2>
+        </strong>What was the last port the attacker opened?<strong>
+          <h2>Explanation:</h2>
+        </strong>Windows Firewall follows a conological order so the first item is the last item changed, meaning it
+        is the last port the attcker opened<a href=""><img src="images/39-16.png" alt="images/39-16.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>1337</pre>
+        </div><strong>
+          <h2>Question 10:</h2>
+        </strong>Check for DNS poisoning, what site was targeted?<strong>
+          <h2>Explanation:</h2>
+        </strong>Just like we found previouly<a href=""><img src="images/39-17.png"
+            alt="images/39-17.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>Google.com</pre>
+        </div><strong>
+          <h2>Conclusion:</h2>
+        </strong>1. A Web Browser Password Viewer was executed on the infected machine, with the binary located at
+        &quot;C:\Users\FINANC~1\AppData\Local\Temp\11111.exe&quot;.2. The company name listed in the logs was
+        &quot;Nirsoft.&quot;3. Another suspicious binary, &quot;IonicLarge.exe,&quot; was executed from the same
+        folder as the previous binary. Its original filename was listed as &quot;PalitExplorer.exe&quot; (format:
+        IonicLarge.exe,PalitExplorer.exe).4. The binary &quot;IonicLarge.exe&quot; made two outbound connections
+        to the malicious IP address &quot;2[.]56[.]59[.]42&quot;.5. The same binary, &quot;IonicLarge.exe,&quot;
+        made changes to the Windows Defender registry key path &quot;HKLM\SOFTWARE\Policies\Microsoft\Windows
+        Defender&quot;.6. Two processes were killed, and their associated binaries were deleted. The names of
+        the binaries were &quot;phcIAmLJMAIMSa9j9MpgJo1m.exe&quot; and &quot;WvmIOrcfsuILdX6SNwIRmGOJ.exe&quot; (format:
+        phcIAmLJMAIMSa9j9MpgJo1m.exe,WvmIOrcfsuILdX6SNwIRmGOJ.exe).7. The attacker ran several commands within a
+        PowerShell session to change Windows Defender&#39;s behavior. The last executed command was &quot;powershell
+        WMIC
+        /NAMESPACE:\root\Microsoft\Windows\Defender PATH MSFT_MpPreference call Add ThreatIDDefaultAction_Ids=2147737394
+        ThreatIDDefaultAction_Actions=6 Force=True&quot;.8. The attacker set four IDs in chronological order of
+        execution: 2147735503, 2147737010, 2147737007, 2147737394 9. Another malicious binary,
+        &quot;EasyCalc.exe,&quot; was executed on the infected workstation from the location
+        &quot;C:\Users\Finance01\AppData\Roaming\EasyCalc\EasyCalc.exe&quot;.10. The DLLs loaded from the
+        &quot;EasyCalc.exe&quot; binary were &quot;ffmpeg.dll,&quot; &quot;nw.dll,&quot; and &quot;nw_elf.dll&quot;
+
+    </div>
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Home Page</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="https://yrtree.me/@Miguel%20Nogueira">CTF's</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+  <!-- Scripts -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery.scrollex.min.js"></script>
+  <script src="assets/js/jquery.scrolly.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

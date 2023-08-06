@@ -1,0 +1,390 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Massively by HTML5 UP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+</head>
+
+<body class="is-preload">
+
+  <!-- Wrapper -->
+  <div id="wrapper" class="fade-in">
+
+    <!-- Intro -->
+    <div id="intro">
+      <h2>Analyzing a Potentially Malicious Email<br /></h2>
+      <a href="https://tryhackme.com/room/phishingemails5fgjlzxc">The greenholt Phish</a></h1>
+      <p>Miguel Nogueira</p>
+    </div>
+
+
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Home</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="https://yrtree.me/@Miguel%20Nogueira">CTF's</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+
+
+
+
+
+    <!-- Main -->
+    <div id="main">
+
+      <!-- Post -->
+      <section class="post">
+
+
+        <header class="major">
+          <h2>TheHive</h2>
+        </header>
+        <h1>Investigating Windows 2.0</h1>Tittle: In the previous challenge you performed a brief analysis.
+        Within this challenge, you will take a deeper dive into the attack.<strong>
+          <h2>Scenario Notes:</h2>
+        </strong>• SOC Analyst Johny noticed anomalous behaviors in Windows machine logs.• Adversary access and
+        backdoor creation detected.• Logs pulled from suspected hosts, ingested into Splunk for investigation.•
+        Focus on identifying unauthorized access, privilege escalation, unusual network traffic, and
+        processes.<strong>
+          <h2>Objective:</h2>
+        </strong>Successfully investigate and identify anomalous behaviors in Windows machine logs to detect and
+        mitigate potential security breaches in a real-world scenario.<strong>
+          <h2>Question 1:</h2>
+        </strong>What registry key contains the same command that is executed within a scheduled task?<strong>
+          <h2>Explanation:</h2>
+        </strong>To find information easily about scheduled tasks we can a tool name Autoruns <a href=""><img
+            src="images/40-1.png" alt="images/40-1.png" /></a>We already know what we should be
+        looking for thanks to the last CTF “investigating Windows” <em><strong>PUT HYPERLINK TO THE
+            CTF</strong></em><a href=""><img src="images/40-2.png" alt="images/40-2.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>HKCU<span style="color:#333333;font-weight:400">\E</span>nvironment<span style="color:#333333;font-weight:400">\U</span>serInitMprLogonScript</pre>
+        </div><strong>
+          <h2>Question 2:</h2>
+        </strong>What analysis tool will immediately close if/when you attempt to launch it?<strong>
+          <h2>Explanation:</h2>
+        </strong>Here i just had <a href=""><img src="images/40-3.png" alt="images/40-3.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>procexp64.exe</pre>
+        </div><strong>
+          <h2>Question 3:</h2>
+        </strong>What is the full WQL Query associated with this script?<strong>
+          <h2>Explanation:</h2>
+        </strong>LOKI scans your system and reports back anything whose code matches an Indicator of Compromise. It’s
+        like an open source antivirus that just finds any IOCs that are on your system (except it won’t automatically
+        remove
+        the malicious or suspicious files) So let’s run LOKI:<a href=""><img src="images/40-4.png"
+            alt="images/40-4.png" /></a><a href=""><img src="images/40-5.png" alt="images/40-5.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>SELECT * FROM Win32_ProcessStartTrace WHERE ProcessName = ‘procexp64.exe’</pre>
+        </div><strong>
+          <h2>Question 4:</h2>
+        </strong>What is the script language?<strong>
+          <h2>Explanation:</h2>
+        </strong>Still on LOKI we can find the script language<a href=""><img src="images/40-6.png"
+            alt="images/40-6.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>VBScript</pre>
+        </div><strong>
+          <h2>Question 5:</h2>
+        </strong>What is the name of the other script?<strong>
+          <h2>Explanation:</h2>
+        </strong>Yet again in loki we also can<a href=""><img src="images/40-7.png" alt="images/40-7.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>LaunchBeaconingBackdoor</pre>
+        </div><strong>
+          <h2>Question 6:</h2>
+        </strong>What is the name of the software company visible within the script?<strong>
+          <h2>Explanation:</h2>
+        </strong><a href=""><img src="images/40-8.png" alt="images/40-8.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>Motobit Software<strong>
+          <h2>Question 7:</h2>
+        </strong>What 2 websites are associated with this software company? (<strong>answer,
+          answer</strong>)<strong>
+          <h3>Explanation:</h3>
+        </strong><a href=""><img src="images/40-9.png" alt="images/40-9.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>http<span style="color:#ff9d00;font-weight:700">://</span>www.Motobit.com, http<span style="color:#ff9d00;font-weight:700">://</span>Motobit.cz </pre>
+        </div><strong>
+          <h2>Question 8:</h2>
+        </strong>Search online for the name of the script from Q5 and one of the websites from the previous answer.
+        What attack script comes up in your search?<strong>
+          <h2>Explanation:</h2>
+        </strong><a href=""><img src="images/40-10.png" alt="images/40-10.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>WMIBackdoor.ps1</pre>
+        </div><strong>
+          <h2>Question 9:</h2>
+        </strong>What is the location of this file within the local machine?<strong>
+          <h2>Explanation:</h2>
+        </strong><a href=""><img src="images/40-11.png" alt="images/40-11.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>C<span style="color:#ff9d00;font-weight:700">:</span><span style="color:#333333;font-weight:400">\T</span>MP</pre>
+        </div><strong>
+          <h2>Question 10:</h2>
+        </strong>Which 2 processes open and close very quickly every few minutes? (<strong>answer,
+          answer</strong>)<strong>
+          <h2>Explanation:</h2>
+        </strong><a href=""><img src="images/40-12.png" alt="images/40-12.png" /></a><a href=""><img
+            src="images/40-13.png" alt="images/40-13.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>mim.exe, powershell.exe</pre>
+        </div><strong>
+          <h2>Question 10:</h2>
+        </strong>What is the parent process for these 2 processes?<strong>
+          <h2>Explanation:</h2>
+        </strong><a href=""><img src="images/40-14.png" alt="images/40-14.png" /></a><a href=""><img
+            src="images/40-15.png" alt="images/40-15.png" /></a><a href=""><img src="images/40-16.png"
+            alt="images/40-16.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>svchost.exe</pre>
+        </div><strong>
+          <h2>Question 10:</h2>
+        </strong>What is the first operation for the first of the 2 processes?<strong>
+          <h2>Explanation:</h2>
+        </strong>With PROCMON<a href=""><img src="images/40-17.png" alt="images/40-17.png" /></a><a href=""><img
+            src="images/40-18.png" alt="images/40-18.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>Process Start</pre>
+        </div><strong>
+          <h2>Question 10:</h2>
+        </strong>Inspect the properties for the 1st occurrence of this process. In the Event tab what are the 4 pieces
+        of information displayed? (<strong>answer, answer, answer, answer</strong>)<strong>
+          <h2>Explanation:</h2>
+        </strong><a href=""><img src="images/40-19.png" alt="images/40-19.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>Parent ID, Command Line, Current Directory, Environment</pre>
+        </div><strong>
+          <h2>Question 10:</h2>
+        </strong>Inspect the disk operations, what is the name of the unusual process?<strong>
+          <h2>Explanation:</h2>
+        </strong>Process Hacker is a very valuable tool it can help troubleshoot problems or learn more about specific
+        processes that are running on a certain system. It can help identify malicious processes and tell us more about
+        what
+        they are trying to do.<a href=""><img src="images/40-20.png" alt="images/40-20.png" /></a>For sure a process
+        named “No Process” <strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>No Process</pre>
+        </div><strong>
+          <h2>Question 10:</h2>
+        </strong>Run Loki. Inspect the output. What is the name of the module after `Init`?<strong>
+          <h2>Explanation:</h2>
+        </strong><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>WMIScan</pre>
+        </div><strong>
+          <h2>Question 10:</h2>
+        </strong>Regarding the 2nd warning, what is the name of the eventFilter?<strong>
+          <h2>Explanation:</h2>
+        </strong><a href=""><img src="images/40-21.png" alt="images/40-21.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>ProcessStartTrigger</pre>
+        </div><strong>
+          <h2>Question 10:</h2>
+        </strong>For the 4th warning, what is the class name?<strong>
+          <h2>Explanation:</h2>
+        </strong><a href=""><img src="images/40-22.png" alt="images/40-22.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>_FilterToConsumerBinding</pre>
+        </div><strong>
+          <h2>Question 10:</h2>
+        </strong>What binary alert has the following 4d5a90000300000004000000ffff0000b8000000 as
+        FIRST_BYTES?<strong>
+          <h2>Explanation:</h2>
+        </strong><a href=""><img src="images/40-23.png" alt="images/40-23.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>nbtscan.exe</pre>
+        </div><strong>
+          <h2>Question 10:</h2>
+        </strong>According to the results, what is the description listed for reason 1?<strong>
+          <h2>Explanation:</h2>
+        </strong><a href=""><img src="images/40-24.png" alt="images/40-24.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>Known bad <span style="color:#ff9d00;font-weight:700">/</span> Dual use classics</pre>
+        </div><strong>
+          <h2>Question 10:</h2>
+        </strong>Which binary alert is marked as APT Cloaked?<strong>
+          <h2>Explanation:</h2>
+        </strong><a href=""><img src="images/40-25.png" alt="images/40-25.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>p.exe</pre>
+        </div><strong>
+          <h2>Question 10:</h2>
+        </strong>What are the matches? (<strong>str1, str2</strong>)<strong>
+          <h2>Explanation:</h2>
+        </strong><a href=""><img src="images/40-26.png" alt="images/40-26.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>psexesvc.exe. Sysinternals PsExec</pre>
+        </div><strong>
+          <h2>Question 10:</h2>
+        </strong>Which binary alert is associated with somethingwindows.dmp found in C:\TMP?<strong>
+          <h2>Explanation:</h2>
+        </strong><a href=""><img src="images/40-27.png" alt="images/40-27.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>schtasks-backdoor.ps1</pre>
+        </div><strong>
+          <h2>Question 10:</h2>
+        </strong>Which binary is encrypted that is similar to a trojan? <strong>
+          <h2>Explanation:</h2>
+        </strong><a href=""><img src="images/40-28.png" alt="images/40-28.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>xCmd.exe<strong>
+          <h2>Question 10:</h2>
+        </strong>There is a binary that can masquerade itself as a legitimate core Windows process/image. What is the
+        full path of this binary?<strong>
+          <h2>Explanation:</h2>
+        </strong>Remember the previous ParentProcess that we had to find? Now he comes in handy<a href=""><img
+            src="images/40-29.png" alt="images/40-29.png" /></a> <strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>C<span style="color:#ff9d00;font-weight:700">:</span><span style="color:#333333;font-weight:400">\U</span>sers<span style="color:#333333;font-weight:400">\P</span>ublic<span style="color:#333333;font-weight:400">\s</span>vchost.exe</pre>
+        </div><strong>
+          <h2>Question 10:</h2>
+        </strong>What is the full path location for the legitimate version?<strong>
+          <h2>Explanation:</h2>
+        </strong><a href=""><img src="images/40-30.png" alt="images/40-30.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>
+        <div class="codebox">
+          <pre>C<span style="color:#ff9d00;font-weight:700">:</span><span style="color:#333333;font-weight:400">\W</span>indows<span style="color:#333333;font-weight:400">\S</span>ystem32</pre>
+        </div><strong>
+          <h2>Question 10:</h2>
+        </strong>What is the description listed for reason 1?<strong>
+          <h2>Explanation:</h2>
+        </strong><a href=""><img src="images/40-31.png" alt="images/40-31.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>ffmpeg.dll,nw.dll,nw_elf.dll<strong>
+          <h2>Question 10:</h2>
+        </strong><strong>
+          <h2>Explanation:</h2>
+        </strong><a href=""><img src="images/40-32.png" alt="images/40-32.png" /></a><strong>
+          <h2>Answer:</h2>
+        </strong>ffmpeg.dll,nw.dll,nw_elf.dll<strong>
+          <h2>Question 10:</h2>
+        </strong><strong>
+          <h2>Explanation:</h2>
+        </strong><strong>
+          <h2>Answer:</h2>
+        </strong>ffmpeg.dll,nw.dll,nw_elf.dll<strong>
+          <h2>Question 10:</h2>
+        </strong><strong>
+          <h2>Explanation:</h2>
+        </strong><strong>
+          <h2>Answer:</h2>
+        </strong>ffmpeg.dll,nw.dll,nw_elf.dll<strong>
+          <h2>Question 10:</h2>
+        </strong><strong>
+          <h2>Explanation:</h2>
+        </strong><strong>
+          <h2>Answer:</h2>
+        </strong>ffmpeg.dll,nw.dll,nw_elf.dll<strong>
+          <h2>Question 10:</h2>
+        </strong><strong>
+          <h2>Explanation:</h2>
+        </strong><strong>
+          <h2>Answer:</h2>
+        </strong>ffmpeg.dll,nw.dll,nw_elf.dll<strong>
+          <h2>Conclusion:</h2>
+        </strong>1. A Web Browser Password Viewer was executed on the infected machine, with the binary located at
+        &quot;C:\Users\FINANC~1\AppData\Local\Temp\11111.exe&quot;.2. The company name listed in the logs was
+        &quot;Nirsoft.&quot;3. Another suspicious binary, &quot;IonicLarge.exe,&quot; was executed from the same
+        folder as the previous binary. Its original filename was listed as &quot;PalitExplorer.exe&quot; (format:
+        IonicLarge.exe,PalitExplorer.exe).4. The binary &quot;IonicLarge.exe&quot; made two outbound connections
+        to the malicious IP address &quot;2[.]56[.]59[.]42&quot;.5. The same binary, &quot;IonicLarge.exe,&quot;
+        made changes to the Windows Defender registry key path &quot;HKLM\SOFTWARE\Policies\Microsoft\Windows
+        Defender&quot;.6. Two processes were killed, and their associated binaries were deleted. The names of
+        the binaries were &quot;phcIAmLJMAIMSa9j9MpgJo1m.exe&quot; and &quot;WvmIOrcfsuILdX6SNwIRmGOJ.exe&quot; (format:
+        phcIAmLJMAIMSa9j9MpgJo1m.exe,WvmIOrcfsuILdX6SNwIRmGOJ.exe).7. The attacker ran several commands within a
+        PowerShell session to change Windows Defender&#39;s behavior. The last executed command was &quot;powershell
+        WMIC
+        /NAMESPACE:\root\Microsoft\Windows\Defender PATH MSFT_MpPreference call Add ThreatIDDefaultAction_Ids=2147737394
+        ThreatIDDefaultAction_Actions=6 Force=True&quot;.8. The attacker set four IDs in chronological order of
+        execution: 2147735503, 2147737010, 2147737007, 2147737394 9. Another malicious binary,
+        &quot;EasyCalc.exe,&quot; was executed on the infected workstation from the location
+        &quot;C:\Users\Finance01\AppData\Roaming\EasyCalc\EasyCalc.exe&quot;.10. The DLLs loaded from the
+        &quot;EasyCalc.exe&quot; binary were &quot;ffmpeg.dll,&quot; &quot;nw.dll,&quot; and &quot;nw_elf.dll&quot;
+
+    </div>
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Home Page</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="https://yrtree.me/@Miguel%20Nogueira">CTF's</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+  <!-- Scripts -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery.scrollex.min.js"></script>
+  <script src="assets/js/jquery.scrolly.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

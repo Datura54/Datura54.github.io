@@ -1,13 +1,8 @@
 <!DOCTYPE HTML>
-<!--
-	Massively by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 
 <head>
-  <title>Generic Page - Massively by HTML5 UP</title>
+  <title>Massively by HTML5 UP</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <link rel="stylesheet" href="assets/css/main.css" />
@@ -18,155 +13,190 @@
 
 <body class="is-preload">
 
+  <!-- Wrapper -->
+  <div id="wrapper" class="fade-in">
+
+    <!-- Intro -->
+    <div id="intro">
+      <h2>Polkadot Decoded<br /> 2023</h2>
+      <p>Miguel Nogueira</p>
+      <ul class="actions">
+        <li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+      </ul>
+    </div>
+
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Go to Main Page</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="MODEL%20for%20INDEX%20Courses.html">Courses/Events</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+  <!-- Main -->
+  <div id="main">
+
+    <!-- Post -->
+    <section class="post">
+
+      <header class="major">
+        <p><img src="images/Polkadot/1-1.jpeg" alt="images/1-1.png" /></p><strong><strong>
+            <p></p>
+            <p>
+              Hey there, folks! I just attended an awesome presentation by Regina Vito and Kevin Valerio from Sr Labs.
+              They delved into the exciting world of securing the Polkadot ecosystem and covered some impactful
+              vulnerabilities along with introducing best practices. Let&#39;s dive into it!
+            </p>
+            <p></p>
+            <p>
+              Regina and Kevin, kicked off the presentation with a rather alarming example of what could happen if
+              security is neglected or if a palette isn&#39;t configured securely. They painted a vivid picture of a
+              hypothetical project called Sr Chain experiencing downtime, causing panic among the team and leading to a
+              drop
+              in token prices. Yikes! None of us would want to be in that situation, right?
+            </p>
+            <p></p>
+            <p>
+              The specific issue they highlighted was a misconfiguration problem with the elections palette. You see,
+              the
+              elections palette aims to implement a form of democracy, where more participation translates to a more
+              democratic system. However, when you have limited resources and execution time, allowing voters to vote
+              for
+              multiple candidates can cause a massive computation overload. This overload can lead to timeouts and make
+              validators or collectors miss their slots. Fortunately, Sr Labs discovered this bug a few months ago and
+              responsibly disclosed it to the project team, who then shared the fix with the wider ecosystem.
+            </p>
+
+            <p><span class="image fit"><img src="images/Polkadot/1-2.jpeg" alt="images/1-2.png" /></span></p>
+            <p></p>
+            <p>
+              But that wasn&#39;t the only bug they found! Regina and Kevin emphasized that they&#39;ve come across
+              numerous vulnerabilities in their work, and they&#39;ve been actively helping teams mitigate and fix them.
+              They promised to share more examples, so let&#39;s dive into that.
+            </p>
+            <p></p>
+            <p>
+              The presentation took us through various aspects of securing a blockchain project, starting with ensuring
+              integrity. Users need to trust that their actions and transactions will be executed as intended. Regina
+              explained that threats to integrity could include vesting period manipulations, where malicious token
+              holders
+              find a way to spend tokens before the intended time, thus undermining the system&#39;s integrity. They
+              also
+              discussed censorship attacks, where trusted validators or collators manipulate or censor transactions, and
+              front-running attacks, which no one wants to encounter.
+            </p>
+            <p><span class="image fit"><img src="images/Polkadot/1-3.jpeg" alt="images/1-3.png" /></span></p>
+            <p></p>
+            <p>
+              Next, they covered the importance of availability. A blockchain project should strive to provide
+              uninterrupted service to its users, allowing them to carry out their operations seamlessly. They
+              highlighted
+              issues like incorrect weight calculations and runtime panics that can disrupt the availability of the
+              blockchain, resulting in frustrated users and a poor user experience.
+            </p>
+            <p><span class="image fit"><img src="images/Polkadot/1-4.jpeg" alt="images/1-4.png" /></span></p>
+            <p></p>
+            <p>
+              To address these challenges, Sr Labs follows a comprehensive methodology. They start with threat modeling,
+              putting themselves in the shoes of potential hackers to understand their motives and identify potential
+              vulnerabilities. Then comes the design verification phase, where they dive into the project&#39;s
+              documentation to assess if the team has already considered and mitigated threats. The next step is the
+              hacking
+              phase, where they perform manual code analysis, along with dynamic and static analysis using fuzzing and
+              other
+              tools. Lastly, they support the remediation process, helping teams fix the bugs they discovered and
+              ensuring
+              new issues don&#39;t arise in the process.
+            </p>
+            <p><span class="image fit"><img src="images/Polkadot/1-5.jpeg" alt="images/1-5.png" /></span></p>
+            <p></p>
+            <p>
+              It&#39;s worth noting that Sr Labs doesn&#39;t limit their impact to individual assessments. They actively
+              participate in the substrate Builders program, providing security assessments for power chains being
+              onboarded
+              to Polkadot. They&#39;ve worked with several live projects and have found various bugs, as showcased in
+              their
+              presentation.
+            </p>
+            <p><span class="image fit"><img src="images/Polkadot/1-6.jpeg" alt="images/1-6.png" /></span></p>
+            <p></p>
+            <p>
+              Kevin took the stage to delve into the technical aspects of impactful bugs. He focused on the availability
+              of the Polkadot ecosystem and how collectors, which facilitate communication among chains, can be
+              vulnerable
+              to malicious attacks. Crafted malicious exchanges sent to collectors can trigger panics, causing crashes
+              and
+              disruptions across the system. Clearly, these bugs have severe consequences for users, parachains, and
+              developers alike. It&#39;s crucial to address them promptly to maintain a smooth and uninterrupted
+              experience.
+            </p>
+            <p><span class="image fit"><img src="images/Polkadot/1-7.jpeg" alt="images/1-7.png" /></span></p>
+            <p></p>
+            <p>
+              As the presentation came to a close, Regina and Kevin shared some best practices they've learned through
+              their extensive experience. They emphasized the importance of performing benchmarking, as it has been a
+              common
+              issue they've observed during their assessments. They encouraged blockchain projects to prioritize
+              benchmarking to ensure optimal performance and security. They also highlighted arithmetic issues and the
+              emerging trend of reachable panic issues, cautioning against following that particular trend.
+            </p>
+            <p><span class="image fit"><img src="images/Polkadot/1-8.jpeg" alt="images/1-8.png" /></span></p>
+            <p></p>
+            <p>
+              In summary, Regina and Kevin&#39;s presentation was an eye-opening journey into securing the Polkadot
+              ecosystem. They showcased their expertise in identifying vulnerabilities, their comprehensive methodology,
+              and
+              their commitment to helping teams mitigate and fix issues. It was inspiring to see their dedication to
+              ensuring the integrity and availability of blockchain projects.
+            </p>
+            <p></p>
+            <p>
+              Attending this presentation was a valuable learning experience for me. It reiterated the critical role
+              security plays in the blockchain world, the importance of proactive measures to protect users and maintain
+              a robust ecosystem, and helped me answer fundamental questions regarding security in blockchain. Im
+              grateful
+              to Regina, Kevin, and Sr Labs for sharing their knowledge and insights.
+            </p>
+            <p><span class="image fit"><img src="images/Polkadot/1-9.jpeg" alt="images/1-9.png" /></span></p>
+            <p></p>
+            <p>
+              If you&#39;re involved in the blockchain world or interested in the Polkadot ecosystem, I highly recommend
+              keeping an eye on Sr Labs and their ongoing efforts, and their expertise
+              can help teams and projects fortify their defenses against potential threats.
+            </p>
+            <p></p>
+            <p>Also check their open-source runtime fuzzer to help the ecosystem reach further security maturity:</p>
+            <p><a href=https://github.com/srlabs/ziggy>https://github.com/srlabs/ziggy</a></p>
+            <p></p>
+            <p></p>
+            <p>
+            <h3>That&#39;s it for now, folks! Until next time, stay secure and keep exploring the world of blockchain!
+            </h3>
+            </p>
+            <p>Ah and here is the NFT i earned for attenting Polkadot Decoded 2023 Event</p>
+            <p><a href=https://singular.app/collectibles/statemine/2024/6262>NFT</a></p>
+  </div>
+
   <body class="is-preload">
     <header id="header">
-      <a href="https://datura54.github.io/" class="logo">Home Button</a>
+      <a href="https://yrtree.me/@Miguel%20Nogueira" class="logo">Connect with
+        me</a>
     </header>
-    <!-- Main -->
-    <div id="main">
-
-      <!-- Post -->
-      <section class="post">
-
-        <header class="major">
-          <p><img src="images/Polkadot/1-1.jpeg" alt="images/1-1.png" /></p>
-          <h1 class='title'>Polkadot Decoded</h1><br />
-          <p></p>
-          <p>
-            Hey there, folks! I just attended an awesome presentation by Regina Vito and Kevin Valerio from Sr Labs.
-            They delved into the exciting world of securing the Polkadot ecosystem and covered some impactful
-            vulnerabilities along with introducing best practices. Let&#39;s dive into it!
-          </p>
-          <p></p>
-          <p>
-            Regina and Kevin, kicked off the presentation with a rather alarming example of what could happen if
-            security is neglected or if a palette isn&#39;t configured securely. They painted a vivid picture of a
-            hypothetical project called Sr Chain experiencing downtime, causing panic among the team and leading to a
-            drop
-            in token prices. Yikes! None of us would want to be in that situation, right?
-          </p>
-          <p></p>
-          <p>
-            The specific issue they highlighted was a misconfiguration problem with the elections palette. You see, the
-            elections palette aims to implement a form of democracy, where more participation translates to a more
-            democratic system. However, when you have limited resources and execution time, allowing voters to vote for
-            multiple candidates can cause a massive computation overload. This overload can lead to timeouts and make
-            validators or collectors miss their slots. Fortunately, Sr Labs discovered this bug a few months ago and
-            responsibly disclosed it to the project team, who then shared the fix with the wider ecosystem.
-          </p>
-
-          <p><span class="image fit"><img src="images/Polkadot/1-2.jpeg" alt="images/1-2.png" /></span></p>
-          <p></p>
-          <p>
-            But that wasn&#39;t the only bug they found! Regina and Kevin emphasized that they&#39;ve come across
-            numerous vulnerabilities in their work, and they&#39;ve been actively helping teams mitigate and fix them.
-            They promised to share more examples, so let&#39;s dive into that.
-          </p>
-          <p></p>
-          <p>
-            The presentation took us through various aspects of securing a blockchain project, starting with ensuring
-            integrity. Users need to trust that their actions and transactions will be executed as intended. Regina
-            explained that threats to integrity could include vesting period manipulations, where malicious token
-            holders
-            find a way to spend tokens before the intended time, thus undermining the system&#39;s integrity. They also
-            discussed censorship attacks, where trusted validators or collators manipulate or censor transactions, and
-            front-running attacks, which no one wants to encounter.
-          </p>
-          <p><span class="image fit"><img src="images/Polkadot/1-3.jpeg" alt="images/1-3.png" /></span></p>
-          <p></p>
-          <p>
-            Next, they covered the importance of availability. A blockchain project should strive to provide
-            uninterrupted service to its users, allowing them to carry out their operations seamlessly. They highlighted
-            issues like incorrect weight calculations and runtime panics that can disrupt the availability of the
-            blockchain, resulting in frustrated users and a poor user experience.
-          </p>
-          <p><span class="image fit"><img src="images/Polkadot/1-4.jpeg" alt="images/1-4.png" /></span></p>
-          <p></p>
-          <p>
-            To address these challenges, Sr Labs follows a comprehensive methodology. They start with threat modeling,
-            putting themselves in the shoes of potential hackers to understand their motives and identify potential
-            vulnerabilities. Then comes the design verification phase, where they dive into the project&#39;s
-            documentation to assess if the team has already considered and mitigated threats. The next step is the
-            hacking
-            phase, where they perform manual code analysis, along with dynamic and static analysis using fuzzing and
-            other
-            tools. Lastly, they support the remediation process, helping teams fix the bugs they discovered and ensuring
-            new issues don&#39;t arise in the process.
-          </p>
-          <p><span class="image fit"><img src="images/Polkadot/1-5.jpeg" alt="images/1-5.png" /></span></p>
-          <p></p>
-          <p>
-            It&#39;s worth noting that Sr Labs doesn&#39;t limit their impact to individual assessments. They actively
-            participate in the substrate Builders program, providing security assessments for power chains being
-            onboarded
-            to Polkadot. They&#39;ve worked with several live projects and have found various bugs, as showcased in
-            their
-            presentation.
-          </p>
-          <p><span class="image fit"><img src="images/Polkadot/1-6.jpeg" alt="images/1-6.png" /></span></p>
-          <p></p>
-          <p>
-            Kevin took the stage to delve into the technical aspects of impactful bugs. He focused on the availability
-            of the Polkadot ecosystem and how collectors, which facilitate communication among chains, can be vulnerable
-            to malicious attacks. Crafted malicious exchanges sent to collectors can trigger panics, causing crashes and
-            disruptions across the system. Clearly, these bugs have severe consequences for users, parachains, and
-            developers alike. It&#39;s crucial to address them promptly to maintain a smooth and uninterrupted
-            experience.
-          </p>
-          <p><span class="image fit"><img src="images/Polkadot/1-7.jpeg" alt="images/1-7.png" /></span></p>
-          <p></p>
-          <p>
-            As the presentation came to a close, Regina and Kevin shared some best practices they've learned through
-            their extensive experience. They emphasized the importance of performing benchmarking, as it has been a
-            common
-            issue they've observed during their assessments. They encouraged blockchain projects to prioritize
-            benchmarking to ensure optimal performance and security. They also highlighted arithmetic issues and the
-            emerging trend of reachable panic issues, cautioning against following that particular trend.
-          </p>
-          <p><span class="image fit"><img src="images/Polkadot/1-8.jpeg" alt="images/1-8.png" /></span></p>
-          <p></p>
-          <p>
-            In summary, Regina and Kevin&#39;s presentation was an eye-opening journey into securing the Polkadot
-            ecosystem. They showcased their expertise in identifying vulnerabilities, their comprehensive methodology,
-            and
-            their commitment to helping teams mitigate and fix issues. It was inspiring to see their dedication to
-            ensuring the integrity and availability of blockchain projects.
-          </p>
-          <p></p>
-          <p>
-            Attending this presentation was a valuable learning experience for me. It reiterated the critical role
-            security plays in the blockchain world, the importance of proactive measures to protect users and maintain
-            a robust ecosystem, and helped me answer fundamental questions regarding security in blockchain. Im grateful
-            to Regina, Kevin, and Sr Labs for sharing their knowledge and insights.
-          </p>
-          <p><span class="image fit"><img src="images/Polkadot/1-9.jpeg" alt="images/1-9.png" /></span></p>
-          <p></p>
-          <p>
-            If you&#39;re involved in the blockchain world or interested in the Polkadot ecosystem, I highly recommend
-            keeping an eye on Sr Labs and their ongoing efforts, and their expertise
-            can help teams and projects fortify their defenses against potential threats.
-          </p>
-          <p></p>
-          <p>Also check their open-source runtime fuzzer to help the ecosystem reach further security maturity:</p>
-          <p><a href=https://github.com/srlabs/ziggy>https://github.com/srlabs/ziggy</a></p>
-          <p></p>
-          <p></p>
-          <p>
-          <h3>That&#39;s it for now, folks! Until next time, stay secure and keep exploring the world of blockchain!
-          </h3>
-          </p>
-          <p>Ah and here is the NFT i earned for attenting Polkadot Decoded 2023 Event</p>
-          <p><a href=https://singular.app/collectibles/statemine/2024/6262>NFT</a></p>
-    </div>
     <!-- Copyright -->
     <div id="copyright">
       <ul>
         <li>
-          <h6>&copy;<a href="index.html">Main Page</h6>
+          <h6><a href="index.html">Go to Main Page</h6>
           </a>
         </li>
         <li>
-          <h6>&copy;<a href="https://yrtree.me/@Miguel%20Nogueira">Miguel Nogueira</h6>
+          <h6><a href="MODEL%20for%20INDEX%20Courses.html">Courses/Events</h6>
           </a>
         </li>
 

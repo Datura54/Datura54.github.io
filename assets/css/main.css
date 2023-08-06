@@ -9,6 +9,7 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
+
 html,
 body,
 div,
@@ -3917,7 +3918,7 @@ body.is-preload #intro:not(.hidden)+#header+#nav {
 	position: relative;
 	margin: 0 auto;
 	width: calc(100% - 4rem);
-	max-width: 54rem;
+	max-width: 50rem;
 	z-index: 2;
 }
 
@@ -3925,7 +3926,7 @@ body.is-preload #intro:not(.hidden)+#header+#nav {
 	padding: 4rem 4rem 2rem 4rem;
 	border-top: solid 1rem #2a2e30;
 	margin: 0;
-	font-size: 0.7rem;
+	font-size: 0.6rem;
 }
 
 #main>*:first-child {
