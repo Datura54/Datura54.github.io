@@ -51,188 +51,190 @@
 
 
       <!-- Post -->
-      <section class="post">
-        <h2>Scenario Notes:</h2>
-        </strong>• The email begins with an uncommon greeting (&quot;Good day&quot;) that the Sales Executive&#39;s
-        customer doesn&#39;t typically use.<br>
-        • The email mentions a money transfer that the customer wasn&#39;t
-        expecting, which raises suspicions about its legitimacy.<br>
-        • The email contains an attachment that the
-        Sales Executive didn&#39;t request, which could be a potential security risk.<br>
-        • The Sales Executive forwarded the email to the SOC (Security Operations Center) for further
-        investigation.<strong>
-          <h2>Objective:</h2>
-        </strong>Investigate the received email for legitimacy.<strong>
-          <h2>Question 1:</h2>
-        </strong>What date was the email received? (answer format: M/DD/YY)<strong>
-          <h2>Explanation:</h2>
-        </strong>Open the email and cheks it&#39;s header there wil be the date the email was received
-        <a href=""><img src="images/33-1.png" alt="images/33-1.png" /></a><strong>
-          <h2>Answer:</h2>
-        </strong>6/10/20<strong>
-          <h2>Question 2:</h2>
-        </strong>Who is the email from?<strong>
-          <h2>Explanation:</h2>
-        </strong>To know who sent us the email scroll down a bit and we will find it <a href=""><img
-            src="images/33-2.png" alt="images/33-2.png" /></a><strong>
-          <h2>Answer:</h2>
-        </strong>Mr.James jackson<strong>
-          <h2>Question 3:</h2>
-        </strong>What is his email address?<strong>
-          <h2>Explanation:</h2>
-        </strong>Just in front of who sent us the email there is their email address<a href=""><img
-            src="images/33-3.png" alt="images/33-3.png" /></a><strong>
-          <h2>Answer:</h2>
-        </strong>info2mutawamarine.com<strong>
-          <h2>Question 4:</h2>
-        </strong>What email address will receive a reply to this email? <strong>
-          <h2>Explanation:</h2>
-        </strong>On email headers “Reply-to” corresponds to the email you will send your answer to <a href=""><img
-            src="images/33-4.png" alt="images/33-4.png" /></a><strong>
-          <h2>Answer:</h2>
-        </strong>info.mutawamarine@mail.com<strong>
-          <h2>Question 5:</h2>
-        </strong>What is the Originating IP?<strong>
-          <h2>Explanation:</h2>
-        </strong>On this step is worth remembering that this part of the email is like a log. Meaning what is on top i
-        more recent, so in order to find the IP Address of the user and not of one of the servers where the mail went
-        trough
-        we have to look at the “last” “Received” field <a href=""><img src="images/33-5.png"
-            alt="images/33-5.png" /></a><strong>
-          <h2>Answer:</h2>
-        </strong>192.119.71.157<strong>
-          <h2>Question 6:</h2>
-        </strong>Who is the owner of the Originating IP? (Do not include the &quot;.&quot; in your
-        answer.)<strong>
-          <h2>Explanation:</h2>
-        </strong>To find who is the owner of the IP Address from the previous question, we can go to VirusTotal and
-        query their database for that information<a href=""><span class="image fit"><img src="images/33-6.png"
-              alt="images/33-6.png" /></span></a>After
-        we get the answer, we ask for “Details” and there will be the name
-        of the organization that owns that IP Address
-        <a href=""><span class="image fit"><img src="images/33-7.png" alt="images/33-7.png" /></a></span><strong>
-          <h2>Answer:</h2>
-        </strong>Hostwinds LLC<strong>
-          <h2>Question 7:</h2>
-        </strong>What is the SPF record for the Return-Path domain?<strong>
-          <h3>Explanation:</h3>
-        </strong>To find the Received SPF Record, we can check the email header but we got no luck<a href=""><img
-            src="images/33-8.png" alt="images/33-8.png" /></a><br>So if we do a “nslookup” for the txt
-        records of that dns we will find the SPF Record<a href=""><img src="images/33-9.png"
-            alt="images/33-9.png" /></a><br>
-        What does this means explained in the next question<strong>
-          <h2>Answer:</h2>
-        </strong>v=spf1 include:spf.protection.outlook.com -all<strong>
-          <h2>Question 8:</h2>
-        </strong>What is the DMARC record for the Return-Path domain?<strong>
-          <h2>Explanation:</h2>
-        </strong>To find the Received DMARC Record, we can check the email header but just like last time we got no
-        luck
-        <a href=""><img src="images/33-10.png" alt="images/33-10.png" /></a><br>
-        So for DMARC we can also use nslookup and query for TXT Records but this time we have to specify that we are
-        looking for DMARC by adding “_dmarc.”<br>
-        <a href=""><img src="images/33-11.png" alt="images/33-11.png" /></a><br>
-        What does this all means? Well regarding that there is no SPF neither DMARC Record in the email we received
-        there is no way for us
-        to
-        be sure that this email came from who he claims to be. Meaning there is a chance that this is a spoofed
-        email<strong>
-          <h2>Answer:</h2>
-        </strong>v=DMARC1; p=quarantine; fo=1<strong>
-          <h2>Question 9:</h2>
-        </strong>What is the name of the attachment?<strong>
-          <h2>Explanation:</h2>
-        </strong>The name of the attachment can be found at the Content-Disposition HTTP Header that contains
-        instructions on how to process the response payload as well as additional information such as the filename
-        when
-        the user saves it locally.
-        <a href=""><img src="images/33-12.png" alt="images/33-12.png" /></a><br>
-        Also we can just open the email in Thunderbird and everything gets a bit more intuitive
-        <a href=""><img src="images/33-13.png" alt="images/33-13.png" /></a><strong>
-          <h2>Answer:</h2>
-        </strong>SWT_#09674321____PDF__.CAB<strong>
-          <h2>Question 10:</h2>
-        </strong>What is the SHA256 hash of the file attachment?<strong>
-          <h2>Explanation:</h2>
-        </strong>In order to know the SHA256 hash of the file we will have to download it, once it&#39;s done we will
-        use the command &quot;sha256sum SWT_#09674321____PDF__.CAB&quot;, and we will get SHA256 of the file<a
-          href=""><img src="images/33-14.png" alt="images/33-14.png" /></a><strong>
-          <h2>Answer:</h2>
-        </strong>2e91c533615a9bb8929ac4bb76707b2444597ce063d84a4b33525e25074fff3f<strong>
-          <h2>Question 11:</h2>
-        </strong>What is the attachments file size? (Don&#39;t forget to add &quot;KB&quot; to your
-        answer, <strong>NUM KB</strong>)<strong>
-          <h2>Explanation:</h2>
-        </strong>Well just go to the properties of the file and inspect his properties right?<br>
-        <a href=""><img src="images/33-15.png" alt="images/33-15.png" /></a><br>
-        No, TryHackMe wants a more precise size of
-        the file.
-        So how do we get it? Remember the hash we created previously, what does that hash mean. It means that now we
-        have a
-        string that identifies the file not by his name but by his content. So we can query once again on our beloved
-        VirusTotal with that hash and he will give us analysis that were made on that specific file <a href=""><img
-            src="images/33-16.png" alt="images/33-16.png" /></a>Well ignoring the fact that 45
-        security vendors agree that this is a malicious file. On the top right is our answer :)
-        <a href=""><span class="image fit"><img src="images/33-17.png" alt="images/33-17.png" /></a></span><strong>
-          <h2>Answer:</h2>
-        </strong>400.26 KB<strong>
-          <h2>Question 12:</h2>
-        </strong>What is the actual file extension of the attachment?<strong>
-          <h2>Explanation:</h2>
-        </strong>Also in VirusTotal we can press “Details” and there will be the information we were looking for
-        <a href=""><span class="image fit"><img src="images/33-18.png" alt="images/33-18.png" /></a></span>I think is
-        worth point out
-        that in our system it says that this file is a “.CAB” which means attackers can spoof file types<strong>
-          <h2>Answer:</h2>
-        </strong>RAR<strong>
-          <h2>Conclusion:</h2>
-          In conclusion, the investigation of the suspicious email revealed several red flags, including an uncommon
-          greeting, unexpected money transfer mention, an unrequested attachment, and inconsistencies in SPF and DMARC
-          records. The attachment's file extension, hash, and size suggest potential malicious activity. This emphasizes
-          the importance of scrutinizing email headers, attachments, and domain records to ensure the legitimacy and
-          security of incoming communications.<br><br>
+      <section class="post"><strong><strong>
+            <h3>Scenario Notes:</h3>
+          </strong>• The email begins with an uncommon greeting (&quot;Good day&quot;) that the Sales Executive&#39;s
+          customer doesn&#39;t typically use.<br>
+          • The email mentions a money transfer that the customer wasn&#39;t
+          expecting, which raises suspicions about its legitimacy.<br>
+          • The email contains an attachment that the
+          Sales Executive didn&#39;t request, which could be a potential security risk.<br>
+          • The Sales Executive forwarded the email to the SOC (Security Operations Center) for further
+          investigation.<strong>
+            <h3>Objective:</h3>
+          </strong>Investigate the received email for legitimacy.<strong>
+            <h3>Question 1:</h3>
+          </strong>What date was the email received? (answer format: M/DD/YY)<strong>
+            <h3>Explanation:</h3>
+          </strong>Open the email and cheks it&#39;s header there wil be the date the email was received
+          <a href=""><span class="image fit"><img src="images/33-1.png" alt="images/33-1.png" /></a><strong>
+            <h3>Answer:</h3>
+          </strong>6/10/20<strong>
+            <h3>Question 2:</h3>
+          </strong>Who is the email from?<strong>
+            <h3>Explanation:</h3>
+          </strong>To know who sent us the email scroll down a bit and we will find it <a href=""><span
+              class="image fit"><img src="images/33-2.png" alt="images/33-2.png" /></a><strong>
+            <h3>Answer:</h3>
+          </strong>Mr.James jackson<strong>
+            <h3>Question 3:</h3>
+          </strong>What is his email address?<strong>
+            <h3>Explanation:</h3>
+          </strong>Just in front of who sent us the email there is their email address<a href=""><span
+              class="image fit"><img src="images/33-3.png" alt="images/33-3.png" /></a><strong>
+            <h3>Answer:</h3>
+          </strong>info2mutawamarine.com<strong>
+            <h3>Question 4:</h3>
+          </strong>What email address will receive a reply to this email? <strong>
+            <h3>Explanation:</h3>
+          </strong>On email headers “Reply-to” corresponds to the email you will send your answer to <a href=""><span
+              class="image fit"><img src="images/33-4.png" alt="images/33-4.png" /></a><strong>
+            <h3>Answer:</h3>
+          </strong>info.mutawamarine@mail.com<strong>
+            <h3>Question 5:</h3>
+          </strong>What is the Originating IP?<strong>
+            <h3>Explanation:</h3>
+          </strong>On this step is worth remembering that this part of the email is like a log. Meaning what is on top i
+          more recent, so in order to find the IP Address of the user and not of one of the servers where the mail went
+          trough
+          we have to look at the “last” “Received” field <a href=""><span class="image fit"><img src="images/33-5.png"
+                alt="images/33-5.png" /></a><strong>
+            <h3>Answer:</h3>
+          </strong>192.119.71.157<strong>
+            <h3>Question 6:</h3>
+          </strong>Who is the owner of the Originating IP? (Do not include the &quot;.&quot; in your
+          answer.)<strong>
+            <h3>Explanation:</h3>
+          </strong>To find who is the owner of the IP Address from the previous question, we can go to VirusTotal and
+          query their database for that information<a href=""><span class="image fit"><img src="images/33-6.png"
+                alt="images/33-6.png" /></span></a>After
+          we get the answer, we ask for “Details” and there will be the name
+          of the organization that owns that IP Address
+          <a href=""><span class="image fit"><img src="images/33-7.png" alt="images/33-7.png" /></a></span><strong>
+            <h3>Answer:</h3>
+          </strong>Hostwinds LLC<strong>
+            <h3>Question 7:</h3>
+          </strong>What is the SPF record for the Return-Path domain?<strong>
+            <h3>Explanation:</h3>
+          </strong>To find the Received SPF Record, we can check the email header but we got no luck<a href=""><span
+              class="image fit"><img src="images/33-8.png" alt="images/33-8.png" /></a><br>So if we do a “nslookup” for
+          the txt
+          records of that dns we will find the SPF Record<a href=""><span class="image fit"><img src="images/33-9.png"
+                alt="images/33-9.png" /></a><br>
+          What does this means explained in the next question<strong>
+            <h3>Answer:</h3>
+          </strong>v=spf1 include:spf.protection.outlook.com -all<strong>
+            <h3>Question 8:</h3>
+          </strong>What is the DMARC record for the Return-Path domain?<strong>
+            <h3>Explanation:</h3>
+          </strong>To find the Received DMARC Record, we can check the email header but just like last time we got no
+          luck
+          <a href=""><span class="image fit"><img src="images/33-10.png" alt="images/33-10.png" /></a><br>
+          So for DMARC we can also use nslookup and query for TXT Records but this time we have to specify that we are
+          looking for DMARC by adding “_dmarc.”<br>
+          <a href=""><span class="image fit"><img src="images/33-11.png" alt="images/33-11.png" /></a><br>
+          What does this all means? Well regarding that there is no SPF neither DMARC Record in the email we received
+          there is no way for us
+          to
+          be sure that this email came from who he claims to be. Meaning there is a chance that this is a spoofed
+          email<strong>
+            <h3>Answer:</h3>
+          </strong>v=DMARC1; p=quarantine; fo=1<strong>
+            <h3>Question 9:</h3>
+          </strong>What is the name of the attachment?<strong>
+            <h3>Explanation:</h3>
+          </strong>The name of the attachment can be found at the Content-Disposition HTTP Header that contains
+          instructions on how to process the response payload as well as additional information such as the filename
+          when
+          the user saves it locally.
+          <a href=""><span class="image fit"><img src="images/33-12.png" alt="images/33-12.png" /></a><br>
+          Also we can just open the email in Thunderbird and everything gets a bit more intuitive
+          <a href=""><span class="image fit"><img src="images/33-13.png" alt="images/33-13.png" /></a><strong>
+            <h3>Answer:</h3>
+          </strong>SWT_#09674321____PDF__.CAB<strong>
+            <h3>Question 10:</h3>
+          </strong>What is the SHA256 hash of the file attachment?<strong>
+            <h3>Explanation:</h3>
+          </strong>In order to know the SHA256 hash of the file we will have to download it, once it&#39;s done we will
+          use the command &quot;sha256sum SWT_#09674321____PDF__.CAB&quot;, and we will get SHA256 of the file<a
+            href=""><span class="image fit"><img src="images/33-14.png" alt="images/33-14.png" /></a><strong>
+            <h3>Answer:</h3>
+          </strong>2e91c533615a9bb8929ac4bb76707b2444597ce063d84a4b33525e25074fff3f<strong>
+            <h3>Question 11:</h3>
+          </strong>What is the attachments file size? (Don&#39;t forget to add &quot;KB&quot; to your
+          answer, <strong>NUM KB</strong>)<strong>
+            <h3>Explanation:</h3>
+          </strong>Well just go to the properties of the file and inspect his properties right?<br>
+          <a href=""><span class="image fit"><img src="images/33-15.png" alt="images/33-15.png" /></a><br>
+          No, TryHackMe wants a more precise size of
+          the file.
+          So how do we get it? Remember the hash we created previously, what does that hash mean. It means that now we
+          have a
+          string that identifies the file not by his name but by his content. So we can query once again on our beloved
+          VirusTotal with that hash and he will give us analysis that were made on that specific file <a href=""><span
+              class="image fit"><img src="images/33-16.png" alt="images/33-16.png" /></a>Well ignoring the fact that 45
+          security vendors agree that this is a malicious file. On the top right is our answer :)
+          <a href=""><span class="image fit"><img src="images/33-17.png" alt="images/33-17.png" /></a></span><strong>
+            <h3>Answer:</h3>
+          </strong>400.26 KB<strong>
+            <h3>Question 12:</h3>
+          </strong>What is the actual file extension of the attachment?<strong>
+            <h3>Explanation:</h3>
+          </strong>Also in VirusTotal we can press “Details” and there will be the information we were looking for
+          <a href=""><span class="image fit"><img src="images/33-18.png" alt="images/33-18.png" /></a></span>I think is
+          worth point out
+          that in our system it says that this file is a “.CAB” which means attackers can spoof file types<strong>
+            <h3>Answer:</h3>
+          </strong>RAR<strong>
+            <h3>Conclusion:</h3>
+            In conclusion, the investigation of the suspicious email revealed several red flags, including an uncommon
+            greeting, unexpected money transfer mention, an unrequested attachment, and inconsistencies in SPF and DMARC
+            records. The attachment's file extension, hash, and size suggest potential malicious activity. This
+            emphasizes
+            the importance of scrutinizing email headers, attachments, and domain records to ensure the legitimacy and
+            security of incoming communications.<br><br>
 
-          1. Email Date: The email<br> was received on 6/10/20. The date was extracted from the email header.<br><br>
+            1. Email Date: The email<br> was received on 6/10/20. The date was extracted from the email header.<br><br>
 
-          2. Sender Identification:<br> The email was sent by Mr. James Jackson. This information was found within the
-          email
-          body.<br><br>
+            2. Sender Identification:<br> The email was sent by Mr. James Jackson. This information was found within the
+            email
+            body.<br><br>
 
-          3. Sender's Email Address:<br> The sender's email address was identified as info2mutawamarine.com, which was
-          also
-          derived from the email body.<br><br>
+            3. Sender's Email Address:<br> The sender's email address was identified as info2mutawamarine.com, which was
+            also
+            derived from the email body.<br><br>
 
-          4. Reply-to Address:<br> The "Reply-to" address was set to info.mutawamarine@mail.com. This detail was
-          identified within the email header.<br><br>
+            4. Reply-to Address:<br> The "Reply-to" address was set to info.mutawamarine@mail.com. This detail was
+            identified within the email header.<br><br>
 
-          5. Originating IP:<br> The originating IP address of the email was 192.119.71.157. We uncovered this detail
-          from
-          the "Received" field in the email header.<br><br>
+            5. Originating IP:<br> The originating IP address of the email was 192.119.71.157. We uncovered this detail
+            from
+            the "Received" field in the email header.<br><br>
 
-          6. IP Owner:<br> Further investigation through VirusTotal indicated that the IP address was associated with
-          the
-          organization "Hostwinds LLC."<br><br>
+            6. IP Owner:<br> Further investigation through VirusTotal indicated that the IP address was associated with
+            the
+            organization "Hostwinds LLC."<br><br>
 
-          7. SPF Record:<br> A DNS query for the SPF record of the Return-Path domain revealed the SPF record: "v=spf1
-          include:spf.protection.outlook.com -all."<br><br>
+            7. SPF Record:<br> A DNS query for the SPF record of the Return-Path domain revealed the SPF record: "v=spf1
+            include:spf.protection.outlook.com -all."<br><br>
 
-          8. DMARC Record:<br> A DNS query for the DMARC record of the Return-Path domain yielded the DMARC record:
-          "v=DMARC1; p=quarantine; fo=1." The absence of SPF and DMARC records raised concerns about the email's
-          authenticity.<br><br>
+            8. DMARC Record:<br> A DNS query for the DMARC record of the Return-Path domain yielded the DMARC record:
+            "v=DMARC1; p=quarantine; fo=1." The absence of SPF and DMARC records raised concerns about the email's
+            authenticity.<br><br>
 
-          9. Attachment Name:<br> The attachment was named "SWT_#09674321____PDF__.CAB." This detail was found within
-          the
-          Content-Disposition HTTP Header of the email.<br><br>
+            9. Attachment Name:<br> The attachment was named "SWT_#09674321____PDF__.CAB." This detail was found within
+            the
+            Content-Disposition HTTP Header of the email.<br><br>
 
-          10. Attachment SHA256 Hash:<br> After downloading the attachment, we computed its SHA256 hash as
-          "2e91c533615a9bb8929ac4bb76707b2444597ce063d84a4b33525e25074fff3f."<br><br>
+            10. Attachment SHA256 Hash:<br> After downloading the attachment, we computed its SHA256 hash as
+            "2e91c533615a9bb8929ac4bb76707b2444597ce063d84a4b33525e25074fff3f."<br><br>
 
-          11. Attachment File Size:<br> The attachment's file size was determined to be 400.26 KB based on information
-          retrieved from VirusTotal's analysis.<br><br>
+            11. Attachment File Size:<br> The attachment's file size was determined to be 400.26 KB based on information
+            retrieved from VirusTotal's analysis.<br><br>
 
-          12. Attachment File Extension:<br> VirusTotal analysis indicated that the attachment's actual file extension
-          was
-          "RAR," which contrasts with its displayed file extension.<br><br>
+            12. Attachment File Extension:<br> VirusTotal analysis indicated that the attachment's actual file extension
+            was
+            "RAR," which contrasts with its displayed file extension.<br><br>
     </div>
 
     <body class="is-preload">

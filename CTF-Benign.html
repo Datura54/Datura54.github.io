@@ -52,7 +52,7 @@
 
       <!-- Post -->
       <section class="post"><strong><strong>
-            <h2>Scenario Notes:</h2>
+            <h3>Scenario Notes:</h3>
             • A host from the HR department has been identified as potentially compromised based on suspicious
             process execution alerts from the IDS.<br>
             • Further investigation using network information gathering tools
@@ -64,21 +64,21 @@
             divided into three segments - IT Department, HR Department, and Marketing Department. Understanding this
             segmentation could help in narrowing down the scope of the investigation and identifying potential attack
             vectors.<strong>
-              <h2>Objective:</h2>
+              <h3>Objective:</h3>
             </strong>Identify the root cause of a network connectivity issue for a specific workstation in the IT
             department.<strong>
-              <h2>Question 1:</h2>
+              <h3>Question 1:</h3>
             </strong>How many logs are ingested from the month of March, 2022?<strong>
-              <h2>Explanation:</h2>
-            </strong><a href=""><img src="images/34-1.png" alt="images/34-1.png" /></a><a href=""><img
-                src="images/34-2.png" alt="images/34-2.png" /></a><strong>
-              <h2>Answer:</h2>
+              <h3>Explanation:</h3>
+            </strong><a href=""><span class="image fit"><img src="images/34-1.png" alt="images/34-1.png" /></a><a
+              href=""><span class="image fit"><img src="images/34-2.png" alt="images/34-2.png" /></a><strong>
+              <h3>Answer:</h3>
             </strong>13959<strong>
-              <h2>Question 2:</h2>
+              <h3>Question 2:</h3>
             </strong>Imposter Alert: There seems to be an imposter account observed in the logs, what is the name of
             that
             user? <strong>
-              <h2>Explanation:</h2>
+              <h3>Explanation:</h3>
             </strong>By querying the database for the top 20 &quot;Username&quot; entries, it becomes evident that
             further
             investigation of the account named &quot;Amel1a&quot; is warranted. It is intriguing that the creator chose
@@ -86,71 +86,75 @@
             name
             it &quot;Amel1a&quot; while there is another account with the name &quot;Amelia.&quot; This coincidence
             raises
-            interesting points for consideration.<a href=""><img src="images/34-3.png"
-                alt="images/34-3.png" /></a><strong>
-              <h2>Answer:</h2>
+            interesting points for consideration.<a href=""><span class="image fit"><img src="images/34-3.png"
+                  alt="images/34-3.png" /></a><strong>
+              <h3>Answer:</h3>
             </strong>Amel1a<strong>
-              <h2>Question 3:</h2>
+              <h3>Question 3:</h3>
             </strong>Which user from the HR department was observed to be running scheduled tasks?<strong>
-              <h2>Explanation:</h2>
+              <h3>Explanation:</h3>
             </strong>On this next query we will ask for every user that is in the HR department and runned a process
             named
-            schtasks.exe<a href=""><img src="images/34-4.png" alt="images/34-4.png" /></a>There were 18
+            schtasks.exe<a href=""><span class="image fit"><img src="images/34-4.png" alt="images/34-4.png" /></a>There
+            were 18
             events but after a bit of scrolling this event was the only one that actually run a schedule task, the other
             ones
             are updates<a href=""><img src="images/34-5.png" alt="images/34-5.png" /></a><strong>
-              <h2>Answer:</h2>
+              <h3>Answer:</h3>
             </strong>Chris.fort<strong>
-              <h2>Question 4:</h2>
+              <h3>Question 4:</h3>
             </strong>Which user from the HR department executed a system process (LOLBIN) to download a payload from a
             file-sharing host.<strong>
-              <h2>Explanation:</h2>
+              <h3>Explanation:</h3>
             </strong>Let&#39;s apply the same query logic as the last question but now let&#39;s run the command
             &quot;stats&quot;, in Splunk it counts occurrences of each unique value in the &quot;CommandLine&quot; field
             and
-            then display the results.<a href=""><img src="images/34-6.png" alt="images/34-6.png" /></a>Let&#39;s further
+            then display the results.<a href=""><span class="image fit"><img src="images/34-6.png"
+                  alt="images/34-6.png" /></a>Let&#39;s further
             investigate the first result as It appears that the
             command uses &quot;certutil.exe&quot; to download a file from a specific URL (&quot;<a
               href="https://controlc.com/548ab556">https://controlc.com/548ab556</a>&quot;) and save it as
             &quot;benign.exe&quot; in the local directory. Meaning this command can be used to download a file from the
             internet
-            and store it on your computer.<a href=""><img src="images/34-7.png" alt="images/34-7.png" /></a>Now we will
+            and store it on your computer.<a href=""><span class="image fit"><img src="images/34-7.png"
+                  alt="images/34-7.png" /></a>Now we will
             change the format a bit because just in this print we have
             the answer for 6 questions and the answers are self explanatory <strong>
-              <h2>Answer:</h2>
+              <h3>Answer:</h3>
             </strong>haroon<strong>
-              <h2>Question 5:</h2>
+              <h3>Question 5:</h3>
             </strong>To bypass the security controls, which system process (lolbin) was used to download a payload from
             the internet?<strong>
-              <h2>Answer:</h2>
+              <h3>Answer:</h3>
             </strong>certutil.exe<strong>
-              <h2>Question 6:</h2>
+              <h3>Question 6:</h3>
             </strong>What was the date that this binary was executed by the infected host? format
             (YYYY-MM-DD)<strong>
-              <h2>Answer:</h2>
+              <h3>Answer:</h3>
             </strong>2022-03-04<strong>
-              <h2>Question 7:</h2>
+              <h3>Question 7:</h3>
             </strong>Which third-party site was accessed to download the malicious payload?<strong>
-              <h2>Answer:</h2>
+              <h3>Answer:</h3>
             </strong>controlc.com<strong>
-              <h2>Question 8:</h2>
+              <h3>Question 8:</h3>
             </strong>What is the name of the file that was saved on the host machine from the C2 server during the
             post-exploitation phase?<strong>
-              <h2>Answer:</h2>
+              <h3>Answer:</h3>
             </strong>benign.exe<strong>
-              <h2>Question 9:</h2>
+              <h3>Question 9:</h3>
             </strong>The suspicious file downloaded from the C2 server contained malicious content with the pattern
             THM{..........}; what is that pattern?<strong>
-              <h2>Explanation:</h2>
+              <h3>Explanation:</h3>
             </strong>To see the content from where the malicious content was downloaded, we have to go into the
-            website itself <a href=""><img src="images/34-8.png" alt="images/34-8.png" /></a><strong>
-              <h2>Answer:</h2>
+            website itself <a href=""><span class="image fit"><img src="images/34-8.png"
+                  alt="images/34-8.png" /></a><strong>
+              <h3>Answer:</h3>
             </strong>C:\\Users\\Finance01\\AppData\\Roaming\\EasyCalc\\EasyCalc.exe<strong>
-              <h2>Question 10:</h2>
+              <h3>Question 10:</h3>
             </strong>What is the URL that the infected host connected to?<strong>
-              <h2>Answer:</h2>
+              <h3>Answer:</h3>
             </strong>hxxps://controlc.com/548ab556<strong>
-              <h2>Conclusion:</h2>
+              <h3>Conclusion:</h3>
               In this investigation, suspicious activities on a compromised host in the HR department were analyzed.
               Limited resources necessitated focusing on Event ID 4688 logs in Splunk. The investigation revealed an
               imposter account, scheduled tasks run by a user named "Chris.fort," execution of LOLBIN "certutil.exe" to

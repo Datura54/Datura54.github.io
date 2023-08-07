@@ -46,103 +46,111 @@
 
       <!-- Post -->
       <section class="post"><strong><strong>
-            <h2>Scenario Notes:</h2>
+            <h3>Scenario Notes:</h3>
           </strong>• SOC Analyst Johny noticed anomalous behaviors in Windows machine logs.<br>
           • Adversary access and
           backdoor creation detected.<br>
           • Logs pulled from suspected hosts, ingested into Splunk for investigation.<br>
           • Focus on identifying unauthorized access, privilege escalation, unusual network traffic, and
           processes.<strong>
-            <h2>Objective:</h2>
+            <h3>Objective:</h3>
           </strong>Examine anomalous behaviors in Windows machine logs and identify signs of unauthorized access,
           potential backdoors, and timely threat detection.<strong>
-            <h2>Question 1:</h2>
+            <h3>Question 1:</h3>
           </strong>How many events were collected and Ingested in the index <strong>main</strong>?<strong>
-            <h2>Explanation:</h2>
+            <h3>Explanation:</h3>
           </strong>Query the database with “*” to get every single event, and select the preset timestamp “All
-          time”<a href=""><img src="images/27-1.png" alt="images/27-1.png" /></a>The answer is just
+          time”<a href=""><span class="image fit"><img src="images/27-1.png" alt="images/27-1.png" /></a>The answer is
+          just
           bellow<strong>
-            <h2>Answer:</h2>
+            <h3>Answer:</h3>
           </strong>12256<strong>
-            <h2>Question 2:</h2>
+            <h3>Question 2:</h3>
           </strong>On one of the infected hosts, the adversary was successful in creating a backdoor user. What is the
           new username?<strong>
-            <h2>Explanation:</h2>
+            <h3>Explanation:</h3>
           </strong>With a quick Google search we can find that the event id for creating a new user is “ID 4720”<a
-            href=""><img src="images/27-2.png" alt="images/27-2.png" /></a><br>
+            href=""><span class="image fit"><img src="images/27-2.png" alt="images/27-2.png" /></a><br>
           With this information we can just go to
-          the selected fields of our splunk and search who were the new users created <a href=""><img
-              src="images/27-3.png" alt="images/27-3.png" /></a>Luckily there was only one user created so we just
-          have to find his username<a href=""><img src="images/27-4.png" alt="images/27-4.png" /></a><strong>
-            <h2>Answer:</h2>
+          the selected fields of our splunk and search who were the new users created <a href=""><span
+              class="image fit"><img src="images/27-3.png" alt="images/27-3.png" /></a>Luckily there was only one user
+          created so we just
+          have to find his username<a href=""><span class="image fit"><img src="images/27-4.png"
+                alt="images/27-4.png" /></a><strong>
+            <h3>Answer:</h3>
           </strong>A1berto<strong>
-            <h2>Question 3:</h2>
+            <h3>Question 3:</h3>
           </strong>On the same host, a registry key was also updated regarding the new backdoor user. What is the full
           path of that registry key?<strong>
-            <h2>Explanation:</h2>
+            <h3>Explanation:</h3>
           </strong>Most efficient way of finding this would be to use the search function. We would need to search for
           logs with Windows EventID 12, as this indicates created registry keys. Also we can specify which
           “TargetObject”
           we
-          are looking for to filter out any other unwanted logs.<a href=""><img src="images/27-5.png"
-              alt="images/27-5.png" /></a><strong>
-            <h2>Answer:</h2>
+          are looking for to filter out any other unwanted logs.<a href=""><span class="image fit"><img
+                src="images/27-5.png" alt="images/27-5.png" /></a><strong>
+            <h3>Answer:</h3>
           </strong>HKLM\SAM\SAM\Domains\Account\Users\Names\A1berto<strong>
-            <h2>Question 4:</h2>
+            <h3>Question 4:</h3>
           </strong>Examine the logs and identify the user that the adversary was trying to impersonate.<strong>
-            <h2>Explanation:</h2>
+            <h3>Explanation:</h3>
           </strong>On this question we could assume that the name the attacker is trying to impersona in Alberto,
-          because he used “A1berto” as his new user, but let&#39;s confirm.<a href=""><img src="images/27-6.png"
-              alt="images/27-6.png" /></a>Just like we assumed, there are only two users “Alberto&quot; and
+          because he used “A1berto” as his new user, but let&#39;s confirm.<a href=""><span class="image fit"><img
+                src="images/27-6.png" alt="images/27-6.png" /></a>Just like we assumed, there are only two users
+          “Alberto&quot; and
           “James”. Is this a 50/50 or a 100/0? <strong>
-            <h2>Answer:</h2>
+            <h3>Answer:</h3>
           </strong>Alberto<strong>
-            <h2>Question 5:</h2>
+            <h3>Question 5:</h3>
           </strong>What is the command used to add a backdoor user from a remote computer?<strong>
-            <h2>Explanation:</h2>
+            <h3>Explanation:</h3>
           </strong>From the last print in the Question 2 we can see that the subject that created &quot;A1berto&quot; is
           James. So if we query the database for every event made by him we will see the creation of “A1berto”<a
-            href=""><img src="images/27-7.png" alt="images/27-7.png" /></a>After looking at Interesting Fields,
+            href=""><span class="image fit"><img src="images/27-7.png" alt="images/27-7.png" /></a>After looking at
+          Interesting Fields,
           “CommandLine” has our answer <strong>
-            <h2>Answer:</h2>
+            <h3>Answer:</h3>
           </strong>C:\windows\System32\Wbem\WMIC.exe&quot; /node:WORKSTATION6 process call create &quot;net user /add
           A1berto paw0rd1<strong>
-            <h2>Question 6:</h2>
+            <h3>Question 6:</h3>
           </strong>How many times was the login attempt from the backdoor user observed during the
           investigation?<strong>
-            <h2>Explanation:</h2>
+            <h3>Explanation:</h3>
           </strong>Let&#39;s look for Categories of events and we will find out that out of the 5 events there is 1
-          Network Connection detected<a href=""><img src="images/27-8.png" alt="images/27-8.png" /></a>After
+          Network Connection detected<a href=""><span class="image fit"><img src="images/27-8.png"
+                alt="images/27-8.png" /></a>After
           investigating,thanks to the image field where it specifies
           that “WMIC.exe” was used, it becomes clear that thi event is the event detected on the creation of the user.
           Meaning
-          there was no login attempt from the backdoor user<a href=""><img src="images/27-9.png"
-              alt="images/27-9.png" /></a><strong>
-            <h2>Answer:</h2>
+          there was no login attempt from the backdoor user<a href=""><span class="image fit"><img src="images/27-9.png"
+                alt="images/27-9.png" /></a><strong>
+            <h3>Answer:</h3>
           </strong>0<strong>
-            <h2>Question 7:</h2>
+            <h3>Question 7:</h3>
           </strong>What is the name of the infected host on which suspicious Powershell commands were
           executed?<strong>
             <h3>Explanation:</h3>
           </strong>If we Query the database for only powershell events, and look for the “hostname” field it will on
-          show one host “James.Browne” <a href=""><img src="images/27-10.png" alt="images/27-10.png" /></a><strong>
-            <h2>Answer:</h2>
+          show one host “James.Browne” <a href=""><span class="image fit"><img src="images/27-10.png"
+                alt="images/27-10.png" /></a><strong>
+            <h3>Answer:</h3>
           </strong>James.Browne<strong>
-            <h2>Question 8:</h2>
+            <h3>Question 8:</h3>
           </strong>PowerShell logging is enabled on this device. How many events were logged for the malicious
           PowerShell execution?<strong>
-            <h2>Explanation:</h2>
+            <h3>Explanation:</h3>
           </strong>We can find this answer based on the same query. We just need to look into the field “Categories” and
-          find how many events were logged <a href=""><img src="images/27-11.png" alt="images/27-11.png" /></a><strong>
-            <h2>Answer:</h2>
+          find how many events were logged <a href=""><span class="image fit"><img src="images/27-11.png"
+                alt="images/27-11.png" /></a><strong>
+            <h3>Answer:</h3>
           </strong>79<strong>
-            <h2>Question 9:</h2>
+            <h3>Question 9:</h3>
           </strong>An encoded Powershell script from the infected host initiated a web request. What is the full
           URL?<strong>
-            <h2>Explanation:</h2>
+            <h3>Explanation:</h3>
           </strong>On every powershell event in the Message field the is a huge encrypted message. So we will decrypt it
           using cyberchef and see what happens<br>
-          <a href=""><img src="images/27-12.png" alt="images/27-12.png" /></a><br>
+          <a href=""><span class="image fit"><img src="images/27-12.png" alt="images/27-12.png" /></a><br>
           After
           using cyberchef and scrolling with little hope, i found this specific
           block of the code<a href=""><span class="image fit"><img src="images/27-13.png"
@@ -157,9 +165,9 @@
           and
           defand the URL to get our answear <a href=""><span class="image fit"><img src="images/27-15.png"
                 alt="images/27-15.png" /></a><strong>
-            <h2>Answer:</h2>
+            <h3>Answer:</h3>
           </strong>hxxp[://]10[.]10[.]10[.]5/news[.]php<strong>
-            <h2>Conclusion:</h2>
+            <h3>Conclusion:</h3>
             This investigation successfully uncovered signs of unauthorized access, potential backdoors, and
             other suspicious activities in Windows machine logs. The proactive analysis conducted by SOC Analyst Johny,
             coupled with the capabilities of Splunk, enabled the timely detection and understanding of the security
