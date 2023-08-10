@@ -1,0 +1,380 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Massively by HTML5 UP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+</head>
+
+<body class="is-preload">
+
+  <!-- Wrapper -->
+  <div id="wrapper" class="fade-in">
+
+    <!-- Intro -->
+    <div id="intro">
+      <h2>Server Side<br /></h2>
+      <a>Active Directory</a>
+      <p>Miguel Nogueira</p>
+      <ul class="actions">
+        <li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+      </ul>
+    </div>
+
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Main Page</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="Projects.html">Projects</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+  <!-- Main -->
+  <div id="main">
+
+    <!-- Post -->
+    <section class="post">
+
+      <p>First go to the bottom right side of your windows, left-click on the Network Icon then just left
+        Click on your network<br>
+        <span alt="Pasted image 20230511215409.png" src="Pasted image 20230511215409.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230511215409.png"
+            src="lib\media\pasted-image-20230511215409.png"></span><br>
+        It will bring you to a page like this click on <em>Change adapter options</em><br>
+        <span alt="Pasted image 20230511215529.png" src="Pasted image 20230511215529.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230511215529.png"
+            src="lib\media\pasted-image-20230511215529.png"></span><br>
+        You will have a page like this, now you will have to discover which one is the internet (NIC
+        "Outside") and the internal (NIC "Internal")<br>
+        <span alt="Pasted image 20230511215804.png" src="Pasted image 20230511215804.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230511215804.png"
+            src="lib\media\pasted-image-20230511215804.png"></span><br>
+        For that you will have to see which one has a normal <strong>IP Address </strong> and which got an
+        automated ip addressed by the <strong>VM</strong>, to do that you click on one of them, then
+        <strong>Details</strong>, here you will analyze by the IP which is which, so on this one, you can see
+        it's a strange IP <strong>169.254.77.114</strong> so this is our internal NAT<br>
+        <span alt="Pasted image 20230511220032.png" src="Pasted image 20230511220032.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230511220032.png"
+            src="lib\media\pasted-image-20230511220032.png"></span><br>
+        By Association the other one is the <strong>Internet NIC</strong>, which we can confirm here, to make everything
+        easier change their names to the correspondent NIC (The strange IP=Internal
+        NIC; Normal IP=Internet NIC)<br>
+        <span alt="Pasted image 20230511220308.png" src="Pasted image 20230511220308.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230511220308.png"
+            src="lib\media\pasted-image-20230511220308.png"></span><br>
+        Something like this<br>
+        <span alt="Pasted image 20230511220433.png" src="Pasted image 20230511220433.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230511220433.png"
+            src="lib\media\pasted-image-20230511220433.png"></span><br>
+        Now we will change the <strong>Internal NIC IP</strong> (Stange IP), do to that go to
+        <strong>Properties -&gt; (Double click) Internet Protocol Version 4 (TCP/IPv4)</strong> it should
+        look like this<br>
+        <span alt="Pasted image 20230511221316.png" src="Pasted image 20230511221316.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230511221316.png"
+            src="lib\media\pasted-image-20230511221316.png"></span><br>
+        Now you will have to change to<br>
+        IP Adress: 169.254.77.114<br>
+        Subnet Mask: 255.255.255.0<br>
+        Default Gateway: nothing (don't type anything, it's literally nothing)<br>
+        Preferred DNS Server: 172.16.0.1<br>
+        Alternate DNS Server: nothing<br>
+        we will not use a <strong>Default Gateway</strong> because our server will serve as one.<br>
+        we will use the Internal NIC as a DNS server for itself, to do that you could use just the IP
+        address that you addressed a few seconds ago or use a generic IP Address (127.0.0.1) that refers to
+        "myself"<br>
+        <span alt="Pasted image 20230511222250.png" src="Pasted image 20230511222250.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230511222250.png"
+            src="lib\media\pasted-image-20230511222250.png"></span>
+      </p>
+
+      <p>Now we will change the name of our computer, to do that we will go <strong>Righ click on Windows
+          Icon -&gt; System -&gt; Rename This PC</strong>, here<br>
+        <span alt="Pasted image 20230511220749.png" src="Pasted image 20230511220749.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230511220749.png"
+            src="lib\media\pasted-image-20230511220749.png"></span><br>
+        I changed to DC (Domain Controller), then just restart<br>
+        <span alt="Pasted image 20230511222441.png" src="Pasted image 20230511222441.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230511222441.png"
+            src="lib\media\pasted-image-20230511222441.png"></span><br>
+        <a href="#SetupDomain" class="tag" target="_blank" rel="noopener">#SetupDomain</a><br>
+        So now, the NIC is all setup, next we will setup the <strong>Domain / AD DS</strong>, for that go
+        to your Server Manager and click on <strong>Add roles and features</strong><br>
+        <span alt="Pasted image 20230511222731.png" src="Pasted image 20230511222731.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230511222731.png"
+            src="lib\media\pasted-image-20230511222731.png"></span><br>
+        That should have opened a window like this, now you will just hit next <strong>except</strong> on
+        the one talk address on the next print<br>
+        <span alt="Pasted image 20230511222906.png" src="Pasted image 20230511222906.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230511222906.png"
+            src="lib\media\pasted-image-20230511222906.png"></span><br>
+        So you once you are on <strong>Server Roles</strong> (There's an index on the left) You will select
+        the second option <strong>Active Directory Domain Services</strong><br>
+        <span alt="Pasted image 20230511223008.png" src="Pasted image 20230511223008.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230511223008.png"
+            src="lib\media\pasted-image-20230511223008.png"></span><br>
+        Add Features<strong><br>
+          <span alt="Pasted image 20230511223144.png" src="Pasted image 20230511223144.png"
+            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230511223144.png"
+              src="lib\media\pasted-image-20230511223144.png"></span><br>
+          Install, This may take some time, don't worry<br>
+          <span alt="Pasted image 20230511223248.png" src="Pasted image 20230511223248.png"
+            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230511223248.png"
+              src="lib\media\pasted-image-20230511223248.png"></span><br>
+          After you hit close, you will see that you have a notification in the right-up corner. We
+          installed the software but we haven't created the Domain yet, so to do it click on the
+          notification<br>
+          <span alt="Pasted image 20230511223915.png" src="Pasted image 20230511223915.png"
+            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230511223915.png"
+              src="lib\media\pasted-image-20230511223915.png"></span><br>
+        </strong>Promote this server to a domain controller<strong><br>
+          <span alt="Pasted image 20230511224059.png" src="Pasted image 20230511224059.png"
+            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230511224059.png"
+              src="lib\media\pasted-image-20230511224059.png"></span><br>
+        </strong>Add a new forest<strong>, i will use </strong>mydomain.com<strong> you can use whatever you
+          want, hit next<br>
+          <span alt="Pasted image 20230511224207.png" src="Pasted image 20230511224207.png"
+            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230511224207.png"
+              src="lib\media\pasted-image-20230511224207.png"></span><br>
+          Now put a password, we might never use it but choose something you will remember like
+        </strong>bunny bee<strong> (it's not my password you don't need to try it, especially on my Gmail),
+          hit next till install<br>
+          <span alt="Pasted image 20230511224318.png" src="Pasted image 20230511224318.png"
+            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230511224318.png"
+              src="lib\media\pasted-image-20230511224318.png"></span><br>
+          After restarting, we will create our </strong>dedicated domain account<strong>, instead
+          of using the built-in one. To do that, </strong>Windows menu -&gt; Windows Administrative Tools
+        -&gt; Active Directory Users and Computer<strong><br>
+          <span alt="Pasted image 20230513075614.png" src="Pasted image 20230513075614.png"
+            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513075614.png"
+              src="lib\media\pasted-image-20230513075614.png"></span><br>
+          Here is the domain that we created earlier, now we will create a dedicated one with the same
+          attributes, so right-click on </strong>mydomain.com<strong> then follow the print. We could talk a
+          lot about </strong>Organizational Units<strong> but for now, think of it as a folder.<br>
+          <span alt="Pasted image 20230513080140.png" src="Pasted image 20230513080140.png"
+            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513080140.png"
+              src="lib\media\pasted-image-20230513080140.png"></span><br>
+          You can uncheck the little box there, I will just not be annoying when later we delete it<br>
+          <span alt="Pasted image 20230513080934.png" src="Pasted image 20230513080934.png"
+            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513080934.png"
+              src="lib\media\pasted-image-20230513080934.png"></span><br>
+          It should look like that on the left side, now we will add a new </strong>User<strong><br>
+          <span alt="Pasted image 20230513081129.png" src="Pasted image 20230513081129.png"
+            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513081129.png"
+              src="lib\media\pasted-image-20230513081129.png"></span><br>
+          You can name it whatever you like, I did like this. On the login name, I put the "a-" to signal
+          this is an Admin<br>
+          <span alt="Pasted image 20230513081405.png" src="Pasted image 20230513081405.png"
+            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513081405.png"
+              src="lib\media\pasted-image-20230513081405.png"></span><br>
+          just create his password and check the boxes like so, we are checking the third box because we are
+          in a Lab environment so we don't have to be bothered putting passwords<br>
+          <span alt="Pasted image 20230513081626.png" src="Pasted image 20230513081626.png"
+            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513081626.png"
+              src="lib\media\pasted-image-20230513081626.png"></span><br>
+          You will have something like this, so we now have an account but it's still not an admin one, we
+          just named her admin. To make this user admin you have to go to his </strong>properties<strong>,
+          (right click on him and then properties)<br>
+          <span alt="Pasted image 20230513082759.png" src="Pasted image 20230513082759.png"
+            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513082759.png"
+              src="lib\media\pasted-image-20230513082759.png"></span><br>
+        </strong>Member Of<strong><br>
+          <span alt="Pasted image 20230513083135.png" src="Pasted image 20230513083135.png"
+            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513083135.png"
+              src="lib\media\pasted-image-20230513083135.png"></span><br>
+          Then click </strong>Add...<strong> it will open the </strong>Select Groups<strong> window, type on
+          the big white box "Domain Admins" and then </strong>Check Names<strong><br>
+          <span alt="Pasted image 20230513083316.png" src="Pasted image 20230513083316.png"
+            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513083316.png"
+              src="lib\media\pasted-image-20230513083316.png"></span><br>
+          If after you pressed Check Names your "Domain Admins" ended up looking like this, you did
+          everything right, press </strong>OK<strong> and you will see that our user is now a Member of
+        </strong>Users<strong> and </strong>Admins<strong>, press </strong>Apply<strong>,</strong>Ok<strong>
+          and it's done you created a new user and added him to the Admin Members, so you created an
+        </strong>Admin!<strong><br>
+          <span alt="Pasted image 20230513083550.png" src="Pasted image 20230513083550.png"
+            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513083550.png"
+              src="lib\media\pasted-image-20230513083550.png"></span><br>
+          <span alt="Pasted image 20230513083715.png" src="Pasted image 20230513083715.png"
+            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513083715.png"
+              src="lib\media\pasted-image-20230513083715.png"></span><br>
+          Now we will login on to our admin account, to do that sign out<br>
+          <span alt="Pasted image 20230513084248.png" src="Pasted image 20230513084248.png"
+            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513084248.png"
+              src="lib\media\pasted-image-20230513084248.png"></span><br>
+          And then login with another User, you will have to remember your </strong>User Logon name<strong>,
+          if you forgot no problem go to your </strong>user -&gt; properties -&gt; Account<strong> and you
+          will see it<br>
+          <span alt="Pasted image 20230513084932.png" src="Pasted image 20230513084932.png"
+            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513084932.png"
+              src="lib\media\pasted-image-20230513084932.png"></span><br>
+          Select that you want to login with another user, and just put the credentials you attributed to your
+          admin<br>
+          <span alt="Pasted image 20230513085348.png" src="Pasted image 20230513085348.png"
+            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513085348.png"
+              src="lib\media\pasted-image-20230513085348.png"></span><br>
+          <a href="#SetupRAS/NAT" class="tag" target="_blank" rel="noopener">#SetupRAS/NAT</a><br>
+          The purpose of this is so that when we create our </strong>Win10 Client<strong> he be in a
+        </strong>private network<strong> but still will have access to the internet trough the
+        </strong>DC<strong>, so what we will do is install NAT and RAS on to our Domain Controller to allow
+          our Clients to do that<br>
+          <span alt="Pasted image 20230513090001.png" src="Pasted image 20230513090001.png"
+            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513090001.png"
+              src="lib\media\pasted-image-20230513090001.png"></span><br>
+          To do that we will go to </strong>Add roles and features<strong><br>
+          <span alt="Pasted image 20230513090524.png" src="Pasted image 20230513090524.png"
+            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513090524.png"
+              src="lib\media\pasted-image-20230513090524.png"></span><br>
+          Hit next till a window looking like my print appears, here select </strong>Remote Acess<strong>
+          then<br>
+          <span alt="Pasted image 20230513095003.png" src="Pasted image 20230513095003.png"
+            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513095003.png"
+              src="lib\media\pasted-image-20230513095003.png"></span><br>
+          Here select </strong>Routing<strong>, he will automatically select </strong>DiresctAccess and VPN
+        (RAS)<strong><br>
+          Just hit next till install<br>
+          <span alt="Pasted image 20230513095123.png" src="Pasted image 20230513095123.png"
+            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513095123.png"
+              src="lib\media\pasted-image-20230513095123.png"></span><br>
+          Now go to </strong>Tools -&gt; Routing and Remote Access**<br>
+        <span alt="Pasted image 20230513103747.png" src="Pasted image 20230513103747.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513103747.png"
+            src="lib\media\pasted-image-20230513103747.png"></span>
+      </p>
+
+      <p><span alt="Pasted image 20230513113009.png" src="Pasted image 20230513113009.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513113009.png"
+            src="lib\media\pasted-image-20230513113009.png"></span><br>
+        <span alt="Pasted image 20230513113058.png" src="Pasted image 20230513113058.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513113058.png"
+            src="lib\media\pasted-image-20230513113058.png"></span><br>
+        If this does not appear to you it's ok, it also happened to me the first time, just cancel and go
+        through the steps from tools to Routing and Remote Access, etc...<br>
+        Here select the <strong>Internet Interface</strong> and hit next (Here you can see that we made
+        something wrong as on the internal NIC our IP address is 0.0.0.0, so I had to change the IP address
+        again, if everything is ok for you great, you know it's ok if the ip you changed to is there)<br>
+        <span alt="Pasted image 20230513113253.png" src="Pasted image 20230513113253.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513113253.png"
+            src="lib\media\pasted-image-20230513113253.png"></span><br>
+        You will end up with something like this<br>
+        <span alt="Pasted image 20230513113523.png" src="Pasted image 20230513113523.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513113523.png"
+            src="lib\media\pasted-image-20230513113523.png"></span><br>
+        And its done, <a href="#SetupRAS/NAT" class="tag" target="_blank" rel="no opener">#SetupRAS/NAT</a>
+        now when we connect a client to our <strong>Domain Server</strong> he should be able to access the
+        internet, assuming we setup DHCP, which is what we will do next we will setup a DHCP on our Domain
+        Server
+      </p>
+
+      <p><a href="#SetupDCHP" class="tag" target="_blank" rel="noopener">#SetupDCHP</a><br>
+        Go to our Server manager, <strong>Add roles and features</strong><br>
+        <span alt="Pasted image 20230513114018.png" src="Pasted image 20230513114018.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513114018.png"
+            src="lib\media\pasted-image-20230513114018.png"></span><br>
+        Hit next till you find a window looking like the next print, Select <strong>DCHP Server</strong> and
+        hit next till install<br>
+        <span alt="Pasted image 20230513114137.png" src="Pasted image 20230513114137.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513114137.png"
+            src="lib\media\pasted-image-20230513114137.png"></span><br>
+        Now we will setup our scope(Range of IP that DHCP will give to the Server Clients) by going to
+        <strong>Tools -&gt; DHCP</strong><br>
+        <span alt="Pasted image 20230513214312.png" src="Pasted image 20230513214312.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513214312.png"
+            src="lib\media\pasted-image-20230513214312.png"></span><br>
+        <strong>New Scope...</strong><br>
+        <span alt="Pasted image 20230513214741.png" src="Pasted image 20230513214741.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513214741.png"
+            src="lib\media\pasted-image-20230513214741.png"></span><br>
+        On the next prints just read the intro from each window and you will know what they are<br>
+        <span alt="Pasted image 20230513214922.png" src="Pasted image 20230513214922.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513214922.png"
+            src="lib\media\pasted-image-20230513214922.png"></span><br>
+        Here we will attribute the scope<br>
+        <span alt="Pasted image 20230513215050.png" src="Pasted image 20230513215050.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513215050.png"
+            src="lib\media\pasted-image-20230513215050.png"></span><br>
+        Here is where you would add some Exclusions meaning you may want to reserve a special range to
+        another server so you can play around with this kind of stuff<br>
+        <span alt="Pasted image 20230513215400.png" src="Pasted image 20230513215400.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513215400.png"
+            src="lib\media\pasted-image-20230513215400.png"></span><br>
+        Here Is where you will say for how long an Ip address stays reserved for a device, meaning if
+        you are at a Starbucks and get some coffee and then you go on with your life you won't need an IP
+        The address is reserved for you for maybe more than 2 hours, but if you are in a Lab or Home environment
+        then you might not switch devices that often making a refresh to the DCHP unnecessary <br>
+        <span alt="Pasted image 20230513215505.png" src="Pasted image 20230513215505.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513215505.png"
+            src="lib\media\pasted-image-20230513215505.png"></span><br>
+        Here he is asking if we want to configure DHCP Options, which means that if we want to tell clients
+        which Server to use for DNS or the Gateway, and we do want that<br>
+        <span alt="Pasted image 20230513215749.png" src="Pasted image 20230513215749.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513215749.png"
+            src="lib\media\pasted-image-20230513215749.png"></span><br>
+        Click add before next<br>
+        <span alt="Pasted image 20230513220052.png" src="Pasted image 20230513220052.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513220052.png"
+            src="lib\media\pasted-image-20230513220052.png"></span><br>
+        Just hit next till finish<br>
+        <span alt="Pasted image 20230514111305.png" src="Pasted image 20230514111305.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230514111305.png"
+            src="lib\media\pasted-image-20230514111305.png"></span><br>
+        <a href="#SetupDCHP" class="tag" target="_blank" rel="noopener">#SetupDCHP</a><br>
+        (If you go to your client and do not have a default gateway then do this)<br>
+        Go to<br>
+        <span alt="Pasted image 20230513223840.png" src="Pasted image 20230513223840.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513223840.png"
+            src="lib\media\pasted-image-20230513223840.png"></span><br>
+        <span alt="Pasted image 20230513223956.png" src="Pasted image 20230513223956.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230513223956.png"
+            src="lib\media\pasted-image-20230513223956.png"></span><br>
+      </p>
+  </div>
+
+  </div>
+
+
+
+
+  <body class="is-preload">
+    <header id="header">
+      <a href="https://yrtree.me/@Miguel%20Nogueira" class="logo">Connect with
+        me</a>
+    </header>
+    <!-- Copyright -->
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Main Page</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="Projects.html">Projects</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+  </body>
+
+</html>

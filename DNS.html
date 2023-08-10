@@ -88,7 +88,7 @@
         <p> sudo service systemd-resolved stop</p>
         <p> </p>
         <p> </p>
-        <p> Next start up Elasticsearch and Kibana using the following command:</p>
+        <p> Next start-up Elasticsearch and Kibana using the following command:</p>
         <p> </p>
         <p> cd /labs/2.1</p>
         <p> docker-compose up -d</p>
@@ -101,7 +101,7 @@
         <p> In the setup for this lab, we have started multiple services. To give you the full perspective of why we did
           that, here&#39;s what they are and why we started each:</p>
         <p> </p>
-        <p> • Pi-Hole - A forwarding DNS server which can service DNS requests, cache answers, and perform recursive
+        <p> • Pi-Hole - A forwarding DNS server that can service DNS requests, cache answers, and perform recursive
           lookups. It also comes with a very nice web GUI for setup and monitoring which we will use to see the requests
           from the DNS server perspective.</p>
         <p> </p>
@@ -144,7 +144,7 @@
         <p> The format of this command is dig [DNS server name] [lookup] [request type]. Since the Pi-Hole is not the
           standard DNS server used by our virtual machine we must specify which server to ask (the @127.0.0.1 argument),
           the
-          second argument is the name we wish to resolve (sec450.com) and the third argument is the record type,
+          the second argument is the name we wish to resolve (sec450.com) and the third argument is the record type,
           &quot;A&quot; since we are doing an A record lookup.</p>
         <p> </p>
         <p> You should see the following output showing the A record for sec450.com.</p>
@@ -196,13 +196,13 @@
           leave the information blank.</p>
         <p> </p>
         <p> The sec450.com domain was registered through Namecheap.com and the IP address (which was 70.32.97.206) was
-          hosted on a VPS at DigitalOcean. While all other DNS records types must be setup through the DNS settings at
+          hosted on a VPS at DigitalOcean. While all other DNS records types must be set up through the DNS settings at
           the
           registrar (which was Namecheap), the PTR record is not, it is controlled by the company that owns the IP
           address.
           That means that while all other record types (A, CNAME, TXT, ...) are configured through logging in to
           Namecheap,
-          the PTR record is actually set by logging in and changing it at DigitalOcean. In the management console at
+          the PTR record is set by logging in and changing it at DigitalOcean. In the management console at
           DigitalOcean, the name of the VPS can be changed to anything, and whatever is entered in this box becomes the
           PTR
           record.</p>
@@ -226,7 +226,7 @@
         </p>
         <p></p>
         <p> </p>
-        <p> Next, use the following command to send an TXT record request for SEC450.com:</p>
+        <p> Next, use the following command to send a TXT record request for SEC450.com:</p>
         <p> </p>
         <p> dig @127.0.0.1 sec450.com TXT</p>
         <p> </p>
@@ -250,7 +250,7 @@
         <p> </p>
         <p> </p>
         <p> </p>
-        <p> You should see a response similar to following:</p>
+        <p> You should see a response similar to the following:</p>
         <p> </p>
         <p> <a href="http://../../../../Desktop/project"> </a><a
             href="file:///C:/Users/Leugim/Desktop/project/images/15-6.png"><img src="images/9-6.png"
@@ -286,7 +286,7 @@
           recorded.
         </p>
         <p> </p>
-        <p> To filter it down, type &quot;sec450&quot; into the search box into the upper right of the page. You should
+        <p> To filter it down, type &quot;sec450&quot; into the search box at the upper right of the page. You should
           now
           see a screen similar to the following.</p>
         <p> </p>
@@ -297,7 +297,7 @@
         <p> Here we can see the &quot;DNS server view&quot; of what DNS requests look like. Pi-Hole acts very similar to
           most DNS servers, whether Windows DNS, ISC Bind, or others. They all record the source of the incoming
           request,
-          which we can see in the &quot;client&quot; column in this view, as well the lookup type and domain that was
+          which we can see in the &quot;client&quot; column in this view, as well as the lookup type and domain that was
           searched. In the &quot;Status&quot; column we can also see whether the request was forwarded or served from
           the
           DNS servers cache. If we were to look at the text-based log files produced by the pi-hole, we would see the
@@ -306,7 +306,7 @@
         <p> </p>
         <p> Now that we&#39;ve seen what the DNS server records, lets take a deeper look at the traffic by diving into
           the
-          actual packets. We will leave the browser open in orther to watch new requests stream by until the end of the
+          actual packets. We will leave the browser open in order to watch new requests stream until the end of the
           lab.
         </p>
         <p>
@@ -349,13 +349,13 @@
         <p> </p>
         <p> You should now see two lines in Wireshark with the A record request for sec450.com as shown below (depending
           on
-          how the query was made by Pi-Hole there could be more than 2 lines, in my case i have 3 requests).</p>
+          how the query was made by Pi-Hole there could be more than 2 lines, in my case, i have 3 requests).</p>
         <p> </p>
         <p> <span class="image fit"><img src="images/9-10.png" alt="" /></span>
         </p>
         <p> </p>
         <p> How can we tell which entry is the response for a specific query? By looking at the hex number preceding the
-          lookup type. In the case of the capture shown here the lookup was numbered 0x91de and the corresponding
+          lookup type. In the case of the capture shown here, the lookup was numbered 0x91de, and the corresponding
           response
           has the same label as shown below. </p>
         <p> <a href="http://../../../../Desktop/project"> </a><a
@@ -376,9 +376,10 @@
         <p> </p>
         <p> You should now see the additional detail on each field in the DNS request. Notice how each item in the Info
           line
-          in the packet overview above is represented in the detail below, as well as additional details. In Wireshark,
+          the packet overview above is represented in the detail below, as well as additional details. In Wireshark,
           any
-          time you need to find specific details on one of the layers of the network transaction you can use this panel
+          the time you need to find specific details on one of the layers of the network transaction you can use this
+          panel
           to
           recursively expand fields until you drill down to the information you&#39;re looking for.</p>
         <p> </p>
@@ -455,7 +456,8 @@
           print anything the IDS engine detects in real-time.</p>
         <p> </p>
         <p> Although the full detail for every alert is stored in Suricata&#39;s eve.json log, the eve.json&#39;s JSON
-          format is better ingested and viewed with the SIEM, the fast.log file is better used for easily readable quick
+          the format is better ingested and viewed with the SIEM, the fast.log file is better used for easily readable
+          quick
           checks.</p>
         <p> </p>
         <p> To trigger an alert from Suricata, enter the following command into the first terminal. Note that you may
@@ -515,7 +517,7 @@
         <p> While Suricata may pick up many types of malicious traffic with one of it&#39;s signatures, signatures are
           ultimately still a block list-based technique that relies on enumerating &quot;known bad&quot;, an impossible
           task
-          to cover all situations with. While this approach can catch a large portion of problems, there will always be
+          to cover all situations. While this approach can catch a large portion of problems, there will always be
           additional attacks for which you don&#39;t have signatures. For attacks that use new atomic indicators
           (domains,
           hashes), or methods that are unknown, we must rely on other methods to pick up malicious activity, and that is
@@ -528,7 +530,7 @@
           step),
           how can you pick it up? Given what we know about DNS tunneling and how it has to use high-frequency, long,
           encoded
-          looking subdomains, if we have the log of all DNS requests made, we should still be able to find it!</p>
+          looking at subdomains, if we have the log of all DNS requests made, we should still be able to find it!</p>
         <p> </p>
         <p> For this next step, we will open Kibana to a set of pre-ingested DNS data:</p>
         <p> </p>
@@ -537,7 +539,7 @@
         </p>
         <p> </p>
         <p> </p>
-        <p> This page shows selected fields information as recorded by Suricata while observing DNS traffic. Note that
+        <p> This page shows selected field information as recorded by Suricata while observing DNS traffic. Note that
           this
           is event metadata such as the source and destination IP, request type, and hostname.</p>
         <p> </p>
@@ -591,7 +593,7 @@
         <p> </p>
         <p> • DNS Subdomains - The final item on the list is the &quot;DNS Subdomains&quot; visualization. This
           breakdown
-          shows how many unique subdomains were used from each top level domain - a characteristic that would highlight
+          shows how many unique subdomains were used from each top-level domain - a characteristic that would highlight
           the
           encoded data used for DNS tunneling. In this graph, we can clearly see that contentdelivery.info has way more
           subdomains than any other item in the list.</p>
@@ -619,7 +621,7 @@
           &#39;tls.keylog_file:/labs/2.1/sslkeylog.log&#39;
         </p>
         <p> </p>
-        <p> This command will open a pre-created example capture of DoH trafic with the decryption keys in place needed
+        <p> This command will open a pre-created example capture of DoH traffic with the decryption keys in place needed
           to
           decrypt and read it and a Wireshark display filter of dns and tls, which narrows packets down to DoH only (you
           cannot simply use &quot;doh&quot; like you can with other protocol names at the time of this writing). The
@@ -629,7 +631,7 @@
         <p> <span class="image fit"><img src="images/9-27.png" alt="" /></span>
         </p>
         <p> </p>
-        <p> SIDE NOTE: If you are looking for a specific information you can ctrl+F, select to search by string in this
+        <p> SIDE NOTE: If you are looking for specific information you can ctrl+F, select to search by string in this
           case
           and Wireshark will search for you the packet you are hunting, like this:</p>
         <p> <span class="image fit"><img src="images/9-28.png" alt="" /></span>
@@ -637,17 +639,17 @@
         <p> </p>
         <p> Back to the lab we can alternatively, use the broader filter (dns and tls) or http2 to show both the DoH
           query
-          and the HTTP/2 portion. This filter shows both the DoH packet and the preceeding HTTP/2 packet that
+          and the HTTP/2 portion. This filter shows both the DoH packet and the preceding HTTP/2 packet that
           facilitates
           it. Although we have not yet discussed HTTP/2, note that there is an HTTP/2 protocol POST request to the URL
-          &quot;/dns-query&quot;. This is because DoH is literally talking to an HTTP server to make a DNS request
+          &quot;/dns-query&quot;. This is because DoH is talking to an HTTP server to make a DNS request
           embedded
           within an HTTP request!</p>
         <p> </p>
         <p> <span class="image fit"><img src="images/9-29.png" alt="" /></span>
         </p>
         <p> </p>
-        <p> Also note that the DNS transaction ID is now 0x0000 for all requests. How do we then track a response to a
+        <p> Also note that the DNS transaction ID is now 0x0000 for all requests. How do we then track response to a
           given
           request? We now need to use the HTTP/2 stream identifier. The easiest way to trace the unique answer to a DoH
           request in the above screenshot would be to right-click on a packet like #552 in the screenshot, select
@@ -659,9 +661,9 @@
         <p> </p>
         <p> This capture is Firefox using it&#39;s built-in default DNS over HTTPS functionality. If you&#39;d like to
           see
-          what this traffic looks like without the encryption keys applied, close wireshark and reopen the capture with
+          what this traffic looks like without the encryption keys applied, close Wireshark and reopen the capture with
           the
-          command below that omits the -o argument (which provides the decryption keys).</p>
+          the command below that omits the -o argument (which provides the decryption keys).</p>
         <p> </p>
         <p> wireshark -r doh_example.pcap -Y &quot;dns and tls&quot;</p>
         <p> </p>

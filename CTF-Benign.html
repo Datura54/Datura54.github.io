@@ -55,7 +55,7 @@
             <h3>Scenario Notes:</h3>
             • A host from the HR department has been identified as potentially compromised based on suspicious
             process execution alerts from the IDS.<br>
-            • Further investigation using network information gathering tools
+            • Further investigation using network information-gathering tools
             and scheduled tasks revealed activities that confirmed the suspicion of a compromised host within the HR
             department.<br>
             • The investigation was constrained by limited resources, leading to the extraction of
@@ -81,7 +81,7 @@
               <h3>Explanation:</h3>
             </strong>By querying the database for the top 20 &quot;Username&quot; entries, it becomes evident that
             further
-            investigation of the account named &quot;Amel1a&quot; is warranted. It is intriguing that the creator chose
+            investigation of the account named &quot;Amel1a&quot; is warranted. Intriguingly, the creator chose
             to
             name
             it &quot;Amel1a&quot; while there is another account with the name &quot;Amelia.&quot; This coincidence
@@ -93,11 +93,11 @@
               <h3>Question 3:</h3>
             </strong>Which user from the HR department was observed to be running scheduled tasks?<strong>
               <h3>Explanation:</h3>
-            </strong>On this next query we will ask for every user that is in the HR department and runned a process
+            </strong>On this next query we will ask for every user that is in the HR department and ran a process
             named
             schtasks.exe<a href=""><span class="image fit"><img src="images/34-4.png" alt="images/34-4.png" /></a>There
             were 18
-            events but after a bit of scrolling this event was the only one that actually run a schedule task, the other
+            events but after a bit of scrolling this event was the only one that run a scheduled task, the other
             ones
             are updates<a href=""><img src="images/34-5.png" alt="images/34-5.png" /></a><strong>
               <h3>Answer:</h3>
@@ -107,7 +107,8 @@
             file-sharing host.<strong>
               <h3>Explanation:</h3>
             </strong>Let&#39;s apply the same query logic as the last question but now let&#39;s run the command
-            &quot;stats&quot;, in Splunk it counts occurrences of each unique value in the &quot;CommandLine&quot; field
+            &quot;stats&quot;, in Splunk, it counts occurrences of each unique value in the &quot;CommandLine&quot;
+            field
             and
             then display the results.<a href=""><span class="image fit"><img src="images/34-6.png"
                   alt="images/34-6.png" /></a>Let&#39;s further
@@ -115,11 +116,11 @@
             command uses &quot;certutil.exe&quot; to download a file from a specific URL (&quot;<a
               href="https://controlc.com/548ab556">https://controlc.com/548ab556</a>&quot;) and save it as
             &quot;benign.exe&quot; in the local directory. Meaning this command can be used to download a file from the
-            internet
+            Internet
             and store it on your computer.<a href=""><span class="image fit"><img src="images/34-7.png"
                   alt="images/34-7.png" /></a>Now we will
             change the format a bit because just in this print we have
-            the answer for 6 questions and the answers are self explanatory <strong>
+            the answer for 6 questions and the answers are self-explanatory <strong>
               <h3>Answer:</h3>
             </strong>haroon<strong>
               <h3>Question 5:</h3>
@@ -137,12 +138,12 @@
               <h3>Answer:</h3>
             </strong>controlc.com<strong>
               <h3>Question 8:</h3>
-            </strong>What is the name of the file that was saved on the host machine from the C2 server during the
+            </strong>What is the name of the file that was saved on the host machine from the C2 server during the
             post-exploitation phase?<strong>
               <h3>Answer:</h3>
             </strong>benign.exe<strong>
               <h3>Question 9:</h3>
-            </strong>The suspicious file downloaded from the C2 server contained malicious content with the pattern
+            </strong>The suspicious file downloaded from the C2 server contained malicious content with the pattern
             THM{..........}; what is that pattern?<strong>
               <h3>Explanation:</h3>
             </strong>To see the content from where the malicious content was downloaded, we have to go into the
@@ -151,7 +152,7 @@
               <h3>Answer:</h3>
             </strong>C:\\Users\\Finance01\\AppData\\Roaming\\EasyCalc\\EasyCalc.exe<strong>
               <h3>Question 10:</h3>
-            </strong>What is the URL that the infected host connected to?<strong>
+            </strong>What is the URL that the infected host is connected to?<strong>
               <h3>Answer:</h3>
             </strong>hxxps://controlc.com/548ab556<strong>
               <h3>Conclusion:</h3>
@@ -159,9 +160,9 @@
               Limited resources necessitated focusing on Event ID 4688 logs in Splunk. The investigation revealed an
               imposter account, scheduled tasks run by a user named "Chris.fort," execution of LOLBIN "certutil.exe" to
               download a payload from controlc.com, and other related details. The date, filename, content pattern, and
-              URL associated with the malicious payload were also identified, aiding in understanding the nature of the
+              URL associated with the malicious payload was also identified, aiding in understanding the nature of the
               compromise.<br><br>
-            </strong>1. A total of 13,959 logs were ingested from the month of March 2022, providing a comprehensive
+            </strong>1. A total of 13,959 logs were ingested from March 2022, providing a comprehensive
             dataset for analysis.<br><br>
             2. An imposter account named &quot;Amel1a&quot; was observed in the logs, raising
             concerns about potential unauthorized access.<br><br>
@@ -183,7 +184,7 @@
             7. The third-party site &quot;controlc.com&quot; was accessed to
             download the malicious payload.<br><br>
             8. The file saved on the host machine from the C2 server during the
-            post-exploitation phase was named &quot;benign.exe.&quot;<br><br>
+            the post-exploitation phase was named &quot;benign.exe.&quot;<br><br>
             9. The malicious content in the downloaded file
             had the pattern &quot;THM{..........},&quot; indicating the presence of a threat or malware.<br><br>
             10. The URL

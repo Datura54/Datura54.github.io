@@ -84,7 +84,7 @@
         <p> <span class="image fit"><img src="images/6-1.png" alt="" /></span>
         </p>
         <p> </p>
-        <p> Before we are able to see logs, we need to do a crash course in the interface.</p>
+        <p> Before we can see logs, we need to do a crash course in the interface.</p>
         <p> </p>
         <p> Date Picker - The Date Picker is one of the most important items in the interface because it tells Kibana
           which
@@ -95,7 +95,8 @@
         <p> Index Picker - The Index Picker is the second most important item in the interface, because it tells Kibana
           which set of logs you want to search through. Elasticsearch stores all logs in various &quot;indexes&quot;,
           think
-          of them as separate databases. By convention, things like firewall logs would go into one index, http logs in
+          of them as separate databases. By convention, things like firewall logs would go into one index, and HTTP logs
+          in
           another, and flow logs into yet another, etc. In the screenshot the &quot;suricata-flow&quot; index is
           selected,
           meaning the default search will show the NetFlow-style logs captured by Suricata.</p>
@@ -106,10 +107,10 @@
         <p> Search Bar - The location to enter your search queries.</p>
         <p> </p>
         <p> For this lab we will use an actual attack data from a research honeypot sitting on the public internet. The
-          setup involved starting a number of fake services on the server and logging all interaction with them using
+          setup involved starting several fake services on the server and logging all interactions with them using
           Suricata. Suricata is a tool similar to Snort in that it can use Snort-style IDS signatures to identify
           suspicious
-          traffic, but it also records metadata like network flow logs, and specifics for transactions in various
+          traffic, but it also records metadata like network flow logs and specifics for transactions in various
           application layer protocols like HTTP, DNS, TLS, and more. In this Kibana setup, each of these data sources
           has
           it&#39;s own index that can be selected with the index picker. Clicking on it will reveal the other options.
@@ -153,7 +154,8 @@
             href="file:///C:/Users/Leugim/Desktop/project/images/12-6.png"><img src="images/6-6.png"
               alt="images/6-6.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
         <p> </p>
-        <p> Once this is done click on the box on the right side of date picker to select ending time for the search:
+        <p> Once this is done click on the box on the right side of the date picker to select the ending time for the
+          search:
         </p>
         <p> </p>
         <p> <a href="http://../../../../Desktop/project"> </a><a
@@ -178,7 +180,7 @@
         <p> <span class="image fit"><img src="images/6-9.png" alt="" /></span>
         </p>
         <p> </p>
-        <p> You now see a populated field list, a histogram of the time of where logs are present in that index&#39;s
+        <p> You now see a populated field list, a histogram of the time where logs are present in that index&#39;s
           data
           set, and the time and field details for the logs.</p>
         <p> </p>
@@ -228,7 +230,7 @@
         <p> • geoip.country_name</p>
         <p> • geoip.as_org</p>
         <p> </p>
-        <p> You screen should now look like this - much more readable! These fields give us an idea of what type of
+        <p> Your screen should now look like this - much more readable! These fields give us an idea of what type of
           traffic
           was seen by the sensor by showing its layer ¾ information and the application layer protocol that was used. It
           also has some value-added enrichments added by the SIEM - geoIP information about where on earth the traffic
@@ -261,7 +263,7 @@
               alt="images/6-15.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
         <p> </p>
         <p> </p>
-        <p> Now that we have a good set of columns selected, lets save this view. At the top of the screen select the
+        <p> Now that we have a good set of columns selected, let's save this view. At the top of the screen select the
           &quot;Save&quot; link:</p>
         <p> </p>
         <p> <a href="http://../../../../Desktop/project"> </a><a
@@ -277,7 +279,7 @@
         <p> This set of columns is now saved and will be available to jump back to any time you use the &quot;Open&quot;
           link next to the Save button.</p>
         <p> </p>
-        <p> Before going on the next step, feel free to click around and explore the data in the Discover tab.</p>
+        <p> Before going on to the next step, feel free to click around and explore the data in the Discover tab.</p>
         <p>
         <h5>2. Create a pie chart visualization of honeypot data</h5>
 
@@ -331,14 +333,15 @@
           is
           calculated on those groups, this is a VERY important concept for creating visualizations in any SIEM even if
           your
-          vendor doesn&#39;t use these terms, so make sure you understand it. By default, all logs go into one
+          vendor doesn&#39;t use these terms, so make sure you understand them. By default, all logs go into one
           &quot;bucket&quot;, and what is calculated is the &quot;Count&quot;, which is why we see the chart that we
           have
           right now.</p>
         <p> </p>
         <p> This picture shows that within the date&#39;s we&#39;ve selected, there were 774,140 logs total. We want to
           ask
-          a different question though, we&#39;re curious which destination port showed up in the most logs. To answer
+          a different question though, we&#39;re curious about which destination port showed up in the most logs. To
+          answer
           this
           question we can leave the Metric on &quot;count&quot;, but we need to group (bucket) logs by the
           &quot;destination_port&quot; field so that we get a count of how many logs exist for each port number. To do
@@ -356,7 +359,7 @@
             href="file:///C:/Users/Leugim/Desktop/project/images/12-24.png"><img src="images/6-24.png"
               alt="images/6-24.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
         <p> </p>
-        <p> Once selected, new options will appear for selecting the field, ordering, counts, and labeling the output.
+        <p> Once selected, new options will appear for selecting the field, ordering, counting, and labeling the output.
           The
           first thing we need to do is select the &quot;destination_port&quot; field in the &quot;Field&quot; drop down.
           Again, typing part of the name is the fastest way to find it in the list of field options.</p>
@@ -381,7 +384,7 @@
           which
           means port 445 was the most commonly talked to port on the honeypot, followed by port 22 and port 53. Mouse
           over
-          the slices of the chart and you will see the count for each individual item.</p>
+          the slices of the chart and you will see the count for each item.</p>
         <p> </p>
         <p> <a href="http://../../../../Desktop/project"> </a><a
             href="file:///C:/Users/Leugim/Desktop/project/images/12-28.png"><img src="images/6-28.png"
@@ -409,7 +412,7 @@
         </p>
         <p></p>
         <p> </p>
-        <p> In this section we&#39;re going to make an area chart of attacks grouped by the country the traffic came
+        <p> In this section we&#39;re going to make an area chart of attacks grouped by the country in the traffic came
           from
           according to the resolved geoIP information.</p>
         <p> <a href="http://../../../../Desktop/project"> </a><a
@@ -453,7 +456,7 @@
             href="file:///C:/Users/Leugim/Desktop/project/images/12-34.png"><img src="images/6-34.png"
               alt="images/6-34.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
         <p> </p>
-        <p> We&#39;ve successfully made a area chart of the total volume of data:</p>
+        <p> We&#39;ve successfully made an area chart of the total volume of data:</p>
         <p>
         <p> <span class="image fit"><img src="images/6-35.png" alt="" /></span>
         </p>
@@ -551,7 +554,7 @@
             href="file:///C:/Users/Leugim/Desktop/project/images/12-46.png"><img src="images/6-46.png"
               alt="images/6-46.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
         <p> </p>
-        <p> Here it is, all 3 of your saved items now displayed at once.</p>
+        <p> Here it is, all 3 of your saved items are now displayed at once.</p>
         <p>
         <p> <span class="image fit"><img src="images/6-47.png" alt="" /></span>
         </p>
@@ -565,7 +568,7 @@
             href="file:///C:/Users/Leugim/Desktop/project/images/12-48.png"><img src="images/6-48.png"
               alt="images/6-48.png" /></a><a href="http://../../../../Desktop/project"> </a> </p>
         <p> </p>
-        <p> You&#39;ve now created a interactive dashboard in our SIEM that both groups data on multiple fields and
+        <p> You&#39;ve now created an interactive dashboard in our SIEM that both groups data on multiple fields and
           displays
           the search results simultaneously!</p>
         <p>
@@ -599,10 +602,11 @@
         <p> <span class="image fit"><img src="images/6-50.png" alt="" /></span>
         </p>
         <p> </p>
-        <p> Notice the distribution of the most common destination port are now different. In the overall dataset it was
+        <p> Notice the distribution of the most common destination port are now different. In the overall dataset, it
+          was
           port 445, but we can see that isolating our data to Germany only, the most popular destination port of traffic
           to
-          the honeypot from Germany was actually port 22 (SSH) followed by port 2222 (an alternative SSH port).</p>
+          the honeypot from Germany was port 22 (SSH) followed by port 2222 (an alternative SSH port).</p>
         <p> </p>
         <p> Click on the Germany filter term under the search bar and expand it.</p>
         <p> <a href="http://../../../../Desktop/project"> </a><a
@@ -625,18 +629,20 @@
         <p></p>
         <p> </p>
         <p> In this lab you used the Elastic Stack as a SIEM to explore NetFlow style log data sourced from a research
-          honeypot. Through selecting interesting columns and visualizations, we were able to create a useful dashboard
+          honeypot. By selecting interesting columns and visualizations, we were able to create a useful dashboard
           for
-          exploring the data trends and seeing the underlying patterns within it. No matter which SIEM product you have,
+          exploring the data trends and seeing the underlying patterns within them. No matter which SIEM product you
+          have,
           this is the type of setup that&#39;s very useful for spotting anomalies and other attack trends within your
           network. All it takes is a bit of data understanding, and the instructions to set it up in your specific SIEM.
         </p>
         <p> </p>
-        <p> All SIEMs are capable of grouping and visualizing data ways similar to what we did here. Therefore the focus
+        <p> All SIEMs are capable of grouping and visualizing data in ways similar to what we did here. Therefore the
+          focus
           of
           this lab was not &quot;how to do this in Elastic&quot; but rather seeing the process of how to translate
           questions
-          we have about our data into queries that are grouped by some parameter, and choosing what you would like to
+          we have our data into queries that are grouped by some parameter, and choosing what you would like to
           calculate on each of those groups. This is an extremely common workflow when it comes to SIEM analysis and one
           that is crucial to understand.</p>
         <p> </p>

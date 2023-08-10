@@ -60,13 +60,13 @@
             <h3>Objective:</h3>
           </strong> Investigate the packet capture and uncover the malicious activities.<strong>
             <h3>Question 1:</h3>
-          </strong>What was the date and time for the first HTTP connection to the malicious IP?
-          (<strong>answer format</strong>: yyyy-mm-dd hh:mm:ss)<strong>
+          </strong>What was the date and time for the first HTTP connection to the malicious IP?
+          (<strong>answer format</strong>: yyyy-mm-dd hh:mm:ss)<strong>
             <h3>Explanation:</h3>
-          </strong>First we will query wireshark for every http connection, and then we can investigate when was the
+          </strong>First we will query wireshark for every HTTP connection, and then we can investigate when was the
           first
-          target by two ways, either by organizing the packets in cornological order or assume that the first
-          connecction
+          target in two ways, either by organizing the packets in chronological order or assuming that the first
+          connection
           made is a connection that will download the malware so the connection has to be made with the GET
           command<a><span class="image fit"><img src="images/35-1.png" alt="images/35-1.png" /></a><strong>
             <h3>Answer:</h3>
@@ -104,7 +104,7 @@
             <pre>chart-1530076591.xls</pre>
           </div><strong>
             <h3>Question 5:</h3>
-          </strong>What is the name of the webserver of the malicious IP from which the zip file was
+          </strong>What is the name of the web server of the malicious IP from which the zip file was
           downloaded?<strong>
             <h3>Explanation:</h3>
           </strong>While inspecting the traffic we can also check the name of the webserver<a><span
@@ -125,13 +125,13 @@
             <pre>PHP<span style="color:#ff9d00;font-weight:700">/</span>7.2.34</pre>
           </div><strong>
             <h3>Question 7:</h3>
-          </strong>Malicious files were downloaded to the victim host from multiple domains. What were the
-          three<strong> </strong>domains involved with this activity?<strong>
+          </strong>Malicious files were downloaded to the victim host from multiple domains. What was the
+          three<strong> </strong>domains involved with this activity?<strong>
             <h3>Explanation:</h3>
-          </strong>To find the domains it seems logicall to look for DNS traffic, so we will query wireshark for every
-          DNS connection and also will make the name of domains as part of the collums <a><span class="image fit"><img
-                src="images/35-8.png" alt="images/35-8.png" /></a>Well i know Microsoft is sketchy by it self but
-          making a direct connetion with &quot;finejewels.com.au&quot; at the login seems to be too mutch<a><span
+          </strong>To find the domains it seems logical to look for DNS traffic, so we will query wireshark for every
+          DNS connection and also will make the name of domains as part of the columns <a><span class="image fit"><img
+                src="images/35-8.png" alt="images/35-8.png" /></a>Well i know Microsoft is sketchy by itself but
+          making a direct connection with &quot;finejewels.com.au&quot; at the login seems to be too much<a><span
               class="image fit"><img src="images/35-9.png" alt="images/35-9.png" /></a><strong>
             <h3>Answer:</h3>
           </strong>
@@ -142,8 +142,8 @@
           </strong>Which certificate authority issued the SSL certificate to the first domain from the previous
           question?<strong>
             <h3>Explanation:</h3>
-          </strong>In order for the SSL Certificate be issued he has to be connected the SSL/TLS protocol, so we will
-          search for the protocol in wireshar and format the view to “Resolve Nertwork Addresses”<a><span
+          </strong> For the SSL Certificate to be issued he has to be connected to the SSL/TLS protocol, so we will
+          Search for the protocol in Wireshark and format the view to “Resolve Network Addresses”<a><span
               class="image fit"><img src="images/35-10.png" alt="images/35-10.png" /></a>After that we just have to find
           the domain we
           want to investigate and Follow → TCP <a><span class="image fit"><img src="images/35-11.png"
@@ -160,16 +160,16 @@
           order)<strong>
             <h3>Explanation:</h3>
           </strong>In this question I invested a lot of time in research and found a lot of possible ways to find but
-          only a few did work, and the one that makes more sense for is first search for uncommon activity in
+          only a few did work, and the one that makes more sense is first search for uncommon activity in
           semi-common
-          ports, On MITRE ATT&amp;CK they explainned it better
+          ports, On MITRE ATT&amp;CK they explained it better
           <a><span class="image fit"><img src="images/35-12.png" alt="images/35-12.png" /></span></a>
-          By my research, it is known that C2 connections are usually made by TCP on port 8080 and as soon as I query
+          By my research, it is known that C2 connections are usually made by TCP on port 8080, and as soon as I query
           that
-          onto Wireshark one particular IP Address catches my attention
+          onto Wireshark, one particular IP Address catches my attention
           <a><span class="image fit"><img src="images/35-13.png" alt="images/35-13.png" /></a>Why is the 185.125.204.174
           and not the
-          10.9.233.102 that catches my attention? Because that&#39;s “us”. If you look at the first print i took in this
+          10.9.233.102 that catches my attention? Because that&#39;s “us”. If you look at the first print I took in this
           CTF
           you will see that this same IP Address is the one that made the GET request to download the documents.zip. So
           let&#39;s go to VirusTotal to confirm our suspicions <a><span class="image fit"><img src="images/35-14.png"
@@ -178,9 +178,9 @@
           another C2 is on port 80.
           <a><span class="image fit"><img src="images/35-15.png" alt="images/35-15.png" /></a>On the
           next print there are two candidates, but for sure the “185.106.96.158” wins, why? Because out of nowhere this
-          happened <a><span class="image fit"><img src="images/35-16.png" alt="images/35-16.png" /></a>The ammount of
+          happened <a><span class="image fit"><img src="images/35-16.png" alt="images/35-16.png" /></a>The amount of
           bytes had a
-          change going complilty out of the normal, making it my best guess<a><span class="image fit"><img
+          change going complete out of the normal, making it my best guess<a><span class="image fit"><img
                 src="images/35-17.png" alt="images/35-17.png" /></span></a><strong>
             <h3>Answer:</h3>
           </strong>
@@ -191,7 +191,7 @@
           </strong>What is the Host header for the first Cobalt Strike IP address from the previous
           question?<strong>
             <h3>Explanation:</h3>
-          </strong>This one is straight forward, just go to one packet with “185.106.96.158” and Follow → TCP
+          </strong>This one is straightforward, just go to one packet with “185.106.96.158” and Follow → TCP
           Stream<a><span class="image fit"><img src="images/35-18.png" alt="images/35-18.png" /></a><strong>
             <h3>Answer:</h3>
           </strong>
@@ -203,9 +203,9 @@
           to confirm if it&#39;s the Cobalt Strike server (check the Community tab).<strong>
             <h3>Explanation:</h3>
           </strong>My first tough was to do a reserve DNS lookup but that did not work so we will just query the
-          Wireshark for the derised IP and then change our view to give us not the IP but his Domain associated <a><span
+          Wireshark for the desired IP and then change our view to give us not the IP but his Domain associated <a><span
               class="image fit"><img src="images/35-19.png" alt="images/35-19.png" /></a><a><span class="image fit"><img
-                src="images/35-20.png" alt="images/35-20.png" /></a>Then it becames clear the Domain associated with the
+                src="images/35-20.png" alt="images/35-20.png" /></a>Then it becomes clear the Domain associated with the
           IP
           “185.106.96.158” is “survmeter.live”<strong>
             <h3>Answer:</h3>
@@ -214,7 +214,7 @@
             <pre>survmeter.live</pre>
           </div><strong>
             <h3>Question 11:</h3>
-          </strong>What is the domain name of the second Cobalt Strike server IP?  You may use VirusTotal to confirm if
+          </strong>What is the domain name of the second Cobalt Strike server IP? You may use VirusTotal to confirm if
           it&#39;s the Cobalt Strike server (check the Community tab).<strong>
             <h3>Explanation:</h3>
           </strong>This is the same question for the other IP <a><span class="image fit"><img src="images/35-21.png"
@@ -227,7 +227,7 @@
             <h3>Question 12:</h3>
           </strong>What is the domain name of the post-infection traffic?<strong>
             <h3>Explanation:</h3>
-          </strong>Here we just have to search for a HTTP POST request <a><span class="image fit"><img
+          </strong>Here we just have to search for an HTTP POST request <a><span class="image fit"><img
                 src="images/35-22.png" alt="images/35-22.png" /></a><strong>
             <h3>Answer:</h3>
           </strong>
@@ -236,9 +236,9 @@
           </div><strong>
             <h3>Question 13:</h3>
           </strong>What are the first eleven characters that the victim host sends out to the malicious domain involved
-          in the post-infection traffic? <strong>
+          in the post-infection traffic? <strong>
             <h3>Explanation:</h3>
-          </strong>If you know that POST is basicly our computer sending information to the server then this question
+          </strong>If you know that POST is basically our computer sending information to the server then this question
           becomes trivial<a><span class="image fit"><img src="images/35-23.png" alt="images/35-23.png" /></a><strong>
             <h3>Answer:</h3>
           </strong>
@@ -266,10 +266,10 @@
           </div><strong>
             <h3>Question 16:</h3>
           </strong>The malware used an API to check for the IP address of the victim’s machine. What was the date and
-          time when the<strong> </strong>DNS<strong> </strong>query for the IP check domain occurred? (<strong>answer
-            format</strong>: yyyy-mm-dd hh:mm:ss UTC)<strong>
+          time when the<strong> </strong>DNS<strong> </strong>query for the IP check domain occurred? (<strong>answer
+            format</strong>: yyyy-mm-dd hh:mm:ss UTC)<strong>
             <h3>Explanation:</h3>
-          </strong>Here we will query for DNS that contains API. How do we Query that in Wireshark? “dns contains
+          </strong>Here we will query for DNS that contains API. How do we Query that in Wireshark? “DNS contains
           api”<a><span class="image fit"><img src="images/35-26.png" alt="images/35-26.png" /></a> <strong>
             <h3>Answer:</h3>
           </strong>
@@ -277,7 +277,7 @@
             <pre>2021-09-24 17<span style="color:#ff9d00;font-weight:700">:</span>00<span style="color:#ff9d00;font-weight:700">:</span>04</pre>
           </div><strong>
             <h3>Question 17:</h3>
-          </strong>What was the domain in the DNS query from the previous question?<strong>
+          </strong>What was the domain in the DNS query from the previous question?<strong>
             <h3>Explanation:</h3>
           </strong><a><span class="image fit"><img src="images/35-27.png" alt="images/35-27.png" /></a><strong>
             <h3>Answer:</h3>
@@ -289,8 +289,9 @@
           </strong>Looks like there was some malicious spam (malspam) activity going on. What was the first MAIL FROM
           address observed in the traffic?<strong>
             <h3>Explanation:</h3>
-          </strong>On this one I was a bit cluess, because I was serching for the email, on the Source collum. But after
-          a bit I realised that “MAIL FROM” might be capslock for some reason so I tried it<a><span
+          </strong>On this one I was a bit clueless because I was searching for the email, on the Source collum. But
+          after
+          a bit I realized that “MAIL FROM” might be capslock for some reason so I tried it<a><span
               class="image fit"><img src="images/35-28.png" alt="images/35-28.png" /></a>And there was the
           answer<strong>
             <h3>Answer:</h3>
@@ -299,7 +300,7 @@
             <pre>farshin@mailfa.com</pre>
           </div><strong>
             <h3>Question 19:</h3>
-          </strong>How many packets were observed for the SMTP<strong> </strong>traffic?<strong>
+          </strong>How many packets were observed for the SMTP<strong> </strong>traffic?<strong>
             <h3>Explanation:</h3>
           </strong>Go to Statistics → Protocol Hierarchy<a><span class="image fit"><img src="images/35-29.png"
                 alt="images/35-29.png" /></a>And
@@ -316,7 +317,7 @@
             connections led us to analyze a packet capture (pcap) to uncover the nature and extent of the malicious
             activities. Our investigation aimed to identify the source, destination, purpose of the outbound
             connections,
-            indicators of compromise, and potential malicious actions associated with the incident.<br><br>
+            indicators of compromise, and potentially malicious actions associated with the incident.<br><br>
 
             1. We pinpointed the initial HTTP connection to the malicious IP, identifying the date and time as
             2021-09-24
@@ -355,7 +356,7 @@
             16. The Server header for the malicious domain was Apache/2.4.49 (cPanel) OpenSSL/1.1.1l
             mod_bwlimited/1.4.<br><br>
 
-            17. The DNS query for IP address check occurred at 2021-09-24 17:00:04 UTC with the domain
+            17. The DNS query for the IP address check occurred on at 2021-09-24 17:00:04 UTC with the domain
             api.ipify.org.<br><br>
 
             18. The first observed MAIL FROM address in the malspam traffic was farshin@mailfa.com.<br><br>

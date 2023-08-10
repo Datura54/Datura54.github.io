@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Massively by HTML5 UP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+</head>
+
+<body class="is-preload">
+
+  <!-- Wrapper -->
+  <div id="wrapper" class="fade-in">
+
+    <!-- Intro -->
+    <div id="intro">
+      <h2>PowerShell<br /></h2>
+      <a>Script</a>
+      <p>Miguel Nogueira</p>
+      <ul class="actions">
+        <li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+      </ul>
+    </div>
+
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Main Page</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="Projects.html">Projects</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+  <!-- Main -->
+  <div id="main">
+
+    <!-- Post -->
+    <section class="post">
+      <p>We will re-use this script<br>
+        <a rel="noopener" class="external-link"
+          href="https://github.com/joshmadakor1/Sentinel-Lab/blob/main/Custom_Security_Log_Exporter.ps1"
+          target="_blank">https://github.com/joshmadakor1/Sentinel-Lab/blob/main/Custom_Security_Log_Exporter.ps1</a>
+      </p>
+
+      <p>Then go to your VM and search "Windows PowerShell ISE" create a new Script and then paste the code
+        and then save. This will be our log exporter, meaning he will gather the information automatically
+        from the Event Viewer and give it to us.<br>
+        <span alt="Pasted image 20230527091142.png" src="Pasted image 20230527091142.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527091142.png"
+            src="lib\media\pasted-image-20230527091142.png"></span><br>
+        If you scroll all the way up you will see a link, this is our <strong>Third Party API</strong> you
+        will have to go there and create an account to get your personal <strong>$API_KEY</strong> otherwise
+        we will not have the geolocation of our attackers.<br>
+        <span alt="Pasted image 20230527091819.png" src="Pasted image 20230527091819.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527091819.png"
+            src="lib\media\pasted-image-20230527091819.png"></span><br>
+        Once you are here (Inside the VM), sign up normally (you will have to confirm the e-mail). Then Sign
+        in<br>
+        <span alt="Pasted image 20230527092642.png" src="Pasted image 20230527092642.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527092642.png"
+            src="lib\media\pasted-image-20230527092642.png"></span><br>
+        After you sign in, you will be displayed with this web, copy your <strong>API KEY</strong> and paste
+        it on the script (I will show you)<br>
+        <span alt="Pasted image 20230527093051.png" src="Pasted image 20230527093051.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527093051.png"
+            src="lib\media\pasted-image-20230527093051.png"></span><br>
+        You just need to paste it there, save it<br>
+        <span alt="Pasted image 20230527093713.png" src="Pasted image 20230527093713.png"
+          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527093713.png"
+            src="lib\media\pasted-image-20230527093713.png"></span><br>
+        This script will create a log file with all the RDP failed Login, captured in the Event Viewer, and
+        then send to our Third Party API to get their Geodata.
+      </p>
+
+
+
+  </div>
+
+
+
+
+  <body class="is-preload">
+    <header id="header">
+      <a href="https://yrtree.me/@Miguel%20Nogueira" class="logo">Connect with
+        me</a>
+    </header>
+    <!-- Copyright -->
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Main Page</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="Projects.html">Projects</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+  </body>
+
+</html>
