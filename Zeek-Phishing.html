@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Massively by HTML5 UP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+</head>
+
+<body class="is-preload">
+
+  <!-- Wrapper -->
+  <div id="wrapper" class="fade-in">
+
+    <!-- Intro -->
+    <div id="intro">
+      <h2>Phishing<br /></h2>
+      <a>Zeek</a></h1>
+      <p>Miguel Nogueira</p>
+      <ul class="actions">
+        <li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+      </ul>
+    </div>
+
+
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Home Page</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="ZeekFolder.html">Previous ‎ ‎ ‎</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+
+
+
+
+
+    <!-- Main -->
+    <div id="main">
+
+
+      <!-- Post -->
+      <section class="post"><strong><strong>
+            <h3>An alert triggered: </h3>
+          </strong><small>&quot;Phishing Attempt&quot;.</small><br /><small>The case was assigned to you. Inspect the
+            PCAP and
+            retrieve the artefacts to confirm this alert is a true positive. </small><br /><br /><br />First we will go
+          to the
+          pcap directory <br /><br /><a href=""><span class="image fit"><img src="images/69-1.png"
+                alt="images/69-1.png" /></a> <br /><br />And
+          analyze “phishing.pcap&quot;<br /><br /><a href=""><span class="image fit"><img src="images/69-2.png"
+                alt="images/69-2.png" /></a><br /><br />Once it is done, we will check the table bellow to understand
+          what
+          might
+          be the best way forward.<br /><br /><a href=""><span class="image fit"><img src="images/69-3.png"
+                alt="images/69-3.png" /></a><br /><br />As
+          this investigation was triggered by an alert, we should first see what “pe.log”<br /><br /><a href=""><span
+              class="image fit"><img src="images/69-4.png" alt="images/69-4.png" /></a><br /><br />There is not enough
+          information to work
+          with, so
+          we will keep moving forward by inspecting the content of “conn.log”<br /><br /><a href=""><span
+              class="image fit"><img src="images/69-5.png" alt="images/69-5.png" /></a><br /><br />Out of the gate,
+          “10.6.27.102” IP Address
+          seems like a good starting
+          point for our investigation. We will inspect “http.log” filtering for “10.6.27.102”<br /><br />
+          <div class="codebox">
+            <pre><span style="color:#ff9d00;font-weight:700">cat</span> http.log <span style="color:#ff9d00;font-weight:700">|</span> <span style="color:#ff9d00;font-weight:700">grep</span> 10.6.27.102</pre>
+          </div><br /><a href=""><span class="image fit"><img src="images/69-6.png"
+                alt="images/69-6.png" /></a><br /><br />Jackpot! Here we
+          found
+          that a user with the IP Address “10.6.27.102” downloaded an Document named “Invoice&amp;MSO-Request.doc” and
+          an
+          executable “knr.exe” from the same domain address “smart-fax.com”. <br /><br />Let&#39;s analyze this Domain
+          with
+          the help of VirusTotal<br /><br /><a href=""><span class="image fit"><img src="images/69-7.png"
+                alt="images/69-7.png" /></a>
+          <br /><br />8
+          security vendors mark this domain as malicious, let&#39;s see what he says about the executable. To do that we
+          need
+          to either find it&#39;s MD5 or SHA256, or get the file and then just calculate it&#39;s hash.<br /><br />We
+          will
+          inspect “file.log” content.<br /><br />
+          <div class="codebox">
+            <pre><span style="color:#ff9d00;font-weight:700">cat</span> files.log <span style="color:#ff9d00;font-weight:700">|</span> zeek-cut mime_type md5<br /></pre>
+          </div><br /><a href=""><span class="image fit"><img src="images/69-8.png"
+                alt="images/69-8.png" /></a><br /><br />Levereging
+          VirusTotal, we
+          will have the confirmation that this file is malicious.<br /><a href=""><span class="image fit"><img
+                src="images/69-9.png" alt="images/69-9.png" /></a><br /><br />So we found the IP Address of the
+          malicious
+          actor&quot;10.6.27.102&quot;, the file and executable he injected in his target “Invoice&amp;MSO-Request.doc”,
+          “knr.exe” and by getting it&#39;s MD5 we confirmed the executable malicious profile by levereging VirusTotal.
+    </div>
+
+    <body class="is-preload">
+      <header id="header">
+        <a href="https://yrtree.me/@Miguel%20Nogueira" class="logo">Connect with
+          me</a>
+      </header>
+      <!-- Copyright -->
+      <div id="copyright">
+        <ul>
+          <li>
+            <h6><a href="index.html">Home Page</h6>
+            </a>
+          </li>
+          <li>
+            <h6><a href="ZeekFolder.html">Previous ‎ ‎ ‎</h6>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery.scrollex.min.js"></script>
+  <script src="assets/js/jquery.scrolly.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

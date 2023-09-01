@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Massively by HTML5 UP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+</head>
+
+<body class="is-preload">
+
+  <!-- Wrapper -->
+  <div id="wrapper" class="fade-in">
+
+    <!-- Intro -->
+    <div id="intro">
+      <h2>Incident Handling with Splunk<br /></h2>
+      <a>Weaponization Phase</a></h1>
+      <p>Miguel Nogueira</p>
+      <ul class="actions">
+        <li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+      </ul>
+    </div>
+
+
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Home Page</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="CTFS.html">Previous ‎ ‎ ‎</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+
+
+
+
+
+    <!-- Main -->
+    <div id="main">
+
+
+      <!-- Post -->
+      <section class="post"><strong><strong>
+
+            <h3>In the weaponization phase, the adversaries:</h3><br />• Create Malware/Malicious document to gain
+            initial
+            access/evade detection etc.<br />• Establish domains similar to the target domain to trick users.<br />•
+            Create a
+            Command and Control Server for the post-exploitation communication/activity etc.<br /><br />We have found
+            some
+            domains/IP addresses associated with the attacker during the investigations. This task will mainly look
+            into <strong>OSINT</strong> sites to see what more information we can get about the
+            adversary.<br /><br /><br />So
+            far, we have found a domain <strong>prankglassinebracket.jumpingcrab.com</strong> associated with this
+            attack.
+            Our
+            first task would be to find the IP address tied to the domains that may potentially be pre-staged to attack
+            Wayne
+            Enterprise.<br />In the following exercise, we will be searching the online Threat Intel sites for any
+            information
+            like IP addresses/domains/Email addresses associated with this domain which could help us know more about
+            this
+            adversary.<br /><br /><strong>
+              <h2>Robtex:</h2>
+            </strong><br /><a href="https://www.robtex.com/">Robtex</a> is a Threat Intel site that provides information
+            about
+            IP addresses, domain names, etc.<br /><br />Please search for the domain on the robtex site and see what we
+            get. We
+            will get the IP addresses associated with this domain.<br /><strong>Reference:</strong> <a
+              href="https://www.robtex.com/dns-lookup/prankglassinebracket.jumpingcrab.com">https://www.robtex.com/dns-lookup/prankglassinebracket.jumpingcrab.com</a><br /><br /><a
+              href=""><span class="image fit"><img src="images/57-2.png" alt="images/57-2.png" /></a><br /><br />Some
+            domains/subdomains
+            associated with
+            this domain:<br /><a
+              href="https://tryhackme-images.s3.amazonaws.com/user-uploads/5e8dd9a4a45e18443162feab/room-content/c6aa355d30ed9425cd6e923526a03d46.png"><span
+                class="image fit"><img src="images/57-3.png" alt="images/57-3.png" /></a><br /><br /><br />Next, by
+            searching for the IP
+            address <strong>23.22.63.114</strong>.<br /><strong>Reference:</strong> <a
+              href="https://www.robtex.com/ip-lookup/23.22.63.114">https://www.robtex.com/ip-lookup/23.22.63.114</a><br /><br /><a
+              href="https://tryhackme-images.s3.amazonaws.com/user-uploads/5e8dd9a4a45e18443162feab/room-content/2a9dd066e2b6ef2cd55a5e0c04983776.png"><span
+                class="image fit"><img src="images/57-4.png" alt="images/57-4.png" /></a><br /><br />What did we
+            find? this IP is associated with
+            some
+            domains that look pretty similar to <strong>the WAYNE Enterprise</strong> site.<br /><br /><a
+              href="https://tryhackme-images.s3.amazonaws.com/user-uploads/5e8dd9a4a45e18443162feab/room-content/87794e9d70b8b0dac729232443427181.png"><span
+                class="image fit"><img src="images/57-5.png"
+                  alt="images/57-5.png" /></a><br /><br /><br /><br /><strong>
+              <h2>Virustotal</h2>
+            </strong><br /><a href="https://www.virustotal.com/">Virustotal</a> is an OSINT site used to analyze
+            suspicious
+            files, domains, IP, etc. Let&#39;s now search for the IP address on the virustotal site. If we go to
+            the <strong>RELATIONS</strong> tab, we can see all the domains associated with this IP which look similar to
+            the
+            Wayn Enterprise company.<br /><br /><a href=""><span class="image fit"><img src="images/57-6.png"
+                  alt="images/57-6.png" /></a><br /><br />In
+            the domain list, we saw the domain that is associated with the attacker<strong> www.po1s0n1vy.com</strong>.
+            Let us
+            search for this domain on the virustotal.<br /><br /><a href=""><span class="image fit"><img
+                  src="images/57-7.png" alt="images/57-7.png" /></a><br /><br /><strong>
+              <h2>Alienvault</h2>
+            </strong>
+            <h2> </h2><br /><a href="https://otx.alienvault.com/">Alienvault</a> is a cybersecurity company known for
+            its
+            Unified Security Management (USM) platform that offers threat detection, incident response, and compliance
+            management, providing comprehensive security solutions for organizations.<br /><br /><a href=""><span
+                class="image fit"><img src="images/57-8.png" alt="images/57-8.png" /></a><br /><br />
+            We used various threat Intel platforms to find the attacker&#39;s infrastructure based on the following
+            information we saw in the above activities.</h3><br />
+            <h3>Information we had:</h3> • Domain: <strong>prankglassinebracket.jumpingcrab.com</strong><br />• IP
+            Address: <strong>23.22.63.114<br /></strong><strong>
+              <h3>Findings:</h3>
+
+              • Multiple masquerading domains were found associated with the attacker&#39;s IPs.<br />• An
+              email of
+              the user <strong>Lillian.rose@po1s0n1vy.com</strong> was also found associated with the attacker&#39;s IP
+              address.<br /><br />
+    </div>
+
+    <body class="is-preload">
+      <header id="header">
+        <a href="https://yrtree.me/@Miguel%20Nogueira" class="logo">Connect with
+          me</a>
+      </header>
+      <!-- Copyright -->
+      <div id="copyright">
+        <ul>
+          <li>
+            <h6><a href="index.html">Home Page</h6>
+            </a>
+          </li>
+          <li>
+            <h6><a href="CTFS.html">Previous ‎ ‎ ‎</h6>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery.scrollex.min.js"></script>
+  <script src="assets/js/jquery.scrolly.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

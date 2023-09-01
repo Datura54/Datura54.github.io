@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Massively by HTML5 UP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+</head>
+
+<body class="is-preload">
+
+  <!-- Wrapper -->
+  <div id="wrapper" class="fade-in">
+
+    <!-- Intro -->
+    <div id="intro">
+      <h2>Incident Handling with Splunk<br /></h2>
+      <a>Scenario</a>
+      <p>Miguel Nogueira</p>
+      <ul class="actions">
+        <li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+      </ul>
+    </div>
+
+
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Home Page</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="CTFS.html">Previous ‎ ‎ ‎</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+    <!-- Main -->
+    <div id="main">
+
+
+      <!-- Post -->
+      <section class="post"><strong><strong>
+            We will investigate a cyber attack in which the attacker defaced an organization&#39;s
+            website. This
+            organization has Splunk as a SIEM solution setup. Our task as a Security Analysis would be to investigate
+            this cyber
+            attack and map the attacker&#39;s activities into all 7 of the Cyber Kill Chain Phases. It is important to
+            note that
+            we don&#39;t need to follow the sequence of the cyber kill chain during the Investigation. One finding in
+            one phase
+            will lead to another finding that may have mapped into some other phase.<br /><br /><a href=""><span
+                class="image fit"><img src="images/cyberKillChain.png"
+                  alt="images/49-3.png" /></a><br /><br /><br /><br />We will
+            follow the Cyber kill
+            Chain
+            Model and map the attacker&#39;s activity in each phase during this Investigation. When required, we will
+            also
+            utilize Open Source Intelligence (OSINT) and other findings to fill the gaps in the kill chain.<br /><br />
+            <h2>Scenario</h2>
+          </strong><br />
+          A Big corporate organization
+          Wayne Enterprises
+        </strong>
+        has recently faced a cyber-attack where the attackers broke into their network, found their way to
+        their web
+        server, and have successfully defaced their website <strong>
+          http://www.imreallynotbatman.com
+        </strong>
+        . Their website is now showing the trademark of the attackers with the message <strong>
+          YOUR SITE HAS BEEN DEFACED
+        </strong>
+        as shown below.<br /><br /><a
+          href="https://tryhackme-images.s3.amazonaws.com/user-uploads/5e8dd9a4a45e18443162feab/room-content/dcc528c218e8dda78504f55f58188575.png"><span
+            class="image fit"><span class="image fit"></span><img src="images/49-4.png"
+              alt="images/49-4.png" /></a><br /><br />They have
+        requested
+        &quot;<strong>US</strong>&quot; to join them as a <strong>Security Analyst</strong> and help them
+        investigate this
+        cyber attack and find the root cause and all the attackers&#39; activities within their
+        network.<br /><br /><br />The good thing is, that they have Splunk already in place, so we have got all the
+        event
+        logs related to the attacker&#39;s activities captured. We need to explore the records and find how the
+        attack got
+        into their network and what actions they performed.<br /><br />This Investigation comes under the
+        <code>Detection and Analysis phase.</code><br /><br /><strong>
+          <h2>Splunk</h2>
+        </strong><br />During our investigation, we will be using Splunk as
+        our SIEM solution.
+        Logs are being ingested from webserver/firewall/Suricata/Sysmon etc. We can explore
+        the log sources showing visibility into both network-centric and host-centric
+        activities.
+        <a <span class="image fit">
+          <a href=""><img src="images/49-6.png" alt="images/49-6.png" />
+          </a><br /><br /><strong>Note:</strong> All the event logs that we are going to
+          investigate are present in
+          <code>index=botsv1</code><br />
+    </div>
+
+    <body class="is-preload">
+      <header id="header">
+        <a href="https://yrtree.me/@Miguel%20Nogueira" class="logo">Connect with
+          me</a>
+      </header>
+      <!-- Copyright -->
+      <div id="copyright">
+        <ul>
+          <li>
+            <h6><a href="index.html">Home Page</h6>
+            </a>
+          </li>
+          <li>
+            <h6><a href="CTFS.html">Previous ‎ ‎ ‎</h6>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+
+      <!-- Scripts -->
+      <script src="assets/js/jquery.min.js"></script>
+      <script src="assets/js/jquery.scrollex.min.js"></script>
+      <script src="assets/js/jquery.scrolly.min.js"></script>
+      <script src="assets/js/browser.min.js"></script>
+      <script src="assets/js/breakpoints.min.js"></script>
+      <script src="assets/js/util.js"></script>
+      <script src="assets/js/main.js"></script>
+
+    </body>
+
+</html>

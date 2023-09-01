@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Massively by HTML5 UP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+</head>
+
+<body class="is-preload">
+
+  <!-- Wrapper -->
+  <div id="wrapper" class="fade-in">
+
+    <!-- Intro -->
+    <div id="intro">
+      <h2>Incident Handling with Splunk<br /></h2>
+      <a>Action on Objectives</a></h1>
+      <p>Miguel Nogueira</p>
+      <ul class="actions">
+        <li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+      </ul>
+    </div>
+
+
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Home Page</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="CTFS.html">Previous ‎ ‎ ‎</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+    <!-- Main -->
+    <div id="main">
+
+
+      <!-- Post -->
+      <section class="post"><strong><strong>
+            As the website was defaced due to a
+            successful
+            attack by the adversary, it would be helpful to understand better what ended up on the website that caused
+            defacement.<br />As an analyst, our first quest could be to figure out the traffic flow that could lead us
+            to
+            the
+            answer to this question. At first I was not being able to decode the method used by the attacker, but once i
+            stopped
+            assuming that the firewall would block any connections made from the server to any IP Address, then it all
+            became
+            clear
+            <h3>Search Query:</h3>
+            <div class="codebox">
+              <pre><span style="color:#7f0044;font-weight:400">index</span>=botsv1 src=192.168.250.70 sourcetype=suricata</pre>
+            </div><a href=""><img src="images/55-2.png" alt="images/55-2.png" /></a> What is
+            interesting
+            about the output? Usually, the web servers do not originate the traffic or it should be blocked by a
+            Firewall.
+            The
+            browser or the client would be the source, and the server would be the destination. Here we see three
+            external
+            IPs
+            towards which our web server initiates the outbound traffic. There is a large chunk of traffic going to
+            these
+            external IP addresses, which could be worth checking.<br /><br />Lets check the destination IPs one by one
+            to
+            see
+            what kind of traffic/communication is being carried out.<br /><br /><strong>
+              <h3>Search Query:</h3>
+
+              <div class="codebox">
+                <pre><span style="color:#7f0044;font-weight:400">index</span>=botsv1 src=192.168.250.70 sourcetype=suricata dest_ip=40.80.148.42</pre>
+              </div><a href=""><img src="images/55-3.png" alt="images/55-3.png" /></a>There are
+              two
+              major
+              URL&#39;s used, “/joomla/index.php/component/search/” and “/”. The first is used more times but they are
+              just
+              POST
+              request to our own database and eventhough they had a malicious intent they were not sucessfull. That
+              leaves
+              us the
+              second where we find GET requests, but they were blocked and the files were not stored<br /><br /><a
+                href=""><img src="images/55-4.png" alt="images/55-4.png" /></a><br /><br />So we will move to the other
+              IP
+              Addres.
+              <br /><br /><strong>
+                <h3>Search Query:</h3>
+
+                <div class="codebox">
+                  <pre><span style="color:#7f0044;font-weight:400">index</span>=botsv1 src=192.168.250.70 sourcetype=suricata dest_ip=23.22.63.114</pre>
+                </div><a href=""><img src="images/55-5.png" alt="images/55-5.png" /></a>The URL
+                field
+                shows
+                2 PHP files and one jpeg file. This jpeg file looks interesting. Let us change the search query and see
+                where
+                this
+                jpeg file came from.
+                <h3>Search Query:</h3>
+
+                <div class="codebox">
+                  <pre><span style="color:#7f0044;font-weight:400">index</span>=botsv1 url=<span style="color:#3ad900;font-weight:400">&quot;/poisonivy-is-coming-for-you-batman.jpeg&quot;</span><br> dest_ip=<span style="color:#3ad900;font-weight:400">&quot;192.168.250.70&quot;</span> <span style="color:#ff9d00;font-weight:700">|</span> table _time src dest_ip http.hostname url</pre>
+                </div>The end result clearly shows a suspicious
+                jpeg <strong>poisonivy-is-coming-for-you-batman.jpeg</strong> was downloaded from the attacker&#39;s
+                host <strong>prankglassinebracket.jumpingcrab.com</strong> that defaced the site.<br /><a href=""><img
+                    src="images/55-6.png" alt="images/55-6.png" /></a><br /><br />
+                After compromising the web server, the attacker defaced the website.<strong>
+                  <h3>Findings:</h3>
+                  -Outbound traffic initiated by the web server (unusual).<br /><br /> -Second IP
+                  (23.22.63.114):<br />• Suspicious files downloaded: 2 PHP files, 1 jpeg file.<br />• Suspicious jpeg
+                  downloaded from
+                  prankglassinebracket.jumpingcrab.com.<br /><br /><br /> -Conclusion: <br />• Website defacement due to
+                  downloaded
+                  suspicious file “/poisonivy-is-coming-for-you-batman.jpeg”.<br /><br /><br />
+    </div>
+
+    <body class="is-preload">
+      <header id="header">
+        <a href="https://yrtree.me/@Miguel%20Nogueira" class="logo">Connect with
+          me</a>
+      </header>
+      <!-- Copyright -->
+      <div id="copyright">
+        <ul>
+          <li>
+            <h6><a href="index.html">Home Page</h6>
+            </a>
+          </li>
+          <li>
+            <h6><a href="CTFS.html">Previous ‎ ‎ ‎</h6>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery.scrollex.min.js"></script>
+  <script src="assets/js/jquery.scrolly.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

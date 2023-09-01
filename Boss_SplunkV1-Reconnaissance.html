@@ -1,0 +1,252 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Massively by HTML5 UP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+</head>
+
+<body class="is-preload">
+
+  <!-- Wrapper -->
+  <div id="wrapper" class="fade-in">
+
+    <!-- Intro -->
+    <div id="intro">
+      <h2>Incident Handling with Splunk<br /></h2>
+      <a>Reconnaissance Phase</a></h1>
+      <p>Miguel Nogueira</p>
+      <ul class="actions">
+        <li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+      </ul>
+    </div>
+
+
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Home Page</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="CTFS.html">Previous ‎ ‎ ‎</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+
+
+
+
+
+    <!-- Main -->
+    <div id="main">
+
+
+      <!-- Post -->
+      <section class="post"><strong><strong>
+            Reconnaissance is an
+            attempt to
+            discover and collect information about a target. It could be knowledge about the system in use, the web
+            application,
+            employees or location, etc.<br /><br />We will start our analysis by examining any reconnaissance attempt
+            against
+            the webserver imreallynotbatman.com. From an analyst perspective, where do we first need to look? If we look
+            at the
+            available log sources, we will find some log sources covering the network traffic, which means all the
+            inbound
+            communication towards our web server will be logged into the log source that contains the web traffic.
+            Let&#39;s
+            start by searching for the domain in the search head and see which log source includes the traces of our
+            domain.<br /><strong>
+              <h3>Search Query:</h3>
+              <div class="codebox">
+                <pre><span style="color:#7f0044;font-weight:400">index</span>=botsv1 imreallynotbatman.com</pre>
+              </div>
+              <h3> </h3>We are going to look for the event logs in the <strong>index &quot;botsv1&quot;</strong> which
+              contains
+              the term <strong>imreallynotbatman.com</strong><br /><br /><a href=""><span class="image fit"><img
+                    src="images/52-2.png" alt="images/52-2.png" /></a><br /><br />Here we have searched for the
+              term <strong>imreallynotbatman.com</strong> in the <strong>index &quot;botsv1&quot;</strong>. In
+              the sourcetype field, we saw that the following log sources contain the traces of this search term.<br />•
+              Suricata<br />• stream:http<br />• fortigate_utm<br />• iis<br /><br />From the name of these log sources,
+              it
+              is
+              clear what each log source may contain. Every analyst may have a different approach to investigating a
+              scenario. Our
+              first task is to identify the IP address attempting to perform reconnaissance activity on our web server.
+              It
+              would
+              be obvious to look at the web traffic coming into the network. We can start looking into any of the logs
+              mentioned
+              above sources.<br />Let us begin looking at the log source stream:http, which contains the http traffic
+              logs,
+              and
+              examine the src_ip field from the left panel. Src_ip field contains the source IP address it finds in the
+              logs.<br /><br />
+              <h3>Search Query:</h3>
+
+              <h3> </h3>
+              <div class="codebox">
+                <pre><span style="color:#7f0044;font-weight:400">index</span>=botsv1 imreallynotbatman.com sourcetype=stream<span style="color:#ff9d00;font-weight:700">:</span>http</pre>
+              </div><code><br /></code><br /><strong>
+                <a
+                  href="https://tryhackme-images.s3.amazonaws.com/user-uploads/5e8dd9a4a45e18443162feab/room-content/11b2317ec891d4b9b9a4c5bdaa594aa6.png"><span
+                    class="image fit"><img src="images/52-3.png"
+                      alt="images/52-3.png" /></a><strong><br /></strong><br /><strong>
+                  So far, we have found two IPs in the src_ip
+                  field <strong>40.80.148.42</strong> and <strong>23.22.63.114</strong>. The first IP seems to contain a
+                  high
+                  percentage of the logs as compared to the other IP, which could be the answer. Being eficient with my
+                  time
+                  is
+                  also
+                  part of the job so we will attack the most probable malicious IP Address.<br />To further confirm our
+                  suspicion
+                  about the IP address <strong>40.80.148.42</strong>, click on the IP and examine the logs. We can look
+                  at
+                  the
+                  interesting fields like User-Agent, Post request, URIs, etc., to see what kind of traffic is coming
+                  from
+                  this
+                  particular IP.<br /><br />
+                  <h3>Search Query:</h3>
+
+                  <h3> </h3>
+                  <div class="codebox">
+                    <pre><span style="color:#7f0044;font-weight:400">index</span>=<span style="color:#3ad900;font-weight:400">&quot;botsv1&quot;</span> imreallynotbatman.com sourcetype=<span style="color:#3ad900;font-weight:400">&quot;stream:http&quot;</span> src_ip=<span style="color:#3ad900;font-weight:400">&quot;40.80.148.42&quot;</span><br /></pre>
+                  </div><code><br /></code><br /><strong>
+                    <a href=""><span class="image fit"><img src="images/52-4.png"
+                          alt="images/52-4.png" /></a><br /><br /><br />After conducting some
+                    research, I
+                    discovered that this particular IP address is generating a significant number of HTTP 303 errors.
+                    The
+                    HTTP
+                    303
+                    status code is a response code that signals the requested resource has been replaced with a
+                    different
+                    one.
+                    This code
+                    is frequently employed to redirect a client to an alternate URL or resource, often in response to a
+                    POST
+                    request.</br>
+                    Meaning, It&#39;s possible that an IP address generating a significant number of 303 HTTP responses
+                    could
+                    be
+                    engaged
+                    in reconnaissance activities. Reconnaissance is a common phase in the cyber attack lifecycle
+                    where
+                    attackers
+                    gather information about a target to identify potential vulnerabilities and plan their next
+                    steps.<br /><br /><strong>
+                      <h3> Verify whether the IP address is conducting scanning activities:</h3>
+                    </strong><strong><br /></strong><br />So what do we need to do to validate the scanning attempt? We
+                    can
+                    leverage
+                    <strong>Suricata</strong> <strong>logs</strong>, and see if any rule is triggered on this
+                    communication.<br /><strong>
+                      <h3>Search Query:</h3>
+                    </strong>
+                    <h3> </h3>
+                    <div class="codebox">
+                      <pre><span style="color:#7f0044;font-weight:400">index</span>=<span style="color:#3ad900;font-weight:400">&quot;botsv1&quot;</span> imreallynotbatman.com src_ip=<span style="color:#3ad900;font-weight:400">&quot;40.80.148.42&quot;</span> sourcetype=suricata</pre>
+                    </div><strong><br /></strong><br /><strong>
+                      <a href=""><span class="image fit"><img src="images/52-5.png" alt="images/52-5.png" /></a><br />We
+                      have included
+                      &quot;alert.category&quot;
+                      and
+                      &quot;signature&quot;
+                      as
+                      selected fields. Above is shown &quot;alert.category&quot;, and oh boy, “Web Aplication Attack”,
+                      “Attempted
+                      Administrator Privilege Gain”, “Information Leak”. This can start to become overwhelming really
+                      quick,
+                      but
+                      let&#39;s
+                      take this step by step. So what do we do? We collect more information.<br /><br />First, based on
+                      the
+                      information
+                      provided above, we are aware that a network scan has been detected. Therefore, our next step is to
+                      determine
+                      the
+                      type of scanner that was utilized.<br /><a href=""><span class="image fit"><img
+                            src="images/52-6.png" alt="images/52-6.png" /></a><br /><br />“Acunetix” is an automated web
+                      application security testing
+                      tool
+                      that audits your web applications by checking for vulnerabilities like SQL Injection, Cross site
+                      scripting
+                      and
+                      other
+                      exploitable vulnerabilities.<br /><br />From the “signature” field we get to know what
+                      vulnerability
+                      did
+                      the
+                      attacker attempted to exploit.<br /><a href=""><span class="image fit"><img src="images/52-7.png"
+                            alt="images/52-7.png" /></a><br /><br />CVE-2014-6271<br /><br /><a href=""><span
+                          class="image fit"><img src="images/52-8.png" alt="images/52-8.png" /></a><br /><br /><br />To
+                      obtain a more comprehensive view, we need to identify
+                      the
+                      IP
+                      address of our server and determine the Content Management System (CMS) it is using.<br /><br />By
+                      utilizing
+                      Splunk&#39;s fields, we can efficiently identify the IP addresses that the attacker attempted to
+                      connect
+                      to,
+                      which
+                      will provide us with the IP address of the server. <br /><br /><a href=""><span
+                          class="image fit"><img src="images/52-9.png" alt="images/52-9.png" /></a><br /><br />Now, for
+                      content management systems (CMS), we can examine the
+                      HTTP
+                      requests made by the attacker, and we should be able to locate it.<br /><br /><a href=""><span
+                          class="image fit"><img src="images/52-10.png" alt="images/52-10.png" /></a><br /><br />
+                      We first looked at any reconnaissance activity from the attacker to identify the IP address and
+                      other
+                      details
+                      about the adversary<br /><strong>
+                        <h3>Findings:</h3>
+                      </strong><br />• Attacker IP: 40.80.148.42<br />• Scanner: Acunetix<br />• Vulnerability:
+                      CVE-2014-6271<br />•
+                      CMS:
+                      Joomla<br />• Server IP: 192.168.250.70
+    </div>
+
+    <body class="is-preload">
+      <header id="header">
+        <a href="https://yrtree.me/@Miguel%20Nogueira" class="logo">Connect with
+          me</a>
+      </header>
+      <!-- Copyright -->
+      <div id="copyright">
+        <ul>
+          <li>
+            <h6><a href="index.html">Home Page</h6>
+            </a>
+          </li>
+          <li>
+            <h6><a href="CTFS.html">Previous ‎ ‎ ‎</h6>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery.scrollex.min.js"></script>
+  <script src="assets/js/jquery.scrolly.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

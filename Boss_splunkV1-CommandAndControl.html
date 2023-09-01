@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Massively by HTML5 UP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+</head>
+
+<body class="is-preload">
+
+  <!-- Wrapper -->
+  <div id="wrapper" class="fade-in">
+
+    <!-- Intro -->
+    <div id="intro">
+      <h2>Incident Handling with Splunk<br /></h2>
+      <a>Command and Control</a></h1>
+      <p>Miguel Nogueira</p>
+      <ul class="actions">
+        <li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+      </ul>
+    </div>
+
+
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Home Page</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="CTFS.html">Previous ‎ ‎ ‎</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+    <!-- Main -->
+    <div id="main">
+
+
+      <!-- Post -->
+      <section class="post"><strong><strong>
+            The attacker uploaded the file to the server
+            before defacing it. While doing so, the attacker used a Dynamic DNS to resolve a malicious IP. Our objective
+            would
+            be to find the IP that the attacker decided the DNS.<br />To investigate the communication to and from the
+            adversary&#39;s IP addresses, we will be examining the network-centric log sources mentioned above. We will
+            first
+            pick <strong>fortigate_utm</strong> to review the firewall logs and then move on to the other log
+            sources.<br /><strong>
+              <h3>Search Query:</h3>
+              <div class="codebox">
+                <pre><span style="color:#7f0044;font-weight:400">index</span>=botsv1 sourcetype=fortigate_utm<span style="color:#3ad900;font-weight:400">&quot;poisonivy-is-coming-for-you-batman.jpeg&quot;</span></pre>
+              </div><a href=""><span class="image fit"><img src="images/56-2.png" alt="images/56-2.png" /></a>Looking
+              into the Fortinet firewall logs, we can see the src IP, destination IP, and URL.
+              Look
+              at the
+              fields on the left panel and the field <strong>url</strong> contains the FQDN (Fully Qualified Domain
+              Name).<a href=""><span class="image fit"><img src="images/56-3.png" alt="images/56-3.png" /></a>Though we
+              have
+              found
+              the answer, we can verify other log sources.<br />Let's verify the answer by looking at another log
+              source
+              <strong>stream:http</strong>.
+              <h3>Search Query:</h3>
+              <div class="codebox">
+                <pre><span style="color:#7f0044;font-weight:400">index</span>=botsv1 sourcetype=stream<span style="color:#ff9d00;font-weight:700">:</span>http dest_ip=23.22.63.114 <span style="color:#3ad900;font-weight:400"><br>&quot;poisonivy-is-coming-for-you-batman.jpeg&quot;</span> src_ip=192.168.250.70</pre>
+              </div><br /><a href=""><span class="image fit"><img src="images/56-4.png" alt="images/56-4.png" /></a>
+              We have identified the suspicious domain as a Command and Control Server, which the attacker contacted
+              after
+              gaining control of the server.<strong>
+                <h3>Findings:</h3>
+                • This attack used dynamic DNS to resolve to the malicious IP. <br />• Fully qualified
+                domain
+                name
+                (FQDN): prankglassinebracket.jumpingcrab.com.
+    </div>
+
+    <body class="is-preload">
+      <header id="header">
+        <a href="https://yrtree.me/@Miguel%20Nogueira" class="logo">Connect with
+          me</a>
+      </header>
+      <!-- Copyright -->
+      <div id="copyright">
+        <ul>
+          <li>
+            <h6><a href="index.html">Home Page</h6>
+            </a>
+          </li>
+          <li>
+            <h6><a href="CTFS.html">Previous ‎ ‎ ‎</h6>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery.scrollex.min.js"></script>
+  <script src="assets/js/jquery.scrolly.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

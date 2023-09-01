@@ -29,11 +29,11 @@
     <div id="copyright">
       <ul>
         <li>
-          <h6><a href="index.html">Main Page</h6>
+          <h6><a href="index.html">Home Page</h6>
           </a>
         </li>
         <li>
-          <h6><a href="Projects.html">Projects</h6>
+          <h6><a href="AzureMapFolder.html">Previous</h6>
           </a>
         </li>
 
@@ -55,139 +55,154 @@
 
       <p>Go to your Azure and search "Log Analytics workspaces" go to our honeypot then go to tables<br>
         <span alt="Pasted image 20230527102359.png" src="Pasted image 20230527102359.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527102359.png"
-            src="lib\media\pasted-image-20230527102359.png"></span><br>
-        Then Create a New custom log (DCR-based)<br>
-        <span alt="Pasted image 20230527103007.png" src="Pasted image 20230527103007.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527103007.png"
-            src="lib\media\pasted-image-20230527103007.png"></span><br>
-        Here we will select the file logs created by the Script, but as the script is on our VM we will have
-        to copy the logs from the VM and create a folder on our personal computer.<br>
-        To do that copy that path and search it on your VM and you will find a file name
-        "failed_rdp.log"<br>
-        <span alt="Pasted image 20230527103441.png" src="Pasted image 20230527103441.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527103441.png"
-            src="lib\media\pasted-image-20230527103441.png"></span><br>
-        Just enter the file and copy its content (ctrl+a then ctrl+c)<br>
-        <span alt="Pasted image 20230527103552.png" src="Pasted image 20230527103552.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527103552.png"
-            src="lib\media\pasted-image-20230527103552.png"></span><br>
-        Then just open Notepad on your personal computer and paste the content and save it as
-        "failed_rdp.log". Now to your Azure and select the file you just created. Hit next and next
-        again<br>
-        <span alt="Pasted image 20230527103905.png" src="Pasted image 20230527103905.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527103905.png"
-            src="lib\media\pasted-image-20230527103905.png"></span><br>
-        Here select Windows and the path to the file <strong>ON THE VM</strong> (if you are following along,
-        you probably have the same path as I do) hit next<br>
-        <span alt="Pasted image 20230527104917.png" src="Pasted image 20230527104917.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527104917.png"
-            src="lib\media\pasted-image-20230527104917.png"></span><br>
-        Hit next<br>
-        <span alt="Pasted image 20230527105106.png" src="Pasted image 20230527105106.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527105106.png"
-            src="lib\media\pasted-image-20230527105106.png"></span><br>
-        Then go to <strong>Logs</strong><br>
-        <span alt="Pasted image 20230527110326.png" src="Pasted image 20230527110326.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527110326.png"
-            src="lib\media\pasted-image-20230527110326.png"></span><br>
-        You might have to F5 the Azure page to this appear. Hit run<br>
-        <span alt="Pasted image 20230527110754.png" src="Pasted image 20230527110754.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527110754.png"
-            src="lib\media\pasted-image-20230527110754.png"></span><br>
-        If this appears it just means you have to wait a bit<br>
-        <span alt="Pasted image 20230527111137.png" src="Pasted image 20230527111137.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527111137.png"
-            src="lib\media\pasted-image-20230527111137.png"></span><br>
-        You should get something like this, what matters to us is what is on the column
-        <strong>RawData</strong> There you will see we have latitude, longitude, destinationhost, etc.<br>
-        <span alt="Pasted image 20230527144107.png" src="Pasted image 20230527144107.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527144107.png"
-            src="lib\media\pasted-image-20230527144107.png"></span><br>
-        Now our objective will be to extract this data and put it in columns. You will see what I mean. This is
-        what I mean, you just have to copy that code and he will pick up the data in the
-        <strong>RawData</strong> and transform it to ProcessedData<br>
-        <span alt="Pasted image 20230527145024.png" src="Pasted image 20230527145024.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527145024.png"
-            src="lib\media\pasted-image-20230527145024.png"></span>
+          class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+              alt="Pasted image 20230527102359.png" src="lib\media\pasted-image-20230527102359.png"></span><br>
+          Then Create a New custom log (DCR-based)<br>
+          <span alt="Pasted image 20230527103007.png" src="Pasted image 20230527103007.png"
+            class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                alt="Pasted image 20230527103007.png" src="lib\media\pasted-image-20230527103007.png"></span><br>
+            Here we will select the file logs created by the Script, but as the script is on our VM we will have
+            to copy the logs from the VM and create a folder on our personal computer.<br>
+            To do that copy that path and search it on your VM and you will find a file name
+            "failed_rdp.log"<br>
+            <span alt="Pasted image 20230527103441.png" src="Pasted image 20230527103441.png"
+              class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                  alt="Pasted image 20230527103441.png" src="lib\media\pasted-image-20230527103441.png"></span><br>
+              Just enter the file and copy its content (ctrl+a then ctrl+c)<br>
+              <span alt="Pasted image 20230527103552.png" src="Pasted image 20230527103552.png"
+                class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                    alt="Pasted image 20230527103552.png" src="lib\media\pasted-image-20230527103552.png"></span><br>
+                Then just open Notepad on your personal computer and paste the content and save it as
+                "failed_rdp.log". Now to your Azure and select the file you just created. Hit next and next
+                again<br>
+                <span alt="Pasted image 20230527103905.png" src="Pasted image 20230527103905.png"
+                  class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                      alt="Pasted image 20230527103905.png" src="lib\media\pasted-image-20230527103905.png"></span><br>
+                  Here select Windows and the path to the file <strong>ON THE VM</strong> (if you are following along,
+                  you probably have the same path as I do) hit next<br>
+                  <span alt="Pasted image 20230527104917.png" src="Pasted image 20230527104917.png"
+                    class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                        alt="Pasted image 20230527104917.png"
+                        src="lib\media\pasted-image-20230527104917.png"></span><br>
+                    Hit next<br>
+                    <span alt="Pasted image 20230527105106.png" src="Pasted image 20230527105106.png"
+                      class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                          alt="Pasted image 20230527105106.png"
+                          src="lib\media\pasted-image-20230527105106.png"></span><br>
+                      Then go to <strong>Logs</strong><br>
+                      <span alt="Pasted image 20230527110326.png" src="Pasted image 20230527110326.png"
+                        class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                            alt="Pasted image 20230527110326.png"
+                            src="lib\media\pasted-image-20230527110326.png"></span><br>
+                        You might have to F5 the Azure page to this appear. Hit run<br>
+                        <span alt="Pasted image 20230527110754.png" src="Pasted image 20230527110754.png"
+                          class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                              alt="Pasted image 20230527110754.png"
+                              src="lib\media\pasted-image-20230527110754.png"></span><br>
+                          If this appears it just means you have to wait a bit<br>
+                          <span alt="Pasted image 20230527111137.png" src="Pasted image 20230527111137.png"
+                            class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                                alt="Pasted image 20230527111137.png"
+                                src="lib\media\pasted-image-20230527111137.png"></span><br>
+                            You should get something like this, what matters to us is what is on the column
+                            <strong>RawData</strong> There you will see we have latitude, longitude, destinationhost,
+                            etc.<br>
+                            <span alt="Pasted image 20230527144107.png" src="Pasted image 20230527144107.png"
+                              class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                                  alt="Pasted image 20230527144107.png"
+                                  src="lib\media\pasted-image-20230527144107.png"></span><br>
+                              Now our objective will be to extract this data and put it in columns. You will see what I
+                              mean. This is
+                              what I mean, you just have to copy that code and he will pick up the data in the
+                              <strong>RawData</strong> and transform it to ProcessedData<br>
+                              <span alt="Pasted image 20230527145024.png" src="Pasted image 20230527145024.png"
+                                class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                                    alt="Pasted image 20230527145024.png"
+                                    src="lib\media\pasted-image-20230527145024.png"></span>
       </p>
 
 
       <p><span alt="Pasted image 20230518130620.png" src="Pasted image 20230518130620.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230518130620.png"
-            src="lib\media\pasted-image-20230518130620.png"></span><br>
-        Ingest logs from the VM and we will create our own geographic log to know where are attacks coming
-        from.<br>
-        To do that type <strong>Log Analytics Workspace</strong> on the search bar<br>
-        Select the <strong>Resource Group</strong> you created, then name it whatever you want.<br>
-        Click <strong>Review + Create &gt; Create</strong><br>
-        <span alt="Pasted image 20230518123019.png" src="Pasted image 20230518123019.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230518123019.png"
-            src="lib\media\pasted-image-20230518123019.png"></span><br>
-        Then type on the search bar <strong>Microsoft Defender for Cloud</strong>, it appears a message on
-        the bottom of your screen to <strong>upgrade</strong> or <strong>skip</strong>, hit
-        <strong>upgrade</strong> and you will end up with a page like this.<br>
-        <span alt="Pasted image 20230518123834.png" src="Pasted image 20230518123834.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230518123834.png"
-            src="lib\media\pasted-image-20230518123834.png"></span><br>
-        Click on <strong>Environment Settings</strong>, then on your VM<br>
-        <span alt="Pasted image 20230518124007.png" src="Pasted image 20230518124007.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230518124007.png"
-            src="lib\media\pasted-image-20230518124007.png"></span><br>
-        If you already have all turned off that means you did not upgrade correctly, go to the tab
-        <strong>Getting Started</strong> and upgrade. So here turn it all off, hit save. Then select
-        <strong>Data Collection</strong> (You have to do this to be able to be able to have
-        <strong>Data collection</strong> and we can do fun stuff)<br>
-        <span alt="Pasted image 20230518125351.png" src="Pasted image 20230518125351.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230518125351.png"
-            src="lib\media\pasted-image-20230518125351.png"></span><br>
-        Select <strong>All Events &gt; Save</strong><br>
-        <span alt="Pasted image 20230518125429.png" src="Pasted image 20230518125429.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230518125429.png"
-            src="lib\media\pasted-image-20230518125429.png"></span><br>
-        Go back to the <strong>Log Analytics Workspace</strong>, open your workspace<br>
-        <span alt="Pasted image 20230518125843.png" src="Pasted image 20230518125843.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230518125843.png"
-            src="lib\media\pasted-image-20230518125843.png"></span><br>
-        Go to <strong>Virtual Machines</strong><br>
-        <span alt="Pasted image 20230518125950.png" src="Pasted image 20230518125950.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230518125950.png"
-            src="lib\media\pasted-image-20230518125950.png"></span><br>
-        Enter on your VM and then <strong>Connect</strong><br>
-        <span alt="Pasted image 20230518130137.png" src="Pasted image 20230518130137.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230518130137.png"
-            src="lib\media\pasted-image-20230518130137.png"></span>
+          class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+              alt="Pasted image 20230518130620.png" src="lib\media\pasted-image-20230518130620.png"></span><br>
+          Ingest logs from the VM and we will create our own geographic log to know where are attacks coming
+          from.<br>
+          To do that type <strong>Log Analytics Workspace</strong> on the search bar<br>
+          Select the <strong>Resource Group</strong> you created, then name it whatever you want.<br>
+          Click <strong>Review + Create &gt; Create</strong><br>
+          <span alt="Pasted image 20230518123019.png" src="Pasted image 20230518123019.png"
+            class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                alt="Pasted image 20230518123019.png" src="lib\media\pasted-image-20230518123019.png"></span><br>
+            Then type on the search bar <strong>Microsoft Defender for Cloud</strong>, it appears a message on
+            the bottom of your screen to <strong>upgrade</strong> or <strong>skip</strong>, hit
+            <strong>upgrade</strong> and you will end up with a page like this.<br>
+            <span alt="Pasted image 20230518123834.png" src="Pasted image 20230518123834.png"
+              class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                  alt="Pasted image 20230518123834.png" src="lib\media\pasted-image-20230518123834.png"></span><br>
+              Click on <strong>Environment Settings</strong>, then on your VM<br>
+              <span alt="Pasted image 20230518124007.png" src="Pasted image 20230518124007.png"
+                class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                    alt="Pasted image 20230518124007.png" src="lib\media\pasted-image-20230518124007.png"></span><br>
+                If you already have all turned off that means you did not upgrade correctly, go to the tab
+                <strong>Getting Started</strong> and upgrade. So here turn it all off, hit save. Then select
+                <strong>Data Collection</strong> (You have to do this to be able to be able to have
+                <strong>Data collection</strong> and we can do fun stuff)<br>
+                <span alt="Pasted image 20230518125351.png" src="Pasted image 20230518125351.png"
+                  class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                      alt="Pasted image 20230518125351.png" src="lib\media\pasted-image-20230518125351.png"></span><br>
+                  Select <strong>All Events &gt; Save</strong><br>
+                  <span alt="Pasted image 20230518125429.png" src="Pasted image 20230518125429.png"
+                    class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                        alt="Pasted image 20230518125429.png"
+                        src="lib\media\pasted-image-20230518125429.png"></span><br>
+                    Go back to the <strong>Log Analytics Workspace</strong>, open your workspace<br>
+                    <span alt="Pasted image 20230518125843.png" src="Pasted image 20230518125843.png"
+                      class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                          alt="Pasted image 20230518125843.png"
+                          src="lib\media\pasted-image-20230518125843.png"></span><br>
+                      Go to <strong>Virtual Machines</strong><br>
+                      <span alt="Pasted image 20230518125950.png" src="Pasted image 20230518125950.png"
+                        class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                            alt="Pasted image 20230518125950.png"
+                            src="lib\media\pasted-image-20230518125950.png"></span><br>
+                        Enter on your VM and then <strong>Connect</strong><br>
+                        <span alt="Pasted image 20230518130137.png" src="Pasted image 20230518130137.png"
+                          class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                              alt="Pasted image 20230518130137.png"
+                              src="lib\media\pasted-image-20230518130137.png"></span>
       </p>
 
 
       <p>Search "Sentinel" in your Azure and go to <strong>Workbooks</strong> on your sentinel<br>
         <span alt="Pasted image 20230527163127.png" src="Pasted image 20230527163127.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527163127.png"
-            src="lib\media\pasted-image-20230527163127.png"></span><br>
-        Then <strong>add workbook</strong><br>
-        <span alt="Pasted image 20230527164539.png" src="Pasted image 20230527164539.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527164539.png"
-            src="lib\media\pasted-image-20230527164539.png"></span><br>
-        Hit edit and then<br>
-        <span alt="Pasted image 20230527164708.png" src="Pasted image 20230527164708.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527164708.png"
-            src="lib\media\pasted-image-20230527164708.png"></span><br>
-        Remove these two predefined widgets<br>
-        <span alt="Pasted image 20230527164748.png" src="Pasted image 20230527164748.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527164748.png"
-            src="lib\media\pasted-image-20230527164748.png"></span><br>
-        Then <strong>Add Query</strong><br>
-        <span alt="Pasted image 20230527165124.png" src="Pasted image 20230527165124.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527165124.png"
-            src="lib\media\pasted-image-20230527165124.png"></span><br>
-        Here paste the code I Query I gave earlier and if you run it will look like this<br>
-        <span alt="Pasted image 20230527170430.png" src="Pasted image 20230527170430.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527170430.png"
-            src="lib\media\pasted-image-20230527170430.png"></span><br>
-        Now we do not need some information here so what we are going to do is remove from the query the
-        username, state, and timestamp. For that just remove the lines that have the names and at the end of
-        the label you have to put an asterisk. Also, it will be fun to have an event counter so that´s what I
-        did after <strong>summarize</strong> you can just copy it
+          class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+              alt="Pasted image 20230527163127.png" src="lib\media\pasted-image-20230527163127.png"></span><br>
+          Then <strong>add workbook</strong><br>
+          <span alt="Pasted image 20230527164539.png" src="Pasted image 20230527164539.png"
+            class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                alt="Pasted image 20230527164539.png" src="lib\media\pasted-image-20230527164539.png"></span><br>
+            Hit edit and then<br>
+            <span alt="Pasted image 20230527164708.png" src="Pasted image 20230527164708.png"
+              class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                  alt="Pasted image 20230527164708.png" src="lib\media\pasted-image-20230527164708.png"></span><br>
+              Remove these two predefined widgets<br>
+              <span alt="Pasted image 20230527164748.png" src="Pasted image 20230527164748.png"
+                class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                    alt="Pasted image 20230527164748.png" src="lib\media\pasted-image-20230527164748.png"></span><br>
+                Then <strong>Add Query</strong><br>
+                <span alt="Pasted image 20230527165124.png" src="Pasted image 20230527165124.png"
+                  class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                      alt="Pasted image 20230527165124.png" src="lib\media\pasted-image-20230527165124.png"></span><br>
+                  Here paste the code I Query I gave earlier and if you run it will look like this<br>
+                  <span alt="Pasted image 20230527170430.png" src="Pasted image 20230527170430.png"
+                    class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                        alt="Pasted image 20230527170430.png"
+                        src="lib\media\pasted-image-20230527170430.png"></span><br>
+                    Now we do not need some information here so what we are going to do is remove from the query the
+                    username, state, and timestamp. For that just remove the lines that have the names and at the end of
+                    the label you have to put an asterisk. Also, it will be fun to have an event counter so that´s what
+                    I
+                    did after <strong>summarize</strong> you can just copy it
       </p>
 
       FAILED_RDP_WITH_GEO_CL&nbsp;
@@ -209,71 +224,74 @@
 
       <div>
         <p><span alt="Pasted image 20230527172849.png" src="Pasted image 20230527172849.png"
-            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527172849.png"
-              src="lib\media\pasted-image-20230527172849.png"></span><br>
-          Now go to <strong>Visualization</strong> and select <strong>Map</strong><br>
-          <span alt="Pasted image 20230527173236.png" src="Pasted image 20230527173236.png"
-            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527173236.png"
-              src="lib\media\pasted-image-20230527173236.png"></span><br>
-          Copy my settings<br>
-          <span alt="Pasted image 20230527173422.png" src="Pasted image 20230527173422.png"
-            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527173422.png"
-              src="lib\media\pasted-image-20230527173422.png"></span><br>
-          <span alt="Pasted image 20230527173359.png" src="Pasted image 20230527173359.png"
-            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527173359.png"
-              src="lib\media\pasted-image-20230527173359.png"></span><br>
-          and when you hit apply you should have something like I do <strong>save and close &gt; done
-            editing</strong><br>
-          <span alt="Pasted image 20230527173320.png" src="Pasted image 20230527173320.png"
-            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527173320.png"
-              src="lib\media\pasted-image-20230527173320.png"></span><br>
-          Save like this<br>
-          <span alt="Pasted image 20230527174627.png" src="Pasted image 20230527174627.png"
-            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527174627.png"
-              src="lib\media\pasted-image-20230527174627.png"></span><br>
-          And here it is! The World Map with the Geolocation of every Hacker that attempted to enter our
-          honeypot!<br>
-          <span alt="Pasted image 20230527174512.png" src="Pasted image 20230527174512.png"
-            class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527174512.png"
-              src="lib\media\pasted-image-20230527174512.png"></span>
+            class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                alt="Pasted image 20230527172849.png" src="lib\media\pasted-image-20230527172849.png"></span><br>
+            Now go to <strong>Visualization</strong> and select <strong>Map</strong><br>
+            <span alt="Pasted image 20230527173236.png" src="Pasted image 20230527173236.png"
+              class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                  alt="Pasted image 20230527173236.png" src="lib\media\pasted-image-20230527173236.png"></span><br>
+              Copy my settings<br>
+              <span alt="Pasted image 20230527173422.png" src="Pasted image 20230527173422.png"
+                class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                    alt="Pasted image 20230527173422.png" src="lib\media\pasted-image-20230527173422.png"></span><br>
+                <span alt="Pasted image 20230527173359.png" src="Pasted image 20230527173359.png"
+                  class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                      alt="Pasted image 20230527173359.png" src="lib\media\pasted-image-20230527173359.png"></span><br>
+                  and when you hit apply you should have something like I do <strong>save and close &gt; done
+                    editing</strong><br>
+                  <span alt="Pasted image 20230527173320.png" src="Pasted image 20230527173320.png"
+                    class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                        alt="Pasted image 20230527173320.png"
+                        src="lib\media\pasted-image-20230527173320.png"></span><br>
+                    Save like this<br>
+                    <span alt="Pasted image 20230527174627.png" src="Pasted image 20230527174627.png"
+                      class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                          alt="Pasted image 20230527174627.png"
+                          src="lib\media\pasted-image-20230527174627.png"></span><br>
+                      And here it is! The World Map with the Geolocation of every Hacker that attempted to enter our
+                      honeypot!<br>
+                      <span alt="Pasted image 20230527174512.png" src="Pasted image 20230527174512.png"
+                        class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                            alt="Pasted image 20230527174512.png"
+                            src="lib\media\pasted-image-20230527174512.png"></span>
         </p>
 
 
       </div>
-
-
-
-
-      <body class="is-preload">
-        <header id="header">
-          <a href="https://yrtree.me/@Miguel%20Nogueira" class="logo">Connect with
-            me</a>
-        </header>
-        <!-- Copyright -->
-        <div id="copyright">
-          <ul>
-            <li>
-              <h6><a href="index.html">Main Page</h6>
-              </a>
-            </li>
-            <li>
-              <h6><a href="Projects.html">Projects</h6>
-              </a>
-            </li>
-
-          </ul>
-        </div>
   </div>
 
-  <!-- Scripts -->
-  <script src="assets/js/jquery.min.js"></script>
-  <script src="assets/js/jquery.scrollex.min.js"></script>
-  <script src="assets/js/jquery.scrolly.min.js"></script>
-  <script src="assets/js/browser.min.js"></script>
-  <script src="assets/js/breakpoints.min.js"></script>
-  <script src="assets/js/util.js"></script>
-  <script src="assets/js/main.js"></script>
 
-</body>
+
+  <body class="is-preload">
+    <header id="header">
+      <a href="https://yrtree.me/@Miguel%20Nogueira" class="logo">Connect with
+        me</a>
+    </header>
+    <!-- Copyright -->
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Home Page</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="AzureMapFolder.html">Previous</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+  </body>
 
 </html>

@@ -1,0 +1,235 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Massively by HTML5 UP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+</head>
+
+<body class="is-preload">
+
+  <!-- Wrapper -->
+  <div id="wrapper" class="fade-in">
+
+    <!-- Intro -->
+    <div id="intro">
+      <h2>Incident Handling with Splunk<br /></h2>
+      <a>Final Report</a></h1>
+      <p>Miguel Nogueira</p>
+      <ul class="actions">
+        <li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+      </ul>
+    </div>
+
+
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Home Page</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="Boss_SplunkV1Folder.html">Previous ‎ ‎ ‎</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+
+
+
+
+
+    <!-- Main -->
+    <div id="main">
+
+
+      <!-- Post -->
+      <section class="post"><strong><strong>
+
+
+
+
+            <h3>Executive summary</h3>
+          </strong></p>
+          <p> The organization experienced a security incident on December 28, 2022, at 7:20 p.m., PT, during which
+            an individual was able to deface the company website. Approximately 50,000 customer records were affected.
+            The financial impact of the incident is estimated to be $100,000 in direct costs and potential loss of
+            revenue. The incident is
+            now closed and a thorough investigation has been conducted.</p>
+          <p></p>
+          <p>
+          <h3> </h3><strong>
+
+            <h3>Investigation</h3>
+          </strong></p>
+          <p> The root cause of the incident was identified as a brute-force attack. This attack enabled the attacker to
+            gain full control of our server, exploiting a vulnerability that provided access to all the information
+            stored on the server, including customer purchase confirmation pages, customer data, and more.<br>
+
+            After confirming the web application vulnerability, the security team analyzed the web application access
+            logs. The logs indicated that the attacker downloaded an image and completely blocked the usage of the
+            server.</p>
+
+          <p>
+          <h3> </h3><strong>
+
+            <h3>Recommendations</h3>
+          </strong></p>
+
+          <ul>
+            <li> Implement the following access control mechanisms:</li>
+          </ul>
+
+          <ul>
+            <ul>
+              <li> Block any connection starting from the server with the firewall.
+            </ul>
+            <ul>
+              <li> Ensure that users have a limit on the number of login password attempts.
+              </li>
+            </ul>
+
+
+
+
+
+
+
+
+            <br><br>
+            <h2>Cyber Kill Chain:</h2>
+            We have investigated a cyber-attack where the attacker had defaced a website
+            &#39;<strong>imreallynotbatman.com</strong>&#39; of the Wayne Enterprise. We mapped the attacker&#39;s
+            activities
+            into the <strong>7 phases of the Cyber Kill Chain</strong>. Let us recap everything we have found so
+            far:<br /><br /><strong>
+              <h3>Reconnaissance Phase:</h3>
+
+              We first looked at any reconnaissance activity from the attacker to identify the IP address and other
+              details
+              about the adversary.<br /><strong>
+                Findings:<br>
+                • IP Address <strong>40.80.148.42</strong> was found to be scanning our webserver.<br />• The
+                attacker was using Acunetix as a web scanner.<br /><br /><strong>
+                  <h3>Weaponization Phase:</h3>
+
+                  We used various threat Intel platforms to find the attacker&#39;s infrastructure based
+                  on the
+                  following
+                  information we saw in the above activities.
+                  <br>Information we had:<br />• Domain: 
+                  <strong>prankglassinebracket.jumpingcrab.com•
+                    IP Address: <strong>23.22.63.114<br />Findings:<br>
+                      • Multiple masquerading domains were found associated with the attacker&#39;s
+                      IPs.<br />•
+                      An
+                      email of
+                      the user <strong>Lillian.rose@po1s0n1vy.com</strong> was also found associated with
+                      the attacker&#39;s
+                      IP
+                      address.<br /><br /><strong>
+                        <h3>Deliver Phase:</h3>
+
+                        In this phase, we again leveraged online Threat Intel sites to find malware
+                        associated with the
+                        adversary&#39;s
+                        IP address, which appeared to be a secondary attack vector if the initial
+                        compromise failed.
+                        <br /><strong>
+                          Findings:<br>
+                          • A malware name <strong>MirandaTateScreensaver.scr.exe</strong> was found
+                          associated
+                          with
+                          the
+                          adversary.<br />• MD5 of the malware
+                          was <strong>c99131e0169171935c5ac32615ed6261<br />
+                            <h3>Exploitation Phase:</h3>
+                            We then looked into the traces of exploitation attempts and found brute-force attacks
+                            against
+                            our
+                            server, which were successful.</h3><br /><strong>
+                              Findings:<br>
+                              • Brute force attack originated from IP <strong>23.22.63.114</strong>.<br />• The IP
+                              address
+                              used to
+                              gain access: <strong>40.80.148.42• 142 unique brute force attempts were made against
+                                the
+                                server, out
+                                of which one attempt was successful<br /><br /><strong>
+                                  <h3>Installation Phase:</h3>
+
+                                  Next, we looked at the installation phase to see any executable from the
+                                  attacker&#39;s
+                                  IP
+                                  Address
+                                  uploaded to
+                                  our server.
+                                  <br>Findings:<br>
+                                  • A malicious executable file <strong>3791.exe</strong> was observed to be
+                                  uploaded
+                                  by
+                                  the
+                                  attacker.<br />• We looked at the sysmon logs and found the MD5 hash of the
+                                  file.<br /><br /><strong>
+
+                                    <h3>Command and Control:</h3>
+
+                                    We have identified the suspicious domain as a Command and Control Server, which
+                                    the attacker contacted
+                                    after
+                                    gaining control of the server.<strong>
+                                      <br>Findings:<br>
+                                      • This attack used dynamic DNS to resolve to the malicious IP. <br />• Fully
+                                      qualified
+                                      domain
+                                      name
+                                      (FQDN): prankglassinebracket.jumpingcrab.com.<br /><br /><strong>
+
+                                        <h3>Action on Objective:</h3>
+
+                                        After compromising the web server, the attacker defaced the website.<br>
+                                        Findings:<br>
+                                        • We examined the logs and found the file name used to deface the
+                                        webserver “/poisonivy-is-coming-for-you-batman.jpeg”.<br /><br /><strong>
+    </div>
+
+    <body class="is-preload">
+      <header id="header">
+        <a href="https://yrtree.me/@Miguel%20Nogueira" class="logo">Connect with
+          me</a>
+      </header>
+      <!-- Copyright -->
+      <div id="copyright">
+        <ul>
+          <li>
+            <h6><a href="index.html">Home Page</h6>
+            </a>
+          </li>
+          <li>
+            <h6><a href="Boss_SplunkV1Folder.html">Previous ‎ ‎ ‎ ‎</h6>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery.scrollex.min.js"></script>
+  <script src="assets/js/jquery.scrolly.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

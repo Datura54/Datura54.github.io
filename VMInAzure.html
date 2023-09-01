@@ -29,11 +29,11 @@
     <div id="copyright">
       <ul>
         <li>
-          <h6><a href="index.html">Main Page</h6>
+          <h6><a href="index.html">Home Page</h6>
           </a>
         </li>
         <li>
-          <h6><a href="Projects.html">Projects</h6>
+          <h6><a href="AzureMapFolder.html">Previous</h6>
           </a>
         </li>
 
@@ -50,19 +50,19 @@
         will observe live attacks (RDP Brute Force) from all around the world. We will use a custom
         PowerShell script to look up the attacker's Geolocation information and plot it on the Azure Sentinel
         Map!<span alt="Pasted image 20230518102649.png" src="Pasted image 20230518102649.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230518102649.png"
-            src="lib\media\pasted-image-20230518102649.png"></span><br>
-        <span alt="Pasted image 20230518122628.png" src="Pasted image 20230518122628.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230518122628.png"
-            src="lib\media\pasted-image-20230518122628.png"></span><br>
-        <span alt="Pasted image 20230518122649.png" src="Pasted image 20230518122649.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230518122649.png"
-            src="lib\media\pasted-image-20230518122649.png"></span><br>
-        For you to be able to put this information on the map you have to let this script run. otherwise,
-        the information about a failed RDP will never leave the event viewer and get to our Azure <br>
-        <span alt="Pasted image 20230527164329.png" src="Pasted image 20230527164329.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230527164329.png"
-            src="lib\media\pasted-image-20230527164329.png"></span>
+          class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+              alt="Pasted image 20230518102649.png" src="lib\media\pasted-image-20230518102649.png"></span><br>
+          <span alt="Pasted image 20230518122628.png" src="Pasted image 20230518122628.png"
+            class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                alt="Pasted image 20230518122628.png" src="lib\media\pasted-image-20230518122628.png"></span><br>
+            <span alt="Pasted image 20230518122649.png" src="Pasted image 20230518122649.png"
+              class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                  alt="Pasted image 20230518122649.png" src="lib\media\pasted-image-20230518122649.png"></span><br>
+              For you to be able to put this information on the map you have to let this script run. otherwise,
+              the information about a failed RDP will never leave the event viewer and get to our Azure <br>
+              <span alt="Pasted image 20230527164329.png" src="Pasted image 20230527164329.png"
+                class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                    alt="Pasted image 20230527164329.png" src="lib\media\pasted-image-20230527164329.png"></span>
       </p>
       <h1>Setup VM</h1>
       <p>Firstly you have to have an Azure subscription, for this Lab you can have a free 30-day trial
@@ -71,111 +71,119 @@
           target="_blank">https://azure.microsoft.com/en-us/free/</a><br>
         After you created you subscription go to <strong>portal.azure.com</strong> you will be here<br>
         <span alt="Pasted image 20230518103518.png" src="Pasted image 20230518103518.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230518103518.png"
-            src="lib\media\pasted-image-20230518103518.png"></span><br>
-        Type on the search bar <strong>Virtual Machines</strong>. This will be the VM that will be exposed
-        to the internet and hackers from all over the world will be trying to break into it/login into
-        it.<br>
-        To create it go to <strong>Create</strong> and add <strong>Azure virtual machine</strong><br>
-        <span alt="Pasted image 20230518103849.png" src="Pasted image 20230518103849.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230518103849.png"
-            src="lib\media\pasted-image-20230518103849.png"></span><br>
-        Create a new resource pot, which is just a folder on Azure that you can use to organize projects<br>
-        <span alt="Pasted image 20230518104638.png" src="Pasted image 20230518104638.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230518104638.png"
-            src="lib\media\pasted-image-20230518104638.png"></span><br>
-        Important things here is <strong>Image</strong> make sure you have the win10 image<br>
-        <span alt="Pasted image 20230518105429.png" src="Pasted image 20230518105429.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230518105429.png"
-            src="lib\media\pasted-image-20230518105429.png"></span><br>
-        If you get some kind of error on <strong>size</strong>, change your VM location, it doesn't
-        matter where you put it unless you cannot progress. Hit <strong>Next: Disks &gt;</strong><br>
-        <span alt="Pasted image 20230518105819.png" src="Pasted image 20230518105819.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230518105819.png"
-            src="lib\media\pasted-image-20230518105819.png"></span><br>
-        Click <strong>Next: Networking &gt;</strong> Select <strong>Advanced</strong> and then
-        <strong>Create new</strong><br>
-        Think of <strong>NIC network security group</strong> as a Firewall, the thing is this firewall will
-        be open to everyone and everything<br>
-        <span alt="Pasted image 20230518114515.png" src="Pasted image 20230518114515.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230518114515.png"
-            src="lib\media\pasted-image-20230518114515.png"></span><br>
-        So remove The already defined Inbound Rule and let´s set up a new one<br>
-        <span alt="Pasted image 20230518114730.png" src="Pasted image 20230518114730.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230518114730.png"
-            src="lib\media\pasted-image-20230518114730.png"></span><br>
-        To do that <strong>Add an inbound rule</strong>, then just copy my Selections<br>
-        I changed the <strong>Destination port ranges</strong> and place an asterisk, so that any protocol
-        that our machine receives will be managed by our Firewall. Also, lowered <strong>Priority</strong>
-        to "100" making this role more important. Choose any name you want. <strong>Add &gt; OK &gt; Review
-          + Create &gt; Create</strong><br>
-        <span alt="Pasted image 20230518114946.png" src="Pasted image 20230518114946.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230518114946.png"
-            src="lib\media\pasted-image-20230518114946.png"></span><br>
-        What we did was make our VM more discoverable and enticing for other hackers around the globe to try to
-        hack it. Normally we would want the opposite but for the objective of our Lab, we want them to find
-        us.
+          class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+              alt="Pasted image 20230518103518.png" src="lib\media\pasted-image-20230518103518.png"></span><br>
+          Type on the search bar <strong>Virtual Machines</strong>. This will be the VM that will be exposed
+          to the internet and hackers from all over the world will be trying to break into it/login into
+          it.<br>
+          To create it go to <strong>Create</strong> and add <strong>Azure virtual machine</strong><br>
+          <span alt="Pasted image 20230518103849.png" src="Pasted image 20230518103849.png"
+            class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                alt="Pasted image 20230518103849.png" src="lib\media\pasted-image-20230518103849.png"></span><br>
+            Create a new resource pot, which is just a folder on Azure that you can use to organize projects<br>
+            <span alt="Pasted image 20230518104638.png" src="Pasted image 20230518104638.png"
+              class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                  alt="Pasted image 20230518104638.png" src="lib\media\pasted-image-20230518104638.png"></span><br>
+              Important things here is <strong>Image</strong> make sure you have the win10 image<br>
+              <span alt="Pasted image 20230518105429.png" src="Pasted image 20230518105429.png"
+                class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                    alt="Pasted image 20230518105429.png" src="lib\media\pasted-image-20230518105429.png"></span><br>
+                If you get some kind of error on <strong>size</strong>, change your VM location, it doesn't
+                matter where you put it unless you cannot progress. Hit <strong>Next: Disks &gt;</strong><br>
+                <span alt="Pasted image 20230518105819.png" src="Pasted image 20230518105819.png"
+                  class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                      alt="Pasted image 20230518105819.png" src="lib\media\pasted-image-20230518105819.png"></span><br>
+                  Click <strong>Next: Networking &gt;</strong> Select <strong>Advanced</strong> and then
+                  <strong>Create new</strong><br>
+                  Think of <strong>NIC network security group</strong> as a Firewall, the thing is this firewall will
+                  be open to everyone and everything<br>
+                  <span alt="Pasted image 20230518114515.png" src="Pasted image 20230518114515.png"
+                    class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                        alt="Pasted image 20230518114515.png"
+                        src="lib\media\pasted-image-20230518114515.png"></span><br>
+                    So remove The already defined Inbound Rule and let´s set up a new one<br>
+                    <span alt="Pasted image 20230518114730.png" src="Pasted image 20230518114730.png"
+                      class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                          alt="Pasted image 20230518114730.png"
+                          src="lib\media\pasted-image-20230518114730.png"></span><br>
+                      To do that <strong>Add an inbound rule</strong>, then just copy my Selections<br>
+                      I changed the <strong>Destination port ranges</strong> and place an asterisk, so that any protocol
+                      that our machine receives will be managed by our Firewall. Also, lowered <strong>Priority</strong>
+                      to "100" making this role more important. Choose any name you want. <strong>Add &gt; OK &gt;
+                        Review
+                        + Create &gt; Create</strong><br>
+                      <span alt="Pasted image 20230518114946.png" src="Pasted image 20230518114946.png"
+                        class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                            alt="Pasted image 20230518114946.png"
+                            src="lib\media\pasted-image-20230518114946.png"></span><br>
+                        What we did was make our VM more discoverable and enticing for other hackers around the globe to
+                        try to
+                        hack it. Normally we would want the opposite but for the objective of our Lab, we want them to
+                        find
+                        us.
       </p>
       <h1>FIREWALL OFF</h1>
       <p>First we will turn the firewall off so that people can find our VM faster<br>
         So, Open your Windows Defender Firewall<br>
         <span alt="Pasted image 20230524123143.png" src="Pasted image 20230524123143.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230524123143.png"
-            src="lib\media\pasted-image-20230524123143.png"></span><br>
-        Enter on <strong>Windows Defender Firewall Properties</strong><br>
-        <span alt="Pasted image 20230524123322.png" src="Pasted image 20230524123322.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230524123322.png"
-            src="lib\media\pasted-image-20230524123322.png"></span><br>
-        Now just go to each page <strong>Domain Profile, Private Profile and Public Profile</strong> and
-        turn the <strong>Firewall State</strong> to OFF, apply and ok<br>
-        <span alt="Pasted image 20230524123558.png" src="Pasted image 20230524123558.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230524123558.png"
-            src="lib\media\pasted-image-20230524123558.png"></span><br>
-        Now for us to see the change we can ping using our real machine our VM by going to
-        <strong>CMD</strong> in our own computer and pinging the IP address of the VM<br>
-        <span alt="Pasted image 20230524124401.png" src="Pasted image 20230524124401.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230524124401.png"
-            src="lib\media\pasted-image-20230524124401.png"></span><br>
-        And then after we turn the firewall off this is what it looks like<br>
-        <span alt="Pasted image 20230524124332.png" src="Pasted image 20230524124332.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230524124332.png"
-            src="lib\media\pasted-image-20230524124332.png"></span><br>
-        If you don't understand what this means, it's ok, Google is your friend.
+          class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+              alt="Pasted image 20230524123143.png" src="lib\media\pasted-image-20230524123143.png"></span><br>
+          Enter on <strong>Windows Defender Firewall Properties</strong><br>
+          <span alt="Pasted image 20230524123322.png" src="Pasted image 20230524123322.png"
+            class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                alt="Pasted image 20230524123322.png" src="lib\media\pasted-image-20230524123322.png"></span><br>
+            Now just go to each page <strong>Domain Profile, Private Profile and Public Profile</strong> and
+            turn the <strong>Firewall State</strong> to OFF, apply and ok<br>
+            <span alt="Pasted image 20230524123558.png" src="Pasted image 20230524123558.png"
+              class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                  alt="Pasted image 20230524123558.png" src="lib\media\pasted-image-20230524123558.png"></span><br>
+              Now for us to see the change we can ping using our real machine our VM by going to
+              <strong>CMD</strong> in our own computer and pinging the IP address of the VM<br>
+              <span alt="Pasted image 20230524124401.png" src="Pasted image 20230524124401.png"
+                class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                    alt="Pasted image 20230524124401.png" src="lib\media\pasted-image-20230524124401.png"></span><br>
+                And then after we turn the firewall off this is what it looks like<br>
+                <span alt="Pasted image 20230524124332.png" src="Pasted image 20230524124332.png"
+                  class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                      alt="Pasted image 20230524124332.png" src="lib\media\pasted-image-20230524124332.png"></span><br>
+                  If you don't understand what this means, it's ok, Google is your friend.
       </p>
       <h1>Azure Sentinel Setup I guess or Windows CHECK THIS</h1>
       <p><span alt="Pasted image 20230518130353.png" src="Pasted image 20230518130353.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230518130353.png"
-            src="lib\media\pasted-image-20230518130353.png"></span><br>
-        Here we will setup Sentinel, to do that type "Microsoft Sentinel"<br>
-        <strong>Create Azure Sentinel</strong>, then pick your workspace <strong>Add</strong><br>
-        Wait a bit<br>
-        Then search "Virtual Machines"<br>
-        <span alt="Pasted image 20230524105258.png" src="Pasted image 20230524105258.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230524105258.png"
-            src="lib\media\pasted-image-20230524105258.png"></span><br>
-        Click on your VM and copy your <strong>Public Address</strong> so we can connect to your VM
-        remotely<br>
-        <span alt="Pasted image 20230524105506.png" src="Pasted image 20230524105506.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230524105506.png"
-            src="lib\media\pasted-image-20230524105506.png"></span><br>
-        So click on your Windows icon, on your personal machine, search "Remote Desktop Connection"<br>
-        and paste the IP Address, hit connect<br>
-        <span alt="Pasted image 20230524114949.png" src="Pasted image 20230524114949.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230524114949.png"
-            src="lib\media\pasted-image-20230524114949.png"></span><br>
-        And login with the credentials you created earlier<br>
-        <span alt="Pasted image 20230524115120.png" src="Pasted image 20230524115120.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230524115120.png"
-            src="lib\media\pasted-image-20230524115120.png"></span><br>
-        If this appears to you hist hit yes<br>
-        <span alt="Pasted image 20230524115228.png" src="Pasted image 20230524115228.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230524115228.png"
-            src="lib\media\pasted-image-20230524115228.png"></span><br>
-        As a normal Windows setup, just say no to everything and then accept<br>
-        <span alt="Pasted image 20230524115456.png" src="Pasted image 20230524115456.png"
-          class="internal-embed media-embed image-embed is-loaded"><img alt="Pasted image 20230524115456.png"
-            src="lib\media\pasted-image-20230524115456.png"></span><br>
-        and it's done, now we are connected to the VM by our own computer
+          class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+              alt="Pasted image 20230518130353.png" src="lib\media\pasted-image-20230518130353.png"></span><br>
+          Here we will setup Sentinel, to do that type "Microsoft Sentinel"<br>
+          <strong>Create Azure Sentinel</strong>, then pick your workspace <strong>Add</strong><br>
+          Wait a bit<br>
+          Then search "Virtual Machines"<br>
+          <span alt="Pasted image 20230524105258.png" src="Pasted image 20230524105258.png"
+            class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                alt="Pasted image 20230524105258.png" src="lib\media\pasted-image-20230524105258.png"></span><br>
+            Click on your VM and copy your <strong>Public Address</strong> so we can connect to your VM
+            remotely<br>
+            <span alt="Pasted image 20230524105506.png" src="Pasted image 20230524105506.png"
+              class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                  alt="Pasted image 20230524105506.png" src="lib\media\pasted-image-20230524105506.png"></span><br>
+              So click on your Windows icon, on your personal machine, search "Remote Desktop Connection"<br>
+              and paste the IP Address, hit connect<br>
+              <span alt="Pasted image 20230524114949.png" src="Pasted image 20230524114949.png"
+                class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                    alt="Pasted image 20230524114949.png" src="lib\media\pasted-image-20230524114949.png"></span><br>
+                And login with the credentials you created earlier<br>
+                <span alt="Pasted image 20230524115120.png" src="Pasted image 20230524115120.png"
+                  class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                      alt="Pasted image 20230524115120.png" src="lib\media\pasted-image-20230524115120.png"></span><br>
+                  If this appears to you hist hit yes<br>
+                  <span alt="Pasted image 20230524115228.png" src="Pasted image 20230524115228.png"
+                    class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                        alt="Pasted image 20230524115228.png"
+                        src="lib\media\pasted-image-20230524115228.png"></span><br>
+                    As a normal Windows setup, just say no to everything and then accept<br>
+                    <span alt="Pasted image 20230524115456.png" src="Pasted image 20230524115456.png"
+                      class="internal-embed media-embed image-embed is-loaded"><span class="image fit"><img
+                          alt="Pasted image 20230524115456.png"
+                          src="lib\media\pasted-image-20230524115456.png"></span><br>
+                      and it's done, now we are connected to the VM by our own computer
       </p>
 
   </div>
@@ -192,11 +200,11 @@
     <div id="copyright">
       <ul>
         <li>
-          <h6><a href="index.html">Main Page</h6>
+          <h6><a href="index.html">Home Page</h6>
           </a>
         </li>
         <li>
-          <h6><a href="Projects.html">Projects</h6>
+          <h6><a href="AzureMapFolder.html">Previous</h6>
           </a>
         </li>
 

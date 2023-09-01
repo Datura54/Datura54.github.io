@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Massively by HTML5 UP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+</head>
+
+<body class="is-preload">
+
+  <!-- Wrapper -->
+  <div id="wrapper" class="fade-in">
+
+    <!-- Intro -->
+    <div id="intro">
+      <h2>Incident Handling with Splunk<br /></h2>
+      <a>Installation Phase</a></h1>
+      <p>Miguel Nogueira</p>
+      <ul class="actions">
+        <li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+      </ul>
+    </div>
+
+
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Home Page</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="CTFS.html">Previous ‎ ‎ ‎</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+
+
+
+
+
+    <!-- Main -->
+    <div id="main">
+
+
+      <!-- Post -->
+      <section class="post"><strong><strong>
+            Once the attacker has successfully exploited the
+            security of a system, he will try to install a backdoor or an application for persistence or to gain more
+            control of
+            the system. This activity comes under the installation phase.<br />In the previous Exploitation phase, we
+            found
+            evidence of the webserver <strong>iamreallynotbatman.com</strong> getting compromised via brute-force attack
+            by the
+            attacker using the python script to automate getting the correct password. The attacker used the IP&quot;
+            for
+            the
+            attack and the IP to log in to the server. This phase will investigate any payload / malicious program
+            uploaded to
+            the server from any attacker&#39;s IPs and installed into the compromised server.<br /><br />To begin an
+            investigation, we first would narrow down any http traffic coming into our
+            server <strong>192.168.250.70</strong> containing the term &quot;<strong>.exe</strong>&quot;. This query may
+            not
+            lead to the findings, but it&#39;s good to start from 1 extension and move ahead.<br /><br /><strong>
+              <h3>Search Query:</h3>
+              <div class="codebox">
+                <pre><span style="color:#7f0044;font-weight:400">index</span>=botsv1 sourcetype=stream<span style="color:#ff9d00;font-weight:700">:</span>http dest_ip=<span style="color:#3ad900;font-weight:400">&quot;192.168.250.70&quot;</span> *.exe</pre>
+              </div><code><br /><br /></code><a href=""><span class="image fit"><img src="images/54-2.png"
+                    alt="images/54-2.png" /></a><br /><br /><br />With the search query in place, we are looking for the
+              fields that
+              could have some values of our interest. As we could not find the file name field, we looked at the missing
+              fields
+              and saw a field <strong>part_filename{}</strong>.<br />Observing the interesting fields and values, we can
+              see
+              the
+              field <strong>part_filename{}</strong> contains the two file names. an executable
+              file <strong>3791.exe</strong> and
+              a PHP file <strong>agent.php</strong><br /><br /><br />Next, we need to find if any of these files came
+              from
+              the IP
+              addresses that were found to be associated with the attack earlier.<br />Click on the file name; it will
+              be
+              added to
+              the search query, then look for the field c_ip, which seems to represent the client IP.<br /><strong>
+                <h3>Search Query:</h3>
+              </strong>
+              <div class="codebox">
+                <pre><span style="color:#7f0044;font-weight:400">index</span>=botsv1 sourcetype=stream<span style="color:#ff9d00;font-weight:700">:</span>http dest_ip=<span style="color:#3ad900;font-weight:400">&quot;192.168.250.70&quot;</span> <span style="color:#3ad900;font-weight:400"><br>&quot;part_filename{}&quot;</span>=<span style="color:#3ad900;font-weight:400">&quot;3791.exe&quot;</span></pre>
+              </div><br /><a href=""><span class="image fit"><img src="images/54-3.png"
+                    alt="images/54-3.png" /></a><br /><strong>
+                <h2>Was this file executed on the server after being uploaded?</h2>
+              </strong><br />We have found that file <strong>3791.exe</strong> was uploaded on the server. The question
+              that
+              may
+              come to our mind would be, was this file executed on the server? We need to narrow down our search query
+              to
+              show the
+              logs from the host-centric log sources to answer this question.<br /><strong>
+                <h3>Search Query:</h3>
+              </strong>
+              <div class="codebox">
+                <pre><span style="color:#7f0044;font-weight:400">index</span>=botsv1 <span style="color:#3ad900;font-weight:400">&quot;3791.exe&quot;</span></pre>
+              </div><br /><br /><a href=""><span class="image fit"><img src="images/54-4.png"
+                    alt="images/54-4.png" /></a><br /><br />
+              Following the Host-centric log, sources were found to have traces of the executable "3791.exe".<br>
+              •
+              Sysmon<br />• WinEventlog<br />• fortigate_utm<br /><br />For the evidence of execution, we can leverage
+              sysmon and
+              look at the EventCode=1 for program execution.<br /><br /><strong>
+                Reference:
+                <a
+                  href="https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon">https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon</a><br /><br /><a
+                  href="https://tryhackme-images.s3.amazonaws.com/user-uploads/5e8dd9a4a45e18443162feab/room-content/0135d57671ea197866054124115cfb4c.png"><span
+                    class="image fit"><img src="images/54-5.png" alt="images/54-5.png" /></a><strong>
+                  <h3>Search Query:</h3>
+
+                  <div class="codebox">
+                    <pre><span style="color:#7f0044;font-weight:400">index</span>=botsv1 <span style="color:#3ad900;font-weight:400">&quot;3791.exe&quot;</span> sourcetype=<span style="color:#3ad900;font-weight:400">&quot;XmlWinEventLog&quot;</span> EventCode=1</pre>
+                  </div><br /><br /><a href=""><span class="image fit"><img src="images/54-6.png"
+                        alt="images/54-6.png" /></a><br /><br />Examining
+                  the
+                  output, it becomes evident that this file was executed on the compromised server. Additionally, Sysmon
+                  captures the
+                  hash value of the created processes, and obtaining the <strong>SHA256</strong> hash will be immensely
+                  valuable.
+                  <br /><br /><br /><a href=""><span class="image fit"><img src="images/54-7.png"
+                        alt="images/54-7.png" /></a><br /><br />This is
+                  because a
+                  hash serves as a distinctive identifier for a file, enabling us to harness the capabilities of
+                  <strong>VirusTotal</strong> and confirm whether the executable is malicious or not.<br /><br /><a
+                    href=""><span class="image fit"><img src="images/54-8.png"
+                        alt="images/54-8.png" /></a><br /><br />By
+                  executing a
+                  straightforward
+                  query in
+                  <strong>VirusTotal</strong>, we can ascertain several key details about the file. This includes its
+                  associated
+                  name,
+                  which is &quot;<strong>ab.exe</strong>&quot;, its size of &quot;<strong>72.07KB</strong>&quot;, and we
+                  can
+                  also
+                  retrieve information indicating that 61 security vendors and 1 sandbox have identified this file as
+                  malicious.
+                  This
+                  confirms our suspicions provides us with additional intel.<br /><br />Sysmon showcases even more
+                  information,
+                  but we
+                  have to draw a line between what is good information and what is information we need. Bellow you have
+                  a
+                  sneek
+                  peek
+                  of more Sysmon information.<br /><br /><a href=""><span class="image fit"><img src="images/54-9.png"
+                        alt="images/54-9.png" /></a>
+                  <br /><br />We looked at the installation phase to see any executable from the attacker&#39;s IP
+                  Address
+                  uploaded to our server.<br /><strong>
+                    <h3>Findings:</h3>
+                    User that executed the program 3791.exe on the server:<br />• NT
+                    AUTHORITY\IUSR<br /><br />
+                    Uploaded Files:<br />• Executable file &quot;3791.exe&quot;<br />• SHA256 Hash Value:
+                    ec78c938d8453739ca2a370b9c275971ec46caf6e479de2b2d04e97cc47fa45d<br /><br />VirusTotal
+                    Analysis:<br />•
+                    File
+                    Name:
+                    &quot;ab.exe&quot;<br />• File Size:
+                    72.07KB
+    </div>
+
+    <body class="is-preload">
+      <header id="header">
+        <a href="https://yrtree.me/@Miguel%20Nogueira" class="logo">Connect with
+          me</a>
+      </header>
+      <!-- Copyright -->
+      <div id="copyright">
+        <ul>
+          <li>
+            <h6><a href="index.html">Home Page</h6>
+            </a>
+          </li>
+          <li>
+            <h6><a href="CTFS.html">Previous ‎ ‎ ‎</h6>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+
+      <!-- Scripts -->
+      <script src="assets/js/jquery.min.js"></script>
+      <script src="assets/js/jquery.scrollex.min.js"></script>
+      <script src="assets/js/jquery.scrolly.min.js"></script>
+      <script src="assets/js/browser.min.js"></script>
+      <script src="assets/js/breakpoints.min.js"></script>
+      <script src="assets/js/util.js"></script>
+      <script src="assets/js/main.js"></script>
+
+    </body>
+
+</html>

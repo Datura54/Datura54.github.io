@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Massively by HTML5 UP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+</head>
+
+<body class="is-preload">
+
+  <!-- Wrapper -->
+  <div id="wrapper" class="fade-in">
+
+    <!-- Intro -->
+    <div id="intro">
+      <h2>Anomalous DNS<br /></h2>
+      <a>Zeek</a></h1>
+      <p>Miguel Nogueira</p>
+      <ul class="actions">
+        <li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+      </ul>
+    </div>
+
+
+    <div id="copyright">
+      <ul>
+        <li>
+          <h6><a href="index.html">Home Page</h6>
+          </a>
+        </li>
+        <li>
+          <h6><a href="ZeekFolder.html">Previous ‎ ‎ ‎</h6>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+
+
+
+
+
+    <!-- Main -->
+    <div id="main">
+
+
+      <!-- Post -->
+      <section class="post"><strong><strong>
+            <h3>An alert triggered: </h3>
+          </strong><small>&quot;Anomalous DNS Activity&quot;.</small><br /><small>The case was assigned to you.
+            Inspect the
+            PCAP and retrieve the artefacts to confirm this alert is a true
+            positive. </small><br /><br /><br />Firstly, we
+          need to navigate to the directory where the pcap file was saved.<br /><br /><a href=""><span
+              class="image fit"><img src="images/68-1.png" alt="images/68-1.png" /></a><br /><br />Once we have located
+          the packet capture,
+          we will execute a predefined
+          Zeek script called &quot;local.&quot; This script instructs Zeek to analyze the network traffic that was
+          captured in
+          the &quot;Anomalous-dns.pcap&quot; file.<br /><br />
+          <div class="codebox">
+            <pre>zeek -C -r Anomalous-dns.pcap <span style="color:#ff9d00;font-weight:700">local</span><br />           ^File              ^Script</pre>
+          </div><br /><br /><a href=""><span class="image fit"><img src="images/68-2.png"
+                alt="images/68-2.png" /></a><br /><br />After the
+          analysis
+          is completed, Zeek will generate new files in the same directory where the analysis was conducted.<br />
+          <br /><a href=""><span class="image fit"><img src="images/68-3.png"
+                alt="images/68-3.png" /></a><br /><br />Taking a look at the
+          table bellow we
+          can have a more clear perception of what we should do. <br /><br /><a href=""><span class="image fit"><img
+                src="images/68-4.png" alt="images/68-4.png" /></a><br /><br />As this investigation is initiated by an
+          alert, our initial step
+          will be
+          to review the contents of the &quot;notice.log.&quot;<br /><br />
+          <div class="codebox">
+            <pre><span style="color:#ff9d00;font-weight:700">cat</span> notice.log</pre>
+          </div><br /><a href=""><span class="image fit"><img src="images/68-5.png" alt="images/68-5.png" /></a>Now that
+          we know
+          what
+          triggered the alert—&#39;Only observed 0 TCP ACKs and was expecting at least 1&#39;—this could indicate that
+          an
+          attacker used Nmap to identify which ports were open on our network.<br /><br /><a href=""><span
+              class="image fit"><img src="images/68-6.png" alt="images/68-6.png" /></a>We will
+          conduct a examination
+          of the
+          DNS queries, with the hope that something will become noticeable.<br />
+          <div class="codebox">
+            <pre><span style="color:#ff9d00;font-weight:700">cat</span> dns.log <span style="color:#ff9d00;font-weight:700">|</span> zeek-cut query</pre>
+          </div><br /><a href=""><img src="images/68-7.png" alt="images/68-7.png" /></a><br /><br /><br />We&#39;re
+          noticing a
+          considerable number of queries to &quot;cisco-update.com&quot; and a limited number to
+          &quot;rohdes.edu.&quot; To
+          enhance clarity, let&#39;s refine the presentation by filtering the output to exhibit only the domains and
+          exclusively display distinct domains, while also tallying how frequently they have appeared<br /><br />
+          <div class="codebox">
+            <pre><span style="color:#ff9d00;font-weight:700">cat</span> dns.log <span style="color:#ff9d00;font-weight:700">|</span> zeek-cut query <span style="color:#ff9d00;font-weight:700">|</span> rev <span style="color:#ff9d00;font-weight:700">|</span> <span style="color:#ff9d00;font-weight:700">cut</span> -d <span style="color:#3ad900;font-weight:400">&#39;.&#39;</span> -f 1-2 <span style="color:#ff9d00;font-weight:700">|</span> rev <span style="color:#ff9d00;font-weight:700">|</span> <span style="color:#ff9d00;font-weight:700">sort</span> <span style="color:#ff9d00;font-weight:700">|</span> <span style="color:#ff9d00;font-weight:700">uniq</span> -c<br /></pre>
+          </div><br /><a href=""><span class="image fit"><img src="images/68-8.png"
+                alt="images/68-8.png" /></a><br /><br />1-“_tcp.local”:<br />
+          &quot;_tcp.local&quot; is a special domain name used to advertise and discover services available on a local
+          network. This is often used in scenarios where devices in a local network want to discover and communicate
+          with each
+          other using DNS-like mechanisms. If we dive a bit deeper we will find that there were two connection made
+          one is a
+          MAC Address and a IP Address “10.20.57.3”, that is outside of out local network, and they used the Internet
+          Printing
+          Protocol (IPP), a network protocol that allows for printing over the Internet. It could be malicious, but
+          from now
+          is only that. <br /> <a href=""><span class="image fit"><img src="images/68-9.png"
+                alt="images/68-9.png" /></a><br /> <br /> 2-
+          “cisco-update.com”, “in-addr.arpa”, “ip6.arpa”, “ubunto.com”<br /> There is no immediately apparent
+          indication of
+          malicious activity in these cases. The domains &quot;cisco-update.com&quot; and &quot;ubuntu.com&quot;
+          appear to be
+          normal. The terms &quot;in-addr.arpa&quot; and &quot;ip6.arpa&quot; are associated with reverse DNS lookups
+          for IPv4
+          and IPv6 addresses, respectively.<br /> <br />3-&quot;rhodes.edu&quot;<br /> Let&#39;s gather more
+          information about
+          who made this request<br /><br />
+          <div class="codebox">
+            <pre><span style="color:#ff9d00;font-weight:700">cat</span> dns.log <span style="color:#ff9d00;font-weight:700">|</span> <span style="color:#ff9d00;font-weight:700">grep</span> rhodes.edu</pre>
+          </div><br /><a href=""><span class="image fit"><img src="images/68-10.png"
+                alt="images/68-10.png" /></a><br /><br /> There is a lot
+          here, we
+          see that all of this connections have been made by the same IP Address we found “10.20.57,3” trying to use
+          IPP, it
+          could be used as a covert channel for communication within a compromised network. Attackers might embed
+          messages or
+          commands within IPP requests and responses to bypass security controls. Also now the ubunto connection does
+          not seem
+          that casual we could be witnessing a DNS Tunneling attack<br /> <br /> Let&#39;s check if the dns queries
+          made to
+          &quot;cisco-update.com&quot; also originate from the same IP Address<br /> <br />
+          <div class="codebox">
+            <pre><span style="color:#ff9d00;font-weight:700">cat</span> dns.log <span style="color:#ff9d00;font-weight:700">|</span> <span style="color:#ff9d00;font-weight:700">grep</span> cisco-update.com</pre>
+          </div><br /> <a href=""><span class="image fit"><img src="images/68-11.png"
+                alt="images/68-11.png" /></a><br /> <br />Similar to the
+          pattern
+          observed with &quot;rohdes.edu,&quot; in the case of &quot;cisco-update.com,&quot; the connections
+          consistently
+          originate from &quot;10.20.57.3&quot; and establish a connection with &quot;10.10.2.21.&quot; This latter IP
+          address
+          could potentially be a server that&#39;s disguising its activities under the guise of well-known domains
+          like
+          &quot;cisco&quot; and &quot;ubuntu.&quot; This raises even more suspicions about the possibility of DNS
+          tunneling.<br /><br />We found the source and destiny IP Addresses of a possible DNS Tunneling attack, and
+          the
+          domains he used to hide from CyberSecurity Analysts. As a SOC Analyst I now i would escalate this alert to
+          the SOC 2
+          team to determine the exact nature of the behavior, conduct a more comprehensive investigation. By looking
+          at the
+          payload of the TCP connection, analyzing the network traffic over time, and cross-referencing this behavior
+          with
+          other logs and indicators.<br /><br /><br />
+    </div>
+
+    <body class="is-preload">
+      <header id="header">
+        <a href="https://yrtree.me/@Miguel%20Nogueira" class="logo">Connect with
+          me</a>
+      </header>
+      <!-- Copyright -->
+      <div id="copyright">
+        <ul>
+          <li>
+            <h6><a href="index.html">Home Page</h6>
+            </a>
+          </li>
+          <li>
+            <h6><a href="ZeekFolder.html">Previous ‎ ‎ ‎</h6>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery.scrollex.min.js"></script>
+  <script src="assets/js/jquery.scrolly.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
